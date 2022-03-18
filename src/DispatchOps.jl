@@ -13,6 +13,8 @@ export
     filter_arcs, filter_nodes
 
 include("Nexus/Nexus.jl")
+include("Model/Model.jl")
 using .Nexus
+using .Model
 
 end
