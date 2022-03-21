@@ -14,6 +14,7 @@ include("./simplenexus/arc.jl")
 include("./simplenexus/digraph.jl")
 include("./simplenexus/graph.jl")
 include("./simplenexus/arciter.jl")
+include("./simplenexus/utils.jl")
 
 include("./metanexus/extension.jl")
 include("./metanexus/metadigraph.jl")
