@@ -10,11 +10,17 @@ export
     # metanexus
     MetaGraph, MetaDigraph, props, get_prop, has_prop, 
     set_props!, set_prop!, rem_prop!, clear_props!,
-    filter_arcs, filter_nodes
+    filter_arcs, filter_nodes,
+
+    # Model
+    vault, locper, baseGraph, baseDigraph, 
+    baseDemand, baseStock
 
 include("Nexus/Nexus.jl")
-include("Model/Model.jl")
 using .Nexus
-using .Model
+
+include("Model/Model.jl")
+include("Sim/Sim.jl")
+
 
 end

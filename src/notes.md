@@ -29,4 +29,4 @@ for id in idkhazanah
 end
 ```
 
-sekian.
+kyknya buat nge-cover stok yang kurang mending kita bikin dummy variable di jakarta buat representasi produksi. produksi jgn lupa dibuat per pecahan mata uang

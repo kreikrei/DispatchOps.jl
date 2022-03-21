@@ -1,13 +1,9 @@
-module Model
-
 using CSV
 using DataFrames
 using Distances
 using JuMP
 using Gurobi
-
-import DispatchOps
+using AxisArrays
 
 include("interface.jl")
-
-end
+include("base.jl")
