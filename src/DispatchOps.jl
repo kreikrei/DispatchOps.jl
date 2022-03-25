@@ -13,8 +13,7 @@ export
     filter_arcs, filter_nodes,
 
     # Model
-    vault, locper, baseGraph, baseDigraph, 
-    baseDemand, baseStock
+    locper, readData, buildGraph
 
 include("Nexus/Nexus.jl")
 using .Nexus
