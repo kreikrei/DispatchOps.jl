@@ -99,11 +99,14 @@ function buildModel(EG::MetaDigraph{locper}, demand::DataFrame, stock::DataFrame
 
     # set definitions
     pecahan = unique(demand.pecahan)
+    
     sink_nodes = filter_nodes(EG, :type, "sink")
+    prod_nodes = filter_nodes(EG, :type, "prod")
     stock_nodes = filter_nodes(EG, :type, "stock")
     demand_nodes = filter_nodes(EG, :type, "demand")
+
     all_arcs = arcs(EG)
-    holdover_arcs = filter_nodes(EG, :type, "holdover")
+    holdover_arcs = filter_arcs(EG, :type, "holdover")
 
     # model definition
     @variable(m, 0 <= flow[a = all_arcs, p = pecahan])      # flow per pecahan
