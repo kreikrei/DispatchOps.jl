@@ -90,7 +90,7 @@ end
     buildModel(expanded_graph, demands, stock)
 takes in the graph and extracted demands and also stock to create a mathematical model.
 """
-function buildModel(EG::MultiDigraph{locper}, demand::DataFrame, stock::DataFrame)
+function buildModel(EG::MetaDigraph{locper}, demand::DataFrame, stock::DataFrame)
     m = Model()
 
     # demand and stock as reference
@@ -99,43 +99,57 @@ function buildModel(EG::MultiDigraph{locper}, demand::DataFrame, stock::DataFram
 
     # set definitions
     pecahan = unique(demand.pecahan)
-    
     sink_nodes = filter_nodes(EG, :type, "sink")
     stock_nodes = filter_nodes(EG, :type, "stock")
     demand_nodes = filter_nodes(EG, :type, "demand")
-    
-    holdover_arcs = filter_nodes(EG, :type, "holdover")
-    transport_arcs = filter_nodes(EG, :type, "transport")
     all_arcs = arcs(EG)
-    
+    holdover_arcs = filter_nodes(EG, :type, "holdover")
+
     # model definition
-    @variable(m, 0 <= flow[a = all_arcs, p = pecahan])
-    @variable(m, 0 <= trip[a = all_arcs, p = pecahan], Int)
-    @variable(m, 0 <= sink[n = sink_nodes, p = pecahan])
+    @variable(m, 0 <= flow[a = all_arcs, p = pecahan])      # flow per pecahan
+
+    @variable(m, 0 <= aggr[a = all_arcs])                   # aggregate flow
+    @variable(m, 0 <= trip[a = all_arcs], Int)              # aggregate trip
+
+    @variable(m, 0 <= sink[n = sink_nodes, p = pecahan])    # dummy sink vars
 
     @constraint(m, stock_bal[n = stock_nodes, p = pecahan],
-        
-    )
+        sum(flow[a,p] for a in arcs(EG, [n], :)) == 
+        gdf_stock[(n.loc, p,)].value[1]
+    ) # flow balance at stock nodes
 
-    @constraint(m, demand_bal[n = demand_nodes],
+    @constraint(m, sink_bal[n = sink_nodes, p = pecahan],
+        sum(flow[a,p] for a in arcs(EG, :, [n])) == 
+        sink[n, p]
+    ) # flow balance at dummy sinks
 
-    )
+    @constraint(m, aggregator[a = all_arcs],
+        sum(flow[a,p] for p in pecahan) == aggr[a]
+    ) # flow aggregator
 
-    @constraint(m, sink_bal[n = sink_nodes],
-
-    )
+    @constraint(m, arc_cap[a = all_arcs],
+        aggr[a] <= trip[a] * EG[a][:Q]
+    ) # arc capacity constraint
 
     @constraint(m, inv_cap[a = holdover_arcs],
-
-    )
-
-    @constraint(m, trans_cap[a = transport_arcs],
-        
-    )
+        trip[a] <= 1
+    ) # trips for inventories
 
     @objective(m, Min,
-
+        sum(
+            EG[a][:cpeti] * aggr[a] + EG[a][:cjarak] * trip[a]
+            for a in arcs(EG)
+        ) +
+        sum(
+            (
+                sum(flow[a,p] for a in arcs(EG, :, [n])) - 
+                sum(flow[a,p] for a in arcs(EG, [n], :)) - 
+                gdf_demand[(n.loc, n.per, p,)].value[1]
+            )^2
+            for n in demand_nodes, p in pecahan
+        )
     )
 
     return m
 end
+
