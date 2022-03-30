@@ -108,29 +108,20 @@ function buildModel(EG::MetaDigraph{locper}, demand::DataFrame, stock::DataFrame
     holdover_arcs = filter_arcs(EG, :type, "holdover")
 
     # model definition
-    @variable(m, 0 <= flow[a = all_arcs, p = pecahan])      # flow per pecahan
-
-    @variable(m, 0 <= aggr[a = all_arcs])                   # aggregate flow
-    @variable(m, 0 <= trip[a = all_arcs], Int)              # aggregate trip
-
+    @variable(m, 0 <= trip[a = all_arcs], Int)
+    @variable(m, 0 <= flow[a = all_arcs, p = pecahan])
     @variable(m, 0 <= sink[n = sink_nodes, p = pecahan])    # dummy sink vars
 
     @constraint(m, stock_bal[n = stock_nodes, p = pecahan],
-        sum(flow[a,p] for a in arcs(EG, [n], :)) == 
-        gdf_stock[(n.loc, p,)].value[1]
+        sum(flow[a,p] for a in arcs(EG, [n], :)) == gdf_stock[(n.loc, p,)].value[1]
     ) # flow balance at stock nodes
 
     @constraint(m, sink_bal[n = sink_nodes, p = pecahan],
-        sum(flow[a,p] for a in arcs(EG, :, [n])) == 
-        sink[n, p]
+        sum(flow[a,p] for a in arcs(EG, :, [n])) == sink[n, p]
     ) # flow balance at dummy sinks
 
-    @constraint(m, aggregator[a = all_arcs],
-        sum(flow[a,p] for p in pecahan) == aggr[a]
-    ) # flow aggregator
-
     @constraint(m, arc_cap[a = all_arcs],
-        aggr[a] <= trip[a] * EG[a][:Q]
+        sum(flow[a,p] for p in pecahan) <= trip[a] * EG[a][:Q]
     ) # arc capacity constraint
 
     @constraint(m, inv_cap[a = holdover_arcs],
@@ -139,7 +130,7 @@ function buildModel(EG::MetaDigraph{locper}, demand::DataFrame, stock::DataFrame
 
     @objective(m, Min,
         sum(
-            EG[a][:cpeti] * aggr[a] + EG[a][:cjarak] * trip[a]
+            EG[a][:cpeti] * sum(flow[a,p] for p in pecahan) + EG[a][:cjarak] * trip[a]
             for a in arcs(EG)
         ) +
         sum(
@@ -153,5 +144,17 @@ function buildModel(EG::MetaDigraph{locper}, demand::DataFrame, stock::DataFrame
     )
 
     return m
+end
+
+function optimizeModel!(m::Model; gap::Float64 = 0.2, nf::Int = 1)
+    set_optimizer(m,
+        optimizer_with_attributes(
+            Gurobi.Optimizer,
+            "MIPGap" => gap,
+            "NumericFocus" => nf
+        )
+    )
+    optimize!(m)
+    return nothing
 end
 
