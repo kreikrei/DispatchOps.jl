@@ -13,7 +13,7 @@ export
     filter_arcs, filter_nodes,
 
     # Model
-    locper, readData, buildGraph, buildModel
+    locper, readData, buildGraph, buildModel, optimizeModel!
 
 include("Nexus/Nexus.jl")
 using .Nexus
