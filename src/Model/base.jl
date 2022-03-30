@@ -157,4 +157,3 @@ function optimizeModel!(m::Model; gap::Float64 = 0.2, nf::Int = 1)
     optimize!(m)
     return nothing
 end
-
