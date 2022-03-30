@@ -101,7 +101,6 @@ function buildModel(EG::MetaDigraph{locper}, demand::DataFrame, stock::DataFrame
     pecahan = unique(demand.pecahan)
     
     sink_nodes = filter_nodes(EG, :type, "sink")
-    prod_nodes = filter_nodes(EG, :type, "prod")
     stock_nodes = filter_nodes(EG, :type, "stock")
     demand_nodes = filter_nodes(EG, :type, "demand")
 
