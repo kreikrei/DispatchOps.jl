@@ -146,7 +146,7 @@ function buildModel(EG::MetaDigraph{locper}, demand::DataFrame, stock::DataFrame
     return m
 end
 
-function optimizeModel!(m::Model; gap::Float64 = 0.2, nf::Int = 1)
+function optimizeModel!(m::Model; gap::Float64 = 0.2, nf::Int = 2)
     set_optimizer(m,
         optimizer_with_attributes(
             Gurobi.Optimizer,
