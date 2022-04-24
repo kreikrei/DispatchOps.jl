@@ -10,16 +10,9 @@ export
     # Nexus/metanexus
     MetaGraph, MetaDigraph, props, get_prop, has_prop, 
     set_props!, set_prop!, rem_prop!, clear_props!,
-    filter_arcs, filter_nodes,
-
-    # Model
-    locper, readData, buildGraph, buildModel, optimizeModel!
+    filter_arcs, filter_nodes
 
 include("Nexus/Nexus.jl")
-using .Nexus
-
 include("Sim/Sim.jl")
-using .Sim
-
 
 end
