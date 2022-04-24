@@ -45,13 +45,14 @@ function Libraries(path_to_lib::String, complete_trayek::Bool = true)
     stock = CSV.read(joinpath(path_to_lib,"stock.csv"), DataFrame)
     moda = CSV.read(joinpath(path_to_lib,"moda.csv"), DataFrame)
     
-    if complete_trayek
-        append!(trayek, DataFrame(u = trayek.v, v = trayek.u, moda = trayek.moda))
-        unique!(trayek)
-    end
+    complete_trayek && append!(trayek, 
+        DataFrame(u = trayek.v, v = trayek.u, moda = trayek.moda)
+    )
+    unique!(trayek)
+    
 
     append!(to_return.khazanah, khazanah)
-    append!(to_return.trayek, unique(innerjoin(trayek, moda, on = :moda => :name)))
+    append!(to_return.trayek, innerjoin(trayek, moda, on = :moda => :name))
     append!(to_return.demand_forecast, demand_forecast)
     append!(to_return.init_stock, stock)
 
