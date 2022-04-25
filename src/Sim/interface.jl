@@ -7,25 +7,25 @@ struct locper
     per::Int
 end
 
-Base.show(io::IO, lp::locper) = print(io, "⟦i=$(lp.loc),t=$(lp.per)⟧")
+show(io::IO, lp::locper) = print(io, "⟦i=$(lp.loc),t=$(lp.per)⟧")
 
 # default dataframes - DON'T FORGET TO COPY
-const stock_df_def = DataFrame(id = String[], pecahan = String[], value = Float64[])
-const demand_df_def = insertcols!(stock_df_def |> copy, :id, :periode => [])
+const stock_df_def = DataFrame(id=String[], pecahan=String[], value=Float64[])
+const demand_df_def = insertcols!(stock_df_def |> copy, :id, :periode => [], after=true)
 
 """
     Libraries(khazanah, trayek, init_stock, demand_forecast, demand_realization)
 defines the basic libraries needed to load the simulation. calling it with \
 empty arguments give the default dataframes.
 """
-@with_kw mutable struct Libraries
+@with_kw_noshow mutable struct Libraries
     khazanah::DataFrame = DataFrame(
-        id = String[], name = String[], x = Float64[], y = Float64[], 
-        Q = Int[], cpeti = Float64[], cjarak = Float64[]
+        id=String[], name=String[], x=Float64[], y=Float64[],
+        Q=Int[], cpeti=Float64[], cjarak=Float64[]
     ) # khazanah cols
     trayek::DataFrame = DataFrame(
-        u = String[], v = String[], moda = String[],
-        Q = Int[], cpeti = Float64[], cjarak = Float64[]
+        u=String[], v=String[], moda=String[],
+        Q=Int[], cpeti=Float64[], cjarak=Float64[]
     ) # trayek cols
     init_stock::DataFrame = copy(stock_df_def)
     demand_forecast::DataFrame = copy(demand_df_def)
@@ -37,24 +37,24 @@ end
 reads the files specified on `path_to_lib` and loads it into library.
 if `complete = true` trayek dataframe will be turned into complete graph.
 """
-function Libraries(path_to_lib::String; complete::Bool = true)
+function Libraries(path_to_lib::String; complete::Bool=true)
     to_return = Libraries()
 
     filenames = ["khazanah", "trayek", "demand", "stock", "moda"]
     df = Dict{String,DataFrame}()
     for f in filenames
-        df[f] = CSV.read(joinpath(path_to_lib,"$f.csv"), DataFrame)
+        df[f] = CSV.read(joinpath(path_to_lib, "$f.csv"), DataFrame)
 
         # trayek-related adjustments
         if f == "trayek"
             if complete
-                append!(df[f], DataFrame(u = df[f].v, v = df[f].u, moda = df[f].moda))
+                append!(df[f], DataFrame(u=df[f].v, v=df[f].u, moda=df[f].moda))
             end
             unique!(df[f])
         end
     end
 
-    append!(to_return.trayek, innerjoin(df["trayek"], df["moda"], on = :moda => :name))
+    append!(to_return.trayek, innerjoin(df["trayek"], df["moda"], on=:moda => :name))
     append!(to_return.demand_forecast, df["demand"])
     append!(to_return.khazanah, df["khazanah"])
     append!(to_return.init_stock, df["stock"])
@@ -63,327 +63,115 @@ function Libraries(path_to_lib::String; complete::Bool = true)
 end
 
 function show(io::IO, libs::Libraries)
-    khazanah_stat = "Khazanah with $(nrow(libs.khazanah)) vault entry."
+    khazanah_stat = "Khazanah\t\t: $(nrow(libs.khazanah)) vault entry."
 
-    trayek_stat = "Trayek with $(nrow(libs.trayek)) trayek entry."
+    trayek_stat = "Trayek\t\t\t: $(nrow(libs.trayek)) trayek entry."
 
-    init_stock_stat = "Initial stock (t = 0) of \
+    init_stock_stat = "Initial stock (t=0)\t: \
     $(length(unique(libs.init_stock.id))) vault with \
     $(length(unique(libs.init_stock.pecahan))) pecahan."
 
-    demand_forecast_stat = "Demand Forecast of \
+    demand_forecast_stat = "Demand Forecast\t\t: \
     $(length(unique(libs.demand_forecast.id))) vault \
     for $(length(unique(libs.demand_forecast.periode))) periode \
         with $(length(unique(libs.demand_forecast.pecahan))) pecahan."
 
-    demand_realization_stat = "Demand Realization of \
+    demand_realization_stat = "Demand Realization\t: \
     $(length(unique(libs.demand_realization.id))) vault \
     for $(length(unique(libs.demand_realization.periode))) periode \
         with $(length(unique(libs.demand_realization.pecahan))) pecahan."
 
-    print(io, 
-        "System Libraries:\n$(khazanah_stat) \n$(trayek_stat) \n$(init_stock_stat) \n$(demand_forecast_stat) \n$(demand_realization_stat)"
+    print(io,
+        "---System Libraries---\n$(khazanah_stat) \n$(trayek_stat) \n$(init_stock_stat) \n$(demand_forecast_stat) \n$(demand_realization_stat)"
     )
 end
 
-# STATES
-
-mutable struct States
-    current_stock::DataFrame
-    dispatch_queue::MetaDigraph{locper}
+"""
+    States(current_stock, dispatch_queue)
+defines the states that makes up the system.
+"""
+@with_kw_noshow mutable struct States
+    current_stock::DataFrame = copy(stock_df_def)
+    dispatch_queue::MetaDigraph{locper} = MetaDigraph{locper}()
 end
 
-States() = States(
-    DataFrame(id = String[], pecahan = String[], value = Float64[]),
-    MetaDigraph{locper}()
-)
-
 function Base.show(io::IO, states::States)
-    current_stock_stat = "Current Stock of \
+    current_stock_stat = "Current Stock\t: \
     $(length(unique(states.current_stock.id))) vault \
     with $(length(unique(states.current_stock.pecahan))) pecahan."
 
-    dispatch_queue_stat = "Dispatch Queue with \
+    dispatch_queue_stat = "Dispatch Queue\t: \
     $(length(arcs(states.dispatch_queue))) trayek entry."
 
-    print(io, 
-        "System States:\n$(current_stock_stat)\n$(dispatch_queue_stat)"
+    print(io,
+        "---System States---\n$(current_stock_stat)\n$(dispatch_queue_stat)"
     )
 end
 
-# ACCUMULATORS
-
-mutable struct Accumulators
-    executed_dispatch::MetaDigraph{locper}
-    inventory_levels::DataFrame
-    demand_fulfillment::DataFrame
+@with_kw_noshow mutable struct Accumulators
+    executed_dispatch::MetaDigraph{locper} = MetaDigraph{locper}()
+    inventory_levels::DataFrame = copy(demand_df_def)
+    demand_fulfillment::DataFrame = copy(demand_df_def)
 end
 
-Accumulators() = Accumulators(
-    MetaDigraph{locper}(),
-    DataFrame(
-        id = String[],
-        periode = Int[],
-        pecahan = String[],
-        value = Float64[]
-    ),
-    DataFrame(
-        id = String[],
-        periode = Int[],
-        pecahan = String[],
-        value = Float64[]
-    )
-)
-
-function Base.show(io::IO, accumulators::Accumulators)
-    executed_dispatch_stat = "Executed Dispatch with \
+function show(io::IO, accumulators::Accumulators)
+    executed_dispatch_stat = "Executed Dispatch \t: \
     $(accumulators.executed_dispatch.core.na) trayek entry."
 
-    inventory_levels_stat = "Inventory Levels of \
+    inventory_levels_stat = "Inventory Levels \t: \
     $(length(unique(accumulators.inventory_levels.id))) vault \
     for $(length(unique(accumulators.inventory_levels.periode))) periode \
         with $(length(unique(accumulators.inventory_levels.pecahan))) pecahan."
 
-    demand_fulfillment_stat = "Demand Fulfillment of \
+    demand_fulfillment_stat = "Demand Fulfillment \t: \
     $(length(unique(accumulators.demand_fulfillment.id))) vault \
     for $(length(unique(accumulators.demand_fulfillment.periode))) periode \
         with $(length(unique(accumulators.demand_fulfillment.pecahan))) pecahan."
 
-    print(io, 
-        "System Accumulators:\n$(executed_dispatch_stat)\n$(inventory_levels_stat)\n$(demand_fulfillment_stat)"
+    print(io,
+        "---System Accumulators---\n$(executed_dispatch_stat)\n$(inventory_levels_stat)\n$(demand_fulfillment_stat)"
     )
 end
 
-# CONSTANTS
-
-mutable struct Constants
+@with_kw_noshow struct Params
     T::Int
-    GAP::Float64
+    H::Int
+    GAP::Float64 = 0.2
 end
 
-Base.show(io::IO, constants::Constants) = print(io,
-    "System Constants: \nPlanning Horizon of $(constants.T). \
-    \nRolling Horizon of 1. \n$(constants.GAP) MIPGap."
-)
-
-# per-scheduling-an events nih gimana ya
-# atau mungkin bikin plan!(), transport!(), dan execute!() dulu kali ya
-
-"""
-    plan!(ts, stt, libs, cons)
-1. build model and solve dispatch sequence for `cons.T` time unit ahead \
-from current timestep `ts` given `stt.current_stock` \
-using `libs.khazanah`, `libs.trayek`, and `libs.demand_forecast`
-2. extract dispatch sequence starting from current timestep `ts` \
-for 1 time unit and add it to `stt.dispatch_queue`
-"""
-function plan!(ts::Int, stt::States, libs::Libraries,cons::Constants)
-    EG = buildGraph(libs.khazanah, libs.trayek, ts, cons.T)
-    model = buildModel(EG, libs.demand_forecast, stt.current_stock)
-    optimizeModel!(model, gap = cons.GAP)
-
-    to_append = Iterators.filter(a -> 
-        src(a).per >= ts && 
-        tgt(a).per <= ts + 1 && 
-        EG[a][:type] == "transport", 
-        arcs(EG)
+function show(io::IO, params::Params)
+    print(io,
+        "---System Params---\nT\t= $(params.T) \nH\t= $(params.H) \nGAP\t= $(params.GAP)"
     )
-
-    for a in to_append
-        v = value.(model[:flow][a,:])
-        if !iszero(v)
-            add_arc!(stt.dispatch_queue, a)
-            set_props!(stt.dispatch_queue, a, EG[a])
-            set_props!(stt.dispatch_queue, a, 
-                Dict(
-                    :flow => Dict(p => v[p] for p in v.axes[1]),
-                    :trip => value(model[:trip][a]) |> round
-                )
-            )
-        end
-    end
-
-    return nothing
-end
-
-"""
-    transport!(ts, stt, acc)
-1. filter `stt.dispatch_queue` for dispatch to be executed at current timestep `ts` and \
-remove filtered dispatch from `stt.dispatch_queue`
-2. update `stt.current_stock` given the executed dispatch at the current timestep `ts` \
-and add the executed dispatch to `acc.executed_dispatch`
-"""
-function transport!(ts::Int, stt::States, acc::Accumulators)
-    to_execute = MetaDigraph{locper}()
-    for a in Iterators.filter(p -> src(p).per == ts, arcs(stt.dispatch_queue))
-        add_arc!(to_execute, a)
-        set_props!(to_execute, a, stt.dispatch_queue[a])
-        rem_arc!(stt.dispatch_queue, a)
-    end
-
-    for a in arcs(to_execute)
-        for k in keys(to_execute[a][:flow])
-            stt.current_stock[
-                stt.current_stock.id .== src(a).loc .&&
-                stt.current_stock.pecahan .== k,
-                :value
-            ] .-= to_execute[a][:flow][k] # stock reduction at source
-            stt.current_stock[
-                stt.current_stock.id .== tgt(a).loc .&&
-                stt.current_stock.pecahan .== k,
-                :value
-            ] .+= to_execute[a][:flow][k] # stock addition at target
-        end
-
-        add_arc!(acc.executed_dispatch, a)
-        set_props!(acc.executed_dispatch, a, to_execute[a])
-    end
-
-    return nothing
-end
-
-"""
-    fulfill!(ts, stt, acc, libs)
-1. create fulfillment flow given `stt.current_stock` and \
-`libs.demand_realization` at current timestep `ts` + 1
-2. update `stt.current_stock` given the fulfillment flow and \
-add it to the `acc.demand_fulfillment`
-3. append `stt.current_stock` to `acc.inventory_levels`
-"""
-function fulfill!(ts::Int, stt::States, acc::Accumulators, libs::Libraries)
-    to_fulfill = filter(p -> p.periode == ts + 1, libs.demand_realization)
-    fulfillment = similar(to_fulfill, 0)
-
-    for r in eachrow(to_fulfill)
-        v = min(
-            r.value,
-            stt.current_stock[
-                stt.current_stock.id .== r.id .&&
-                stt.current_stock.pecahan .== r.pecahan,
-                :value
-            ] |> first
-        )
-        append!(fulfillment,
-            DataFrame(
-                id = r.id,
-                periode = r.periode,
-                pecahan = r.pecahan,
-                value = v
-            )
-        )
-    end
-
-    for r in eachrow(fulfillment)
-        stt.current_stock[
-            stt.current_stock.id .== r.id .&&
-            stt.current_stock.pecahan .== r.pecahan,
-            :value
-        ] .-= r.value
-    end
-
-    append!(acc.demand_fulfillment, fulfillment)
-    append!(acc.inventory_levels, 
-        DataFrame(
-            id = stt.current_stock.id,
-            periode = ts + 1,
-            pecahan = stt.current_stock.pecahan,
-            value = stt.current_stock.value
-        )
-    )
-
-    return nothing
 end
 
 """
     Simulation
-initiating `Simulation` requires three inputs:
+initiating `Simulation` requires two inputs:
 - libs
-- cons
-- terminating_timestep
+- params
 
 at initiation, `current_timestep` will be set to zero.
 init_stocks will be appended from lib to states and accumulators.
 """
-mutable struct Simulation
-    t::Int
-    terminating_timestep::Int
+@with_kw_noshow mutable struct Simulation
+    # SCHEDULER
+    t::Int = 0
+    queue::Vector{Function} = Vector{Function}()
 
-    stt::States
-    acc::Accumulators
+    # GENERATED
+    stt::States = States()
+    acc::Accumulators = Accumulators()
+
+    # SEED
     libs::Libraries
-    cons::Constants
-
-    event_queue::Vector{Function}
+    params::Params
 end
 
-function Simulation(;terminating_timestep::Int, libs::Libraries, cons::Constants)
-    t = 0
-
-    states = States()
-    accumulators = Accumulators()
-
-    append!(states.current_stock, libs.init_stock)
-    append!(accumulators.inventory_levels, 
-        DataFrame(
-            id = libs.init_stock.id,
-            periode = t,
-            pecahan = libs.init_stock.pecahan,
-            value = libs.init_stock.value
-        )
+function show(io::IO, sim::Simulation)
+    print(io,
+        "CURRENT TIMESTEP = $(sim.t)\n\
+        \n$(sim.stt)\n\
+        \n$(sim.acc)"
     )
-
-    q = Function[]
-
-    to_return = Simulation(
-        t, terminating_timestep, 
-        states, accumulators, libs, cons, 
-        q
-    )
-
-    return to_return
-end
-
-plan!(sim::Simulation) = plan!(sim.t, sim.stt, sim.libs, sim.cons)
-transport!(sim::Simulation) = transport!(sim.t, sim.stt, sim.acc)
-fulfill!(sim::Simulation) = fulfill!(sim.t, sim.stt, sim.acc, sim.libs)
-
-function schedule!(sim::Simulation)
-    # checks the current timestep
-    if sim.t < sim.terminating_timestep
-        push!(sim.event_queue, plan!)
-        push!(sim.event_queue, transport!)
-        push!(sim.event_queue, fulfill!)
-    end
-
-    return nothing
-end
-
-# schedule will be invoked every time the timestep moves forward
-
-function run!(sim::Simulation)
-    println("running simulation")
-    start = time()
-
-    while sim.t != sim.terminating_timestep
-        println("time = $(sim.t)")
-        println()
-
-        println(sim.stt)
-        println()
-
-        println(sim.acc)
-        println()
-
-        schedule!(sim)
-        while !isempty(sim.event_queue)
-            fn = popfirst!(sim.event_queue)
-            sim |> fn
-        end
-        sim.t += 1
-    end
-    stop = time()
-
-    println("total duration: $(stop-start)")
-
-    return nothing
 end

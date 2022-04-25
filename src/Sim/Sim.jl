@@ -9,11 +9,13 @@ using Parameters
 using DispatchOps.Nexus
 
 import DispatchOps.Sim
+import Base:
+    show
 
 include("interface.jl")
 
 export
-    Libraries, Params, States, Accumulators
+    Libraries, Params, States, Accumulators, Simulation
 
 
 end
