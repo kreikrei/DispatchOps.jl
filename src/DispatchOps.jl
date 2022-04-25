@@ -13,6 +13,8 @@ export
     filter_arcs, filter_nodes
 
 include("Nexus/Nexus.jl")
+using .Nexus
+
 include("Sim/Sim.jl")
 
 end
