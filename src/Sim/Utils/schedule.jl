@@ -9,19 +9,19 @@ end
 
 function schedule!(sim::Simulation)
     # checks the current timestep
-    if sim.t < sim.terminating_timestep
-        push!(sim.event_queue, plan!)
-        push!(sim.event_queue, transport!)
-        push!(sim.event_queue, fulfill!)
+    sim.t < sim.params.T && begin
+        push!(sim.queue, plan!)
+        push!(sim.queue, transport!)
+        push!(sim.queue, fulfill!)
     end
 
     return nothing
 end
 
-# schedule will be invoked every time the timestep moves forward
-
 function run!(sim::Simulation)
-    println("running simulation")
+    (isempty(sim.stt) || isempty(sim.acc)) && error("Simulation Uninitiated!")
+
+    println("Starting Simulation")
     start = time()
 
     while sim.t != sim.terminating_timestep

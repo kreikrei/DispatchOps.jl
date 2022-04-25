@@ -14,8 +14,13 @@ import Base:
 
 include("interface.jl")
 
+include("Utils/schedule.jl")
+
 export
-    Libraries, Params, States, Accumulators, Simulation
+    Libraries, Params, States, Accumulators, Simulation,
+
+    # Utils
+    initiate!, schedule!, run!
 
 
 end
