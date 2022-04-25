@@ -95,7 +95,7 @@ defines the states that makes up the system.
     dispatch_queue::MetaDigraph{locper} = MetaDigraph{locper}()
 end
 
-function Base.show(io::IO, states::States)
+function show(io::IO, states::States)
     current_stock_stat = "Current Stock\t: \
     $(length(unique(states.current_stock.id))) vault \
     with $(length(unique(states.current_stock.pecahan))) pecahan."
@@ -107,6 +107,10 @@ function Base.show(io::IO, states::States)
         "---System States---\n$(current_stock_stat)\n$(dispatch_queue_stat)"
     )
 end
+
+isempty(s::States) = reduce(*,
+    [isempty(getfield(s, f)) for f in fieldnames(typeof(s))]
+)
 
 @with_kw_noshow mutable struct Accumulators
     executed_dispatch::MetaDigraph{locper} = MetaDigraph{locper}()
@@ -132,6 +136,10 @@ function show(io::IO, accumulators::Accumulators)
         "---System Accumulators---\n$(executed_dispatch_stat)\n$(inventory_levels_stat)\n$(demand_fulfillment_stat)"
     )
 end
+
+isempty(a::Accumulators) = reduce(*,
+    [isempty(getfield(a, f)) for f in fieldnames(typeof(a))]
+)
 
 @with_kw_noshow struct Params
     T::Int

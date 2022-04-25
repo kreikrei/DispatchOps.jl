@@ -10,7 +10,7 @@ using DispatchOps.Nexus
 
 import DispatchOps.Sim
 import Base:
-    show
+    show, isempty
 
 include("interface.jl")
 
