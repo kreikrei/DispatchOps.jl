@@ -23,7 +23,7 @@ function run!(sim::Simulation)
     println("Starting simulation")
     start = time()
     while sim.t < sim.params.T
-        println(sim)
+        println(sim) # verbose
         schedule!(sim)
         while !isempty(sim.queue)
             fn = popfirst!(sim.queue)
