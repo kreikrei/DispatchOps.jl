@@ -1,11 +1,12 @@
 module Sim
 
-using DispatchOps.Nexus
 using DataFrames
 using Distances
 using CSV
 using JuMP
 using Gurobi
+
+import DispatchOps
 
 include("interface.jl")
 
