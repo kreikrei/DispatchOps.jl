@@ -178,8 +178,8 @@ end
 
 function show(io::IO, sim::Simulation)
     print(io,
-        "CURRENT TIMESTEP = $(sim.t)\n\
+        "\nCURRENT TIMESTEP = $(sim.t)\n\
         \n$(sim.stt)\n\
-        \n$(sim.acc)"
+        \n$(sim.acc)\n"
     )
 end
