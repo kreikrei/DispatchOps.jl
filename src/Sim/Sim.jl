@@ -17,6 +17,7 @@ include("interface.jl")
 include("Utils/schedule.jl")
 
 export
+    # interface
     Libraries, Params, States, Accumulators, Simulation,
 
     # Utils

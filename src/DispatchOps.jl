@@ -12,8 +12,11 @@ export
     set_props!, set_prop!, rem_prop!, clear_props!,
     filter_arcs, filter_nodes,
 
-    # Sim
-    Libraries, Params, States, Accumulators, Simulation
+    # Sim/interface
+    Libraries, Params, States, Accumulators, Simulation,
+
+    # Sim/Utils
+    initiate!, schedule!, run!
 
 include("Nexus/Nexus.jl")
 using .Nexus

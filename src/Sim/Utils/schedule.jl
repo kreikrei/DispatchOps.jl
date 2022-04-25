@@ -8,42 +8,32 @@ function initiate!(sim::Simulation)
 end
 
 function schedule!(sim::Simulation)
-    # checks the current timestep
     sim.t < sim.params.T && begin
-        push!(sim.queue, plan!)
-        push!(sim.queue, transport!)
-        push!(sim.queue, fulfill!)
+        # push!(sim.queue, plan!)
+        # push!(sim.queue, transport!)
+        # push!(sim.queue, fulfill!)
     end
 
     return nothing
 end
 
 function run!(sim::Simulation)
-    (isempty(sim.stt) || isempty(sim.acc)) && error("Simulation Uninitiated!")
+    (isempty(sim.stt) || isempty(sim.acc)) && error("Simulation uninitiated!")
 
-    println("Starting Simulation")
+    println("Starting simulation")
     start = time()
-
-    while sim.t != sim.terminating_timestep
-        println("time = $(sim.t)")
-        println()
-
-        println(sim.stt)
-        println()
-
-        println(sim.acc)
-        println()
-
+    while sim.t < sim.params.T
+        println(sim)
         schedule!(sim)
-        while !isempty(sim.event_queue)
-            fn = popfirst!(sim.event_queue)
+        while !isempty(sim.queue)
+            fn = popfirst!(sim.queue)
             sim |> fn
         end
         sim.t += 1
     end
     stop = time()
 
-    println("total duration: $(stop-start)")
+    println("Simulation stopped. Total duration: $(stop-start)")
 
     return nothing
 end
