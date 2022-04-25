@@ -7,6 +7,7 @@ end
 
 # FORWARD DARI INTERFACE.JL
 @forward AbstractMetaNexus.core eltype
+@forward AbstractMetaNexus.core isempty
 
 @forward AbstractMetaNexus.core nn
 @forward AbstractMetaNexus.core na

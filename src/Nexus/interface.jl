@@ -3,7 +3,7 @@ abstract type AbstractArc{T} end
 abstract type AbstractArcIter{T} end
 
 @traitdef IsDirected{G<:AbstractNexus}
-@traitimpl IsDirected{G} <- is_directed(G)
+@traitimpl IsDirected{G} < -is_directed(G)
 
 function show(io::IO, g::AbstractNexus{T}) where {T}
     dir = is_directed(g) ? "directed" : "undirected"
@@ -18,7 +18,9 @@ function show(io::IO, ait::AbstractArcIter{T}) where {T}
     print(io, "ArcIter $T $(length(ait.list))")
 end
 
+# Base extension -- DON'T FORGET TO FORWARD TO metanexus/extension.jl
 eltype(::AbstractNexus{T}) where {T} = T
+isempty(g::AbstractNexus) = (g.nn == 0 && g.na == 0) ? true : false
 
 nn(g::AbstractNexus) = g.nn
 na(g::AbstractNexus) = g.na
@@ -27,7 +29,7 @@ nodes(g::AbstractNexus) = g.fadj |> keys
 
 has_node(g::AbstractNexus{T}, n::T) where {T} = n in nodes(g)
 function has_arc(g::AbstractNexus{T}, u::T, v::T, key::Int) where {T}
-    haskey(g.fadj, u) && haskey(g.fadj[u],v) && haskey(g.fadj[u][v], key) && return true
+    haskey(g.fadj, u) && haskey(g.fadj[u], v) && haskey(g.fadj[u][v], key) && return true
     return false
 end
 # not dependent on directedness? NO. 
