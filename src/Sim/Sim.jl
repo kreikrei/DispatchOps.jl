@@ -5,9 +5,10 @@ using Distances
 using CSV
 using JuMP
 using Gurobi
+using Parameters
+using DispatchOps.Nexus
 
 import DispatchOps.Sim
-using DispatchOps.Nexus
 
 include("interface.jl")
 

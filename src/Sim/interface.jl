@@ -9,60 +9,60 @@ end
 
 Base.show(io::IO, lp::locper) = print(io, "⟦i=$(lp.loc),t=$(lp.per)⟧")
 
-mutable struct Libraries
-    khazanah::DataFrame
-    trayek::DataFrame
-    init_stock::DataFrame
-    demand_forecast::DataFrame
-    demand_realization::DataFrame
+# default dataframes - DON'T FORGET TO COPY
+const stock_df_def = DataFrame(id = String[], pecahan = String[], value = Float64[])
+const demand_df_def = insertcols!(stock_df_def |> copy, :id, :periode => [])
+
+"""
+    Libraries(khazanah, trayek, init_stock, demand_forecast, demand_realization)
+defines the basic libraries needed to load the simulation. calling it with \
+empty arguments give the default dataframes.
+"""
+@with_kw mutable struct Libraries
+    khazanah::DataFrame = DataFrame(
+        id = String[], name = String[], x = Float64[], y = Float64[], 
+        Q = Int[], cpeti = Float64[], cjarak = Float64[]
+    ) # khazanah cols
+    trayek::DataFrame = DataFrame(
+        u = String[], v = String[], moda = String[],
+        Q = Int[], cpeti = Float64[], cjarak = Float64[]
+    ) # trayek cols
+    init_stock::DataFrame = copy(stock_df_def)
+    demand_forecast::DataFrame = copy(demand_df_def)
+    demand_realization::DataFrame = copy(demand_df_def)
 end
 
-Libraries() = Libraries(
-    DataFrame(
-        id = String[], name = String[], x = Float64[], y = Float64[], 
-        Q = Int[], cpeti = Float64[], cjarak = Float64[], 
-        transit = Int[]
-    ), # khazanah cols
-    DataFrame(
-        u = String[], v = String[], moda = String[],
-        Q = Int[], cpeti = Float64[], cjarak = Float64[], 
-        transit = Int[]
-    ), # final trayek cols
-    DataFrame(
-        id = String[], pecahan = String[], value = Float64[]
-    ), # init_stock
-    DataFrame(
-        id = String[], periode = Int[], pecahan = String[], value = Float64[]
-    ), # demand forecast cols
-    DataFrame(
-        id = String[], periode = Int[], pecahan = String[], value = Float64[]
-    ) # demand realization cols
-)
-
-function Libraries(path_to_lib::String, complete_trayek::Bool = true)
+"""
+    Libraries(path_to_lib; complete)
+reads the files specified on `path_to_lib` and loads it into library.
+if `complete = true` trayek dataframe will be turned into complete graph.
+"""
+function Libraries(path_to_lib::String; complete::Bool = true)
     to_return = Libraries()
 
-    demand_forecast = CSV.read(joinpath(path_to_lib,"demand.csv"), DataFrame)
-    khazanah = CSV.read(joinpath(path_to_lib,"khazanah.csv"), DataFrame)
-    trayek = CSV.read(joinpath(path_to_lib,"trayek.csv"), DataFrame)
-    stock = CSV.read(joinpath(path_to_lib,"stock.csv"), DataFrame)
-    moda = CSV.read(joinpath(path_to_lib,"moda.csv"), DataFrame)
-    
-    complete_trayek && append!(trayek, 
-        DataFrame(u = trayek.v, v = trayek.u, moda = trayek.moda)
-    )
-    unique!(trayek)
-    
+    filenames = ["khazanah", "trayek", "demand", "stock", "moda"]
+    df = Dict{String,DataFrame}()
+    for f in filenames
+        df[f] = CSV.read(joinpath(path_to_lib,"$f.csv"), DataFrame)
 
-    append!(to_return.khazanah, khazanah)
-    append!(to_return.trayek, innerjoin(trayek, moda, on = :moda => :name))
-    append!(to_return.demand_forecast, demand_forecast)
-    append!(to_return.init_stock, stock)
+        # trayek-related adjustments
+        if f == "trayek"
+            if complete
+                append!(df[f], DataFrame(u = df[f].v, v = df[f].u, moda = df[f].moda))
+            end
+            unique!(df[f])
+        end
+    end
+
+    append!(to_return.trayek, innerjoin(df["trayek"], df["moda"], on = :moda => :name))
+    append!(to_return.demand_forecast, df["demand"])
+    append!(to_return.khazanah, df["khazanah"])
+    append!(to_return.init_stock, df["stock"])
 
     return to_return
 end
 
-function Base.show(io::IO, libs::Libraries)
+function show(io::IO, libs::Libraries)
     khazanah_stat = "Khazanah with $(nrow(libs.khazanah)) vault entry."
 
     trayek_stat = "Trayek with $(nrow(libs.trayek)) trayek entry."
