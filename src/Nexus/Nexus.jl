@@ -3,7 +3,7 @@ module Nexus
 using SimpleTraits
 using Lazy
 
-import DispatchOps
+import DispatchOps.Nexus
 import Base:
     show, eltype, Tuple, iterate, length, reverse, 
     getindex, rand

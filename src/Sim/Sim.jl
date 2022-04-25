@@ -6,7 +6,8 @@ using CSV
 using JuMP
 using Gurobi
 
-import DispatchOps
+import DispatchOps.Sim
+using DispatchOps.Nexus
 
 include("interface.jl")
 
