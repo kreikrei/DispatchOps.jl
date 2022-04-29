@@ -11,7 +11,14 @@ Graph{T}() where {T} = begin
     return Graph(0, 0, fadj)
 end
 
-function add_arc!(G::Graph{T}, u::T, v::T, key::Union{Int,Nothing} = nothing) where {T}
+function empty!(g::Graph{T}) where {T}
+    g.nn = 0
+    g.na = 0
+    empty!(g.fadj)
+    return nothing
+end
+
+function add_arc!(G::Graph{T}, u::T, v::T, key::Union{Int,Nothing}=nothing) where {T}
     haskey(G.fadj, u) || begin
         G.fadj[u] = Dict()
         G.nn += 1
@@ -44,7 +51,7 @@ function new_arc_key(g::Graph{T}, u::T, v::T) where {T}
     return key
 end
 
-function rem_arc!(G::Graph{T}, u::T, v::T, key::Union{Int,Nothing} = nothing) where {T}
+function rem_arc!(G::Graph{T}, u::T, v::T, key::Union{Int,Nothing}=nothing) where {T}
     (haskey(G.fadj[u], v) || haskey(G.fadj[u], v)) ? begin
         d1 = G.fadj[u][v]
         d2 = G.fadj[v][u]
@@ -74,7 +81,7 @@ end
 
 function rem_node!(g::Graph{T}, u::T) where {T}
     haskey(g.fadj, u) || return false
-    
+
     for v in keys(g.fadj[u])
         g.na -= length(g.fadj[u][v])
         delete!(g.fadj[v], u)

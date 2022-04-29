@@ -6,7 +6,7 @@ using Lazy
 import DispatchOps.Nexus
 import Base:
     show, eltype, Tuple, iterate, length, reverse,
-    getindex, rand, isempty
+    getindex, rand, isempty, empty!
 
 include("interface.jl")
 

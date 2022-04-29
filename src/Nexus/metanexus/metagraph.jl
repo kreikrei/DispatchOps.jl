@@ -11,6 +11,13 @@ end
 is_directed(::MetaGraph) = false
 Graph(g::MetaGraph{T}) where {T} = g.core
 
+function empty!(g::MetaGraph{T}) where {T}
+    empty!(g.core)
+    empty!(g.nprops)
+    empty!(g.aprops)
+    return nothing
+end
+
 function set_props!(g::MetaGraph{T}, a::Arc{T}, d::Dict) where {T}
     (has_arc(g, a) && has_arc(g, reverse(a))) || return false
     !_hasdict(g, a) ? g.aprops[a] = d : merge!(g.aprops[a], d)

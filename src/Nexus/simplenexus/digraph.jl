@@ -15,7 +15,15 @@ end
 
 badj(g::Digraph) = g.badj
 
-function add_arc!(G::Digraph{T}, u::T, v::T, key::Union{Int,Nothing} = nothing) where {T}
+function empty!(g::Digraph{T}) where {T}
+    g.nn = 0
+    g.na = 0
+    empty!(g.fadj)
+    empty!(g.badj)
+    return nothing
+end
+
+function add_arc!(G::Digraph{T}, u::T, v::T, key::Union{Int,Nothing}=nothing) where {T}
     haskey(G.fadj, u) || begin
         G.fadj[u] = Dict()
         G.badj[u] = Dict()
@@ -48,7 +56,7 @@ function new_arc_key(g::Digraph{T}, u::T, v::T) where {T}
     return key
 end
 
-function rem_arc!(G::Digraph{T}, u::T, v::T, key::Union{Int,Nothing} = nothing) where {T}
+function rem_arc!(G::Digraph{T}, u::T, v::T, key::Union{Int,Nothing}=nothing) where {T}
     haskey(G.fadj[u], v) ? d = G.fadj[u][v] : return false # no v on u
     isnothing(key) ? pop!(d) : haskey(d, key) ? delete!(d, key) : return false # rem key
     length(d) == 0 && begin
@@ -70,7 +78,7 @@ end
 
 function rem_node!(g::Digraph{T}, u::T) where {T}
     haskey(g.fadj, u) || return false
-    
+
     for v in keys(g.fadj[u])
         g.na -= length(g.badj[v][u])
         delete!(g.badj[v], u)
@@ -82,7 +90,7 @@ function rem_node!(g::Digraph{T}, u::T) where {T}
         delete!(g.fadj[v], u)
     end
     delete!(g.badj, u)
-    
+
     g.nn -= 1
     return true
 end
