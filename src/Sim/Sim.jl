@@ -14,11 +14,18 @@ import Base:
 
 include("interface.jl")
 
-include("Utils/schedule.jl")
+include("Events/plan.jl")
+include("Events/transport.jl")
+include("Events/fulfill.jl")
+
+include("Utils/flow.jl")
 
 export
     # interface
     Libraries, Params, States, Accumulators, Simulation,
+
+    # Events
+    buildGraph, buildModel, optimizeModel, plan!, fulfill!, transport!,
 
     # Utils
     initiate!, schedule!, run!

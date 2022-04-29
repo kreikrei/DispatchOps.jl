@@ -37,7 +37,7 @@ end
 reads the files specified on `path_to_lib` and loads it into library.
 if `complete = true` trayek dataframe will be turned into complete graph.
 """
-function Libraries(path_to_lib::String; complete::Bool=true)
+function Libraries(path_to_lib::String; complete::Bool)
     to_return = Libraries()
 
     filenames = ["khazanah", "trayek", "demand", "stock", "moda"]

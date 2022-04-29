@@ -15,6 +15,9 @@ export
     # Sim/interface
     Libraries, Params, States, Accumulators, Simulation,
 
+    # Sim/Events
+    buildGraph, buildModel, optimizeModel, plan!, fulfill!, transport!,
+
     # Sim/Utils
     initiate!, schedule!, run!
 
