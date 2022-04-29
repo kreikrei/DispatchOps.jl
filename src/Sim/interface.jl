@@ -142,14 +142,16 @@ isempty(a::Accumulators) = reduce(*,
 )
 
 @with_kw_noshow struct Params
-    T::Int
-    H::Int
-    GAP::Float64 = 0.2
+    T::Int # terminating timstep
+    H::Int # planning horizon
+    GAP::Float64 = 0.2 # MIPGap
+    model::Function # model generator
 end
 
 function show(io::IO, params::Params)
     print(io,
-        "---System Params---\nT\t= $(params.T) \nH\t= $(params.H) \nGAP\t= $(params.GAP)"
+        "---System Params---\nT\t= $(params.T) \nH\t= $(params.H) \nGAP\t= $(params.GAP)\
+        \nmodel\t= $(params.model)"
     )
 end
 
@@ -180,6 +182,7 @@ function show(io::IO, sim::Simulation)
     print(io,
         "\nCURRENT TIMESTEP = $(sim.t)\n\
         \n$(sim.stt)\n\
-        \n$(sim.acc)\n"
+        \n$(sim.acc)\n\
+        \n$(sim.params)\n"
     )
 end

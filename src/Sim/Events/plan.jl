@@ -58,10 +58,11 @@ function buildGraph(khazanah::DataFrame, trayek::DataFrame, ts::Int, pH::Int)
 end
 
 """
-    _buildModel(expanded_graph, demands, stock)
+    hard_holdover_model(EG, demands, stock)
 takes in the graph and extracted demands and also stock to create a mathematical model.
+Use the hard constraint on vault capacity constraint. Flow balanced as soft constraint.
 """
-function _buildModel(EG::MetaDigraph{locper}, demand::DataFrame, stock::DataFrame)
+function hard_holdover_model(EG::MetaDigraph{locper}, demand::DataFrame, stock::DataFrame)
     m = Model()
 
     # demand and stock as reference
@@ -118,7 +119,12 @@ function _buildModel(EG::MetaDigraph{locper}, demand::DataFrame, stock::DataFram
     return m
 end
 
-function buildModel(EG::MetaDigraph{locper}, demand::DataFrame, stock::DataFrame)
+"""
+    soft_holdover_model(EG, demands, stock)
+takes in the graph and extracted demands and also stock to create a mathematical model.
+Use the soft constraint on vault capacity constraint. Flow balanced as soft constraint.
+"""
+function soft_holdover_model(EG::MetaDigraph{locper}, demand::DataFrame, stock::DataFrame)
     m = Model()
 
     # demand and stock as reference
@@ -202,8 +208,8 @@ end
 
 
 """
-    plan!(ts, stt, libs, cons)
-1. build model and solve dispatch sequence for `cons.T` time unit ahead \
+    plan!(ts, stt, libs, params)
+1. build model and solve dispatch sequence for `params.T` time unit ahead \
 from current timestep `ts` given `stt.current_stock` \
 using `libs.khazanah`, `libs.trayek`, and `libs.demand_forecast`
 2. extract dispatch sequence starting from current timestep `ts` \
@@ -211,7 +217,7 @@ for 1 time unit and add it to `stt.dispatch_queue`
 """
 function plan!(ts::Int, stt::States, libs::Libraries, params::Params)
     EG = buildGraph(libs.khazanah, libs.trayek, ts, params.H)
-    model = buildModel(EG, libs.demand_forecast, stt.current_stock)
+    model = params.model(EG, libs.demand_forecast, stt.current_stock)
     optimizeModel(model, gap=params.GAP)
 
     to_append = Iterators.filter(a ->
@@ -238,4 +244,4 @@ function plan!(ts::Int, stt::States, libs::Libraries, params::Params)
     return nothing
 end
 
-plan!(sim::Simulation) = plan!(sim.t, sim.stt, sim.libs, sim.cons)
+plan!(sim::Simulation) = plan!(sim.t, sim.stt, sim.libs, sim.params)

@@ -19,7 +19,7 @@ export
     buildGraph, buildModel, optimizeModel, plan!, fulfill!, transport!,
 
     # Sim/Utils
-    initiate!, schedule!, run!
+    reset!, initiate!, schedule!, run!
 
 include("Nexus/Nexus.jl")
 using .Nexus

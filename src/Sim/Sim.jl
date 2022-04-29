@@ -24,11 +24,17 @@ export
     # interface
     Libraries, Params, States, Accumulators, Simulation,
 
-    # Events
-    buildGraph, buildModel, optimizeModel, plan!, fulfill!, transport!,
+    # Events/plan
+    buildGraph, hard_holdover_model, soft_holdover_model, optimizeModel, plan!,
+
+    # Events/fulfill!
+    fulfill!,
+
+    # Events/transport!
+    transport!,
 
     # Utils
-    initiate!, schedule!, run!
+    reset!, initiate!, schedule!, run!
 
 
 end
