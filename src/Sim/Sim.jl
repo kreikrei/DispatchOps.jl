@@ -20,6 +20,7 @@ include("Events/fulfill.jl")
 
 include("Utils/demand.jl")
 include("Utils/flow.jl")
+include("Utils/analysis.jl")
 
 export
     # interface
@@ -38,7 +39,10 @@ export
     reset!, initiate!, schedule!, run!,
 
     # Utils/demand
-    noisify_fixed, noisify_varied
+    noisify_fixed, noisify_varied,
+
+    # Utils/analysis
+    lost_sales
 
 end
 
