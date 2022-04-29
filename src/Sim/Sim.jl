@@ -18,6 +18,7 @@ include("Events/plan.jl")
 include("Events/transport.jl")
 include("Events/fulfill.jl")
 
+include("Utils/demand.jl")
 include("Utils/flow.jl")
 
 export
@@ -33,9 +34,11 @@ export
     # Events/transport!
     transport!,
 
-    # Utils
-    reset!, initiate!, schedule!, run!
+    # Utils/flow
+    reset!, initiate!, schedule!, run!,
 
+    # Utils/demand
+    noisify_fixed, noisify_varied
 
 end
 
