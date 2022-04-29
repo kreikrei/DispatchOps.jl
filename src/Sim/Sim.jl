@@ -42,7 +42,7 @@ export
     noisify_fixed, noisify_varied,
 
     # Utils/analysis
-    lost_sales
+    lost_sales, total_cost, fixed_cost, variable_cost
 
 end
 

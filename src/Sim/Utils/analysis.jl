@@ -1,6 +1,16 @@
-function total_cost(sim::Simulation)
+total_cost(sim::Simulation) = fixed_cost(sim) + variable_cost(sim)
 
-end
+variable_cost(sim::Simulation) = sum(
+    sim.acc.executed_dispatch[a][:cpeti] *
+    sum(values(sim.acc.executed_dispatch[a][:flow]))
+    for a in arcs(sim.acc.executed_dispatch)
+)
+
+fixed_cost(sim::Simulation) = sum(
+    sim.acc.executed_dispatch[a][:cjarak] *
+    sim.acc.executed_dispatch[a][:trip]
+    for a in arcs(sim.acc.executed_dispatch)
+)
 
 function lost_sales(sim::Simulation)
     realization = filter(
