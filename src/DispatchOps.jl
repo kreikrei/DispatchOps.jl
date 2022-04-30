@@ -15,11 +15,23 @@ export
     # Sim/interface
     Libraries, Params, States, Accumulators, Simulation,
 
-    # Sim/Events
-    buildGraph, buildModel, optimizeModel, plan!, fulfill!, transport!,
+    # Sim/Events/plan
+    buildGraph, hard_holdover_model, soft_holdover_model, optimizeModel, plan!,
 
-    # Sim/Utils
-    reset!, initiate!, schedule!, run!
+    # Sim/Events/fulfill
+    fulfill!,
+
+    # Sim/Events/transport
+    transport!,
+
+    # Sim/Utils/flow
+    reset!, initiate!, schedule!, run!,
+
+    # Sim/Utils/demand
+    noisify_fixed, noisify_varied,
+
+    # Utils/analysis
+    lost_sales, total_cost, fixed_cost, variable_cost
 
 include("Nexus/Nexus.jl")
 using .Nexus
