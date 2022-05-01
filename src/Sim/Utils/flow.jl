@@ -48,6 +48,7 @@ function run!(sim::Simulation)
         while !isempty(sim.queue)
             fn = popfirst!(sim.queue)
             sim |> fn
+            # add ability to change to fixed horizon
         end
         sim.t += 1
     end
