@@ -141,7 +141,7 @@ isempty(a::Accumulators) = reduce(*,
     [isempty(getfield(a, f)) for f in fieldnames(typeof(a))]
 )
 
-@with_kw_noshow struct Params
+@with_kw_noshow mutable struct Params
     T::Int # terminating timstep
     H::Int # planning horizon
     GAP::Float64 = 0.2 # MIPGap
@@ -168,6 +168,9 @@ init_stocks will be appended from lib to states and accumulators.
     # SCHEDULER
     t::Int = 0
     queue::Vector{Function} = Vector{Function}()
+
+    # MODIFIERS
+    fixed::Bool = false
 
     # GENERATED
     stt::States = States()

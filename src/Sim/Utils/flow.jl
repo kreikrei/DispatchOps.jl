@@ -43,12 +43,14 @@ function run!(sim::Simulation)
     println("Starting simulation")
     start = time()
     while sim.t < sim.params.T
+        if sim.fixed
+            sim.params.H = min(sim.params.H, sim.params.T - sim.t)
+        end
         println(sim) # verbose
         schedule!(sim)
         while !isempty(sim.queue)
             fn = popfirst!(sim.queue)
             sim |> fn
-            # add ability to change to fixed horizon
         end
         sim.t += 1
     end
