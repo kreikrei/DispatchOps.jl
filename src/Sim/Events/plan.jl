@@ -199,7 +199,8 @@ function optimizeModel(m::Model; gap::Float64)
         optimizer_with_attributes(
             Gurobi.Optimizer,
             "MIPGap" => gap,
-            "NumericFocus" => 2
+            "NumericFocus" => 2,
+            "OutputFlag" => 0
         )
     )
     optimize!(m)
