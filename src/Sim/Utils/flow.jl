@@ -14,6 +14,8 @@ end
 
 function initiate!(sim::Simulation; reset::Bool=true)
     reset && reset!(sim) # reset simulation
+    isempty(sim.libs.demand_realization) && error("Demand realization can't be empty!")
+
     if (isempty(sim.stt) || isempty(sim.acc))
         append!(sim.stt.current_stock, sim.libs.init_stock)
         append!(sim.acc.inventory_levels,
