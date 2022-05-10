@@ -45,7 +45,7 @@ function run!(sim::Simulation)
     println("Starting simulation")
     start = time()
     while sim.t < sim.params.T
-        if sim.fixed
+        if sim.params.fixed
             sim.params.H = min(sim.params.H, sim.params.T - sim.t)
         end
         println(sim) # verbose

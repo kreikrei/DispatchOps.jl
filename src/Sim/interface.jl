@@ -146,6 +146,7 @@ isempty(a::Accumulators) = reduce(*,
     H::Int # planning horizon
     GAP::Float64 = 0.2 # MIPGap
     model::Function # model generator
+    fixed::Bool = false # Modifiers
 end
 
 function show(io::IO, params::Params)
@@ -168,9 +169,6 @@ init_stocks will be appended from lib to states and accumulators.
     # SCHEDULER
     t::Int = 0
     queue::Vector{Function} = Vector{Function}()
-
-    # MODIFIERS
-    fixed::Bool = false
 
     # GENERATED
     stt::States = States()
