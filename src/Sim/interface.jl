@@ -177,6 +177,8 @@ init_stocks will be appended from lib to states and accumulators.
     # SEED
     libs::Libraries
     params::Params
+
+    duration::Float64 = 0
 end
 
 function show(io::IO, sim::Simulation)

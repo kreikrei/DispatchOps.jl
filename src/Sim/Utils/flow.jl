@@ -58,7 +58,8 @@ function run!(sim::Simulation)
     end
     stop = time()
 
-    println("Simulation stopped. Total duration: $(stop-start)")
+    sim.duration += stop - start
+    println("Simulation stopped. Total duration: $(sim.duration)")
 
     return nothing
 end
