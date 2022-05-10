@@ -27,20 +27,14 @@ s = DataFrame(
     simulation=Simulation[]
 )
 
-for H in H_range, noise in noise_range, GAP in GAP_range, N in replication
+for noise in noise_range, N in replication
     l = Libraries(path, complete=is_complete)
     l.demand_realization = noise_function(l.demand_forecast, noise)
-    p = Params(H=H, T=T, model=model_used, fixed=is_fixed, GAP=GAP)
-    new_sim = Simulation(libs=l, params=p)
-    append!(s,
-        DataFrame(
-            noise=noise,
-            H=H,
-            GAP=GAP,
-            N=N,
-            simulation=new_sim
-        )
-    )
+    for H in H_range, GAP in GAP_range
+        p = Params(H=H, T=T, model=model_used, fixed=is_fixed, GAP=GAP)
+        new_sim = Simulation(libs=l, params=p)
+        append!(s, DataFrame(noise=noise, H=H, GAP=GAP, N=N, simulation=new_sim))
+    end
 end
 
 initiate!.(s.simulation)
