@@ -18,15 +18,17 @@ const demand_df_def = insertcols!(stock_df_def |> copy, :id, :periode => [], aft
 defines the basic libraries needed to load the simulation. calling it with \
 empty arguments give the default dataframes.
 """
-@with_kw_noshow mutable struct Libraries
+@with_kw_noshow struct Libraries
     khazanah::DataFrame = DataFrame(
         id=String[], name=String[], x=Float64[], y=Float64[],
         Q=Int[], cpeti=Float64[], cjarak=Float64[]
     ) # khazanah cols
     trayek::DataFrame = DataFrame(
-        u=String[], v=String[], moda=String[],
-        Q=Int[], cpeti=Float64[], cjarak=Float64[]
+        u=String[], v=String[], moda=String[]
     ) # trayek cols
+    moda::DataFrame = DataFrame(
+        name=String[], Q=Int[], cpeti=Float64[], cjarak=Float64[]
+    )
     init_stock::DataFrame = copy(stock_df_def)
     demand_forecast::DataFrame = copy(demand_df_def)
     demand_realization::DataFrame = copy(demand_df_def)
@@ -54,7 +56,8 @@ function Libraries(path_to_lib::String; complete::Bool)
         end
     end
 
-    append!(to_return.trayek, innerjoin(df["trayek"], df["moda"], on=:moda => :name))
+    append!(to_return.trayek, df["trayek"])
+    append!(to_return.moda, df["moda"])
     append!(to_return.demand_forecast, df["demand"])
     append!(to_return.khazanah, df["khazanah"])
     append!(to_return.init_stock, df["stock"])

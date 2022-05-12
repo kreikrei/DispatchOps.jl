@@ -1,8 +1,10 @@
+const DF = DataFrame
+
 """
     buildGraph(khazanah, trayek, ts, pH)
 takes in `khazanah` and `trayek` with a given `timestep` and `planningHorizon` to construct the graph in which the dispatch plan is built.
 """
-function buildGraph(khazanah::DataFrame, trayek::DataFrame, ts::Int, pH::Int)
+function buildGraph(khazanah::DF, trayek::DF, moda::DF, ts::Int, pH::Int)
     EG = MetaDigraph{locper}()
 
     for i in eachrow(khazanah)
@@ -21,6 +23,8 @@ function buildGraph(khazanah::DataFrame, trayek::DataFrame, ts::Int, pH::Int)
         set_prop!(EG, locper(i.id, ts + pH + 1), :coor, (x=i.x, y=i.y))
     end
 
+    to_use = innerjoin(trayek, moda, on=:moda => :name)
+
     for t in ts:ts+pH
         for i in eachrow(khazanah)
             u = locper(i.id, t)
@@ -36,7 +40,7 @@ function buildGraph(khazanah::DataFrame, trayek::DataFrame, ts::Int, pH::Int)
                 )
             )
         end
-        for r in eachrow(trayek)
+        for r in eachrow(to_use)
             if t + 1 <= ts + pH
                 u = locper(r.u, t)
                 v = locper(r.v, t + 1)
@@ -62,7 +66,7 @@ end
 takes in the graph and extracted demands and also stock to create a mathematical model.
 Use the hard constraint on vault capacity constraint. Flow balanced as soft constraint.
 """
-function hard_holdover_model(EG::MetaDigraph{locper}, demand::DataFrame, stock::DataFrame)
+function hard_holdover_model(EG::MetaDigraph{locper}, demand::DF, stock::DF)
     m = Model()
 
     # demand and stock as reference
@@ -124,7 +128,7 @@ end
 takes in the graph and extracted demands and also stock to create a mathematical model.
 Use the soft constraint on vault capacity constraint. Flow balanced as soft constraint.
 """
-function soft_holdover_model(EG::MetaDigraph{locper}, demand::DataFrame, stock::DataFrame)
+function soft_holdover_model(EG::MetaDigraph{locper}, demand::DF, stock::DF)
     m = Model()
 
     # demand and stock as reference
@@ -217,7 +221,7 @@ using `libs.khazanah`, `libs.trayek`, and `libs.demand_forecast`
 for 1 time unit and add it to `stt.dispatch_queue`
 """
 function plan!(ts::Int, stt::States, libs::Libraries, params::Params)
-    EG = buildGraph(libs.khazanah, libs.trayek, ts, params.H)
+    EG = buildGraph(libs.khazanah, libs.trayek, libs.moda, ts, params.H)
     model = params.model(EG, libs.demand_forecast, stt.current_stock)
     optimizeModel(model, gap=params.GAP)
 
