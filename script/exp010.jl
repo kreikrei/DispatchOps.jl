@@ -37,6 +37,8 @@ for noise in noise_range, N in replication
     end
 end
 
+# TODO add a logger for experiment progress
+
 initiate!.(s.simulation)
 run!.(s.simulation)
 save_object(joinpath(output_path, "exp010.jld2"), s)
