@@ -41,4 +41,6 @@ end
 
 initiate!.(s.simulation)
 run!.(s.simulation)
+
+!isdir(output_path) && mkdir(output_path)
 save_object(joinpath(output_path, "exp010.jld2"), s)
