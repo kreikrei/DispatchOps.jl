@@ -29,7 +29,7 @@ s = DataFrame(
 
 for noise in noise_range, N in replication
     l = Libraries(path, complete=is_complete)
-    l.demand_realization = noise_function(l.demand_forecast, noise)
+    append!(l.demand_realization, noise_function(l.demand_forecast, noise))
     for H in H_range, GAP in GAP_range
         p = Params(H=H, T=T, model=model_used, fixed=is_fixed, GAP=GAP)
         new_sim = Simulation(libs=l, params=p)
@@ -38,6 +38,14 @@ for noise in noise_range, N in replication
 end
 
 # TODO #50 add a logger for experiment progress
+for r in eachrow(s)
+    initiate!(r.simulation)
+    run!(r.simulation)
+
+    # logger part
+    progress = rownumber(r) / nrow(s)
+    println("Experiment $(round(progress*100,digits=2))% complete.")
+end
 
 initiate!.(s.simulation)
 run!.(s.simulation)
