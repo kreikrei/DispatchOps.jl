@@ -12,7 +12,7 @@ const noise_function = noisify_fixed
 const noise_range = 0:10:50
 const replication = 1:5
 
-const H_range = 1:12
+const H_range = 1:8
 const GAP_range = [0.2]
 const model_used = hard_holdover_model
 const is_fixed = true
