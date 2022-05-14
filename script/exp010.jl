@@ -37,7 +37,6 @@ for noise in noise_range, N in replication
     end
 end
 
-# TODO #50 add a logger for experiment progress
 for r in eachrow(s)
     initiate!(r.simulation)
     run!(r.simulation)
