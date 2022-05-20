@@ -24,7 +24,7 @@ include("Utils/analysis.jl")
 
 export
     # interface
-    Libraries, Params, States, Accumulators, Simulation,
+    Libraries, Params, States, Accumulators, Simulation, Experiment,
 
     # Events/plan
     buildGraph, hard_holdover_model, soft_holdover_model, optimizeModel, plan!,
@@ -42,7 +42,7 @@ export
     noisify_fixed, noisify_varied,
 
     # Utils/analysis
-    lost_sales, total_cost, fixed_cost, variable_cost
+    lost_sales, total_cost, fixed_cost, variable_cost, process
 
 end
 

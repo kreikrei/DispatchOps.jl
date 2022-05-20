@@ -193,3 +193,27 @@ function show(io::IO, sim::Simulation)
         \n$(sim.params)\n"
     )
 end
+
+@with_kw_noshow struct Experiment
+    T::Int
+    data_path::String
+    is_complete::Bool
+    noise_function::Function
+    noise_range::AbstractArray
+    replication::Int
+    H_range::AbstractArray
+    GAP_range::AbstractArray
+    model_used::Function
+    is_horizon_fixed::Bool
+    output_path::String
+    file_name::String
+end
+
+function show(io::IO, exp::Experiment)
+    print(io,
+        "$(
+            length(exp.noise_range) * exp.replication * 
+            length(exp.H_range) * length(exp.GAP_range)
+        ) entry Experiment"
+    )
+end
