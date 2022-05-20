@@ -15,7 +15,7 @@ const replication = 1:5
 const H_range = 1:8
 const GAP_range = [0.2]
 const model_used = hard_holdover_model
-const is_fixed = true
+const is_horizon_fixed = true
 
 const output_path = "/home/kreiton/.julia/dev/DispatchOps/out"
 
@@ -31,7 +31,7 @@ for noise in noise_range, N in replication
     l = Libraries(path, complete=is_complete)
     append!(l.demand_realization, noise_function(l.demand_forecast, noise))
     for H in H_range, GAP in GAP_range
-        p = Params(H=H, T=T, model=model_used, fixed=is_fixed, GAP=GAP)
+        p = Params(H=H, T=T, model=model_used, fixed=is_horizon_fixed, GAP=GAP)
         new_sim = Simulation(libs=l, params=p)
         append!(s, DataFrame(noise=noise, H=H, GAP=GAP, N=N, simulation=new_sim))
     end
