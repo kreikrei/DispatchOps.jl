@@ -150,6 +150,7 @@ isempty(a::Accumulators) = reduce(*,
     GAP::Float64 = 0.2 # MIPGap
     model::Function # model generator
     fixed::Bool = false # Modifiers
+    env::Gurobi.Env = Gurobi.Env()
 end
 
 function show(io::IO, params::Params)

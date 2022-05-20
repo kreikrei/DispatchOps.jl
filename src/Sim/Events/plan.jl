@@ -198,19 +198,16 @@ function soft_holdover_model(EG::MetaDigraph{locper}, demand::DF, stock::DF)
     return m
 end
 
-function optimizeModel(m::Model; gap::Float64)
-    set_optimizer(m,
-        optimizer_with_attributes(
-            Gurobi.Optimizer,
-            "MIPGap" => gap,
-            "NumericFocus" => 2,
-            "OutputFlag" => 0
-        )
+function optimizeModel(m::Model; gap::Float64, env::Gurobi.Env)
+    set_optimizer(m, () -> Gurobi.Optimizer(env); add_bridges=false)
+    set_silent(m)
+    set_optimizer_attributes(m,
+        "MIPGap" => gap,
+        "NumericFocus" => 2
     )
     optimize!(m)
     return nothing
 end
-
 
 """
     plan!(ts, stt, libs, params)
@@ -223,7 +220,7 @@ for 1 time unit and add it to `stt.dispatch_queue`
 function plan!(ts::Int, stt::States, libs::Libraries, params::Params)
     EG = buildGraph(libs.khazanah, libs.trayek, libs.moda, ts, params.H)
     model = params.model(EG, libs.demand_forecast, stt.current_stock)
-    optimizeModel(model, gap=params.GAP)
+    optimizeModel(model, gap=params.GAP, env=params.env)
 
     to_append = Iterators.filter(a ->
             src(a).per >= ts &&
