@@ -1,5 +1,5 @@
 # TRAYEK | FIXED-END | NOISE_FUNCTION |  GAP
-#    0   |     1     |       0        |  0.2
+#    0   |     1     |       1        |  0.2
 
 using Revise
 using DispatchOps
@@ -9,15 +9,15 @@ e = Experiment(
     T=12,
     data_path="/home/kreiton/.julia/dev/DispatchOps/data/origin",
     is_complete=true,
-    noise_function=noisify_fixed,
-    noise_range=0:10:50,
+    noise_function=noisify_varied,
+    noise_range=0:0.05:0.25,
     replication=5,
     H_range=1:8,
     GAP_range=[0.2],
     model_used=hard_holdover_model,
     is_horizon_fixed=true,
     output_path="/home/kreiton/.julia/dev/DispatchOps/out",
-    file_name="exp010"
+    file_name="exp011"
 )
 
 process(e)
