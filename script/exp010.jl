@@ -1,6 +1,6 @@
 # TRAYEK | FIXED-END | NOISE_FUNCTION |  GAP
 #    0   |     1     |       0        |  0.2
-
+using Revise
 using DispatchOps
 using JLD2
 using DataFrames
@@ -38,12 +38,13 @@ for noise in noise_range, N in replication
 end
 
 for r in eachrow(s)
+    println("<---H=$(r.H) | noise=$(r.noise) | N=$(r.N)--->")
     initiate!(r.simulation)
     run!(r.simulation)
 
     # logger part
     progress = rownumber(r) / nrow(s)
-    println("Experiment $(round(progress*100,digits=2))% complete.")
+    println("Experiment $(round(progress*100,digits=2))% complete.\n")
 end
 
 !isdir(output_path) && mkdir(output_path)
