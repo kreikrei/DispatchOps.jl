@@ -42,7 +42,7 @@ end
 function run!(sim::Simulation)
     (isempty(sim.stt) || isempty(sim.acc)) && error("Simulation uninitiated!")
 
-    println("Starting simulation")
+    println("Starting simulation.")
     start = time()
     while sim.t < sim.params.T
         if sim.params.fixed
