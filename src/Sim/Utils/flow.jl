@@ -39,27 +39,29 @@ function schedule!(sim::Simulation)
     return nothing
 end
 
-function run!(sim::Simulation)
+function run!(sim::Simulation; verbose::Bool=false)
     (isempty(sim.stt) || isempty(sim.acc)) && error("Simulation uninitiated!")
 
-    println("Starting simulation.")
+    println("Starting simulation. Timestep = $(sim.t)")
     start = time()
     while sim.t < sim.params.T
         if sim.params.fixed
             sim.params.H = min(sim.params.H, sim.params.T - sim.t)
         end
-        println(sim) # verbose
+        verbose && println(sim) # verbose
         schedule!(sim)
         while !isempty(sim.queue)
             fn = popfirst!(sim.queue)
             sim |> fn
         end
         sim.t += 1
+        println("Current timestep = $(sim.t).\
+        Time elapsed: $(round(time() - start, digits=2))s")
     end
     stop = time()
 
     sim.duration += stop - start
-    println("Simulation stopped. Total duration: $(sim.duration)")
+    println("Simulation stopped. Total duration: $(round(sim.duration, digits=2))s")
 
     return nothing
 end
