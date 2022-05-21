@@ -22,7 +22,7 @@ function lost_sales(sim::Simulation)
     return 1 - fulfilled
 end
 
-function process(exp::Experiment)
+function process_experiment(exp::Experiment)
     s = DataFrame(noise=Float64[], H=Int64[], GAP=Float64[], simulation=Simulation[])
     total = length(exp.noise_range) * exp.replication *
             length(exp.H_range) * length(exp.GAP_range)

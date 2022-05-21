@@ -20,4 +20,4 @@ e = Experiment(
     file_name="validation"
 )
 
-process(e)
+process_experiment(e)

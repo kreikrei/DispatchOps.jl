@@ -31,7 +31,7 @@ export
     noisify_fixed, noisify_varied,
 
     # Utils/analysis
-    lost_sales, total_cost, fixed_cost, variable_cost, process
+    lost_sales, total_cost, fixed_cost, variable_cost, process_experiment
 
 include("Nexus/Nexus.jl")
 using .Nexus
