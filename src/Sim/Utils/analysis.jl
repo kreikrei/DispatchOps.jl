@@ -53,4 +53,6 @@ function process(exp::Experiment)
     return s
 end
 
-# TODO #52 sensitivity analysis function
+function sensitivity_report(sim::Simulation)
+
+end
