@@ -1,8 +1,9 @@
 const DF = DataFrame
 
 """
-    buildGraph(khazanah, trayek, ts, pH)
-takes in `khazanah` and `trayek` with a given `timestep` and `planningHorizon` to construct the graph in which the dispatch plan is built.
+    buildGraph(khazanah, trayek, moda, ts, pH)
+takes in `khazanah`, `trayek`, and `moda` with a given timestep `ts` and \
+planning horizon `pH` to construct the graph in which the dispatch plan is built.
 """
 function buildGraph(khazanah::DF, trayek::DF, moda::DF, ts::Int, pH::Int)
     EG = MetaDigraph{locper}()
