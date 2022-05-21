@@ -155,8 +155,8 @@ end
 
 function show(io::IO, params::Params)
     print(io,
-        "---System Params---\nT\t= $(params.T) \nH\t= $(params.H) \nGAP\t= $(params.GAP)\
-        \nmodel\t= $(params.model)"
+        "---System Params---\nT\t= $(params.T)\nH\t= $(params.H)\nGAP\t= $(params.GAP)\
+        \nmodel\t= $(params.model)\nfixed\t= $(params.fixed)"
     )
 end
 
