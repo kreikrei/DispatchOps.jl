@@ -47,8 +47,8 @@ function process(exp::Experiment)
         end
     end
 
-    !isdir(output_path) && mkdir(output_path)
-    save_object(joinpath(output_path, "$(exp.file_name).jld2"), s)
+    !isdir(exp.output_path) && mkdir(exp.output_path)
+    save_object(joinpath(exp.output_path, "$(exp.file_name).jld2"), s)
 
     return s
 end
