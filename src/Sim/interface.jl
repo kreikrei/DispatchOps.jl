@@ -89,6 +89,15 @@ function show(io::IO, libs::Libraries)
     )
 end
 
+copy(l::Libraries) = Libraries(
+    copy(l.khazanah),
+    copy(l.trayek),
+    copy(l.moda),
+    copy(l.init_stock),
+    copy(l.demand_forecast),
+    copy(l.demand_realization)
+)
+
 """
     States(current_stock, dispatch_queue)
 defines the states that makes up the system.
@@ -159,6 +168,10 @@ function show(io::IO, params::Params)
         \nmodel\t= $(params.model)"
     )
 end
+
+copy(p::Params) = Params(
+    T=copy(p.T), H=copy(p.H), GAP=copy(p.GAP), model=p.model, fixed=copy(p.fixed)
+)
 
 """
     Simulation

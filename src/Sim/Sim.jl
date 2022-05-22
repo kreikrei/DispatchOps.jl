@@ -10,7 +10,7 @@ using DispatchOps.Nexus
 
 import DispatchOps.Sim
 import Base:
-    show, isempty
+    show, isempty, copy
 
 include("interface.jl")
 
@@ -42,7 +42,7 @@ export
     noisify_fixed, noisify_varied,
 
     # Utils/analysis
-    lost_sales, total_cost, fixed_cost, variable_cost, process
+    lost_sales, total_cost, fixed_cost, variable_cost, process, sensitivity_report
 
 end
 
