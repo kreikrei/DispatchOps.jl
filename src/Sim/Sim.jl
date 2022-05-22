@@ -3,6 +3,7 @@ module Sim
 using DataFrames
 using Distances
 using CSV
+using JLD2
 using JuMP
 using Gurobi
 using Parameters
