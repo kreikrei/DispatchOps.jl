@@ -27,6 +27,7 @@ function process_experiment(exp::Experiment)
     total = length(exp.noise_range) * exp.replication *
             length(exp.H_range) * length(exp.GAP_range)
 
+    start = time()
     for noise in exp.noise_range, N in 1:exp.replication
         l = Libraries(exp.data_path, complete=exp.is_complete)
         append!(l.demand_realization, exp.noise_function(l.demand_forecast, noise))
@@ -46,9 +47,12 @@ function process_experiment(exp::Experiment)
             println("Experiment $(round(nrow(s) / total * 100,digits=2))% complete.\n")
         end
     end
+    stop = time()
+    println("All experiments ran. Duration: $(round(stop-start, digits=2))s")
 
     !isdir(exp.output_path) && mkdir(exp.output_path)
     save_object(joinpath(exp.output_path, "$(exp.file_name).jld2"), s)
+    println("Output saved.")
 
     return s
 end
