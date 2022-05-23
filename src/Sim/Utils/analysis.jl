@@ -62,7 +62,7 @@ end
 creates a sensitivity analysis on the objective function cost parameters \
 of the planning model. `sim` must not be initiated.
 """
-function sensitivity_report(sim::Simulation)
+function sensitivity_report(sim::Simulatio, p::Float64 = 1.0)
     base = Simulation(libs=copy(sim.libs), params=copy(sim.params))
     initiate!(base)
     run!(base)
@@ -94,7 +94,7 @@ function sensitivity_report(sim::Simulation)
         [0.0, 0.0, 1.0, 0.0],
         [0.0, 0.0, 0.0, 1.0]
     ]
-    mults = [-1.0, 1.0]
+    mults = [-p, p]
 
     for col in cols, var in vars, mult in mults
         s = Simulation(libs=copy(sim.libs), params=copy(sim.params))
