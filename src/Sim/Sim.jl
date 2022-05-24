@@ -1,7 +1,6 @@
 module Sim
 
 using DataFrames
-using Distances
 using CSV
 using JLD2
 using JuMP
@@ -9,6 +8,8 @@ using Gurobi
 using Parameters
 using DispatchOps.Nexus
 
+import Distances:
+    Haversine, Euclidean
 import DispatchOps.Sim
 import Base:
     show, isempty, copy
@@ -44,7 +45,10 @@ export
 
     # Utils/analysis
     lost_sales, total_cost, fixed_cost, variable_cost,
-    process_experiment, sensitivity_report
+    process_experiment, sensitivity_report,
+
+    # misc
+    Haversine, Euclidean
 
 end
 

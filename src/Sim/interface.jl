@@ -160,12 +160,13 @@ isempty(a::Accumulators) = reduce(*,
     model::Function # model generator
     fixed::Bool = false # Modifiers
     env::Gurobi.Env = Gurobi.Env()
+    dist::Union{Haversine,Euclidean} = Haversine()
 end
 
 function show(io::IO, params::Params)
     print(io,
         "---System Params---\nT\t= $(params.T)\nH\t= $(params.H)\nGAP\t= $(params.GAP)\
-        \nmodel\t= $(params.model)\nfixed\t= $(params.fixed)"
+        \nmodel\t= $(params.model)\nfixed\t= $(params.fixed)\ndist\t= $(params.dist)"
     )
 end
 

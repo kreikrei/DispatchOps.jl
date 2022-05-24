@@ -5,7 +5,7 @@ const DF = DataFrame
 takes in `khazanah`, `trayek`, and `moda` with a given timestep `ts` and \
 planning horizon `pH` to construct the graph in which the dispatch plan is built.
 """
-function buildGraph(khazanah::DF, trayek::DF, moda::DF, ts::Int, pH::Int)
+function buildGraph(khazanah::DF, trayek::DF, moda::DF, ts::Int, pH::Int, dist::Union{Haversine,Euclidean})
     EG = MetaDigraph{locper}()
 
     for i in eachrow(khazanah)
@@ -46,11 +46,13 @@ function buildGraph(khazanah::DF, trayek::DF, moda::DF, ts::Int, pH::Int)
                 u = locper(r.u, t)
                 v = locper(r.v, t + 1)
                 k = add_arc!(EG, u, v)
+                cjarak = typeof(dist) <: Euclidean ? dist(EG[u][:coor], EG[v][:coor]) :
+                         dist(EG[u][:coor], EG[v][:coor]) / 1000
                 set_props!(EG, Arc(u, v, k),
                     Dict(
                         :Q => r.Q,
                         :cpeti => r.cpeti,
-                        :cjarak => haversine(EG[u][:coor], EG[v][:coor], 6372) * r.cjarak,
+                        :cjarak => cjarak * r.cjarak,
                         :moda => r.moda,
                         :type => "transport"
                     )
@@ -219,7 +221,7 @@ using `libs.khazanah`, `libs.trayek`, and `libs.demand_forecast`
 for 1 time unit and add it to `stt.dispatch_queue`
 """
 function plan!(ts::Int, stt::States, libs::Libraries, params::Params)
-    EG = buildGraph(libs.khazanah, libs.trayek, libs.moda, ts, params.H)
+    EG = buildGraph(libs.khazanah, libs.trayek, libs.moda, ts, params.H, params.dist)
     model = params.model(EG, libs.demand_forecast, stt.current_stock)
     optimizeModel(model, gap=params.GAP, env=params.env)
 
