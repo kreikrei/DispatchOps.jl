@@ -5,7 +5,7 @@ const DF = DataFrame
 takes in `khazanah`, `trayek`, and `moda` with a given timestep `ts` and \
 planning horizon `pH` to construct the graph in which the dispatch plan is built.
 """
-function buildGraph(khazanah::DF, trayek::DF, moda::DF, ts::Int, pH::Int, dist::Function)
+function buildGraph(khazanah::DF, trayek::DF, moda::DF, ts::Int, pH::Int, dist::Union{Haversine,Euclidean})
     EG = MetaDigraph{locper}()
 
     for i in eachrow(khazanah)
@@ -46,11 +46,13 @@ function buildGraph(khazanah::DF, trayek::DF, moda::DF, ts::Int, pH::Int, dist::
                 u = locper(r.u, t)
                 v = locper(r.v, t + 1)
                 k = add_arc!(EG, u, v)
+                cjarak = typeof(dist) <: Euclidean ? dist(EG[u][:coor], EG[v][:coor]) :
+                         dist(EG[u][:coor], EG[v][:coor]) / 1000
                 set_props!(EG, Arc(u, v, k),
                     Dict(
                         :Q => r.Q,
                         :cpeti => r.cpeti,
-                        :cjarak => dist(EG[u][:coor], EG[v][:coor], 6372) * r.cjarak,
+                        :cjarak => cjarak * r.cjarak,
                         :moda => r.moda,
                         :type => "transport"
                     )
