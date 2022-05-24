@@ -1,0 +1,6 @@
+id,name,x,y,Q,cpeti,cjarak
+A,supplier,0,0,1000,0,0
+B,customer,0,100,250,0,0
+C,customer,38.75,92.6,250,0,0
+D,customer,92.6,38.75,250,0,0
+E,customer,100,0,250,0,0
