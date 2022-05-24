@@ -7,9 +7,8 @@ using JuMP
 using Gurobi
 using Parameters
 using DispatchOps.Nexus
+using Distances
 
-import Distances:
-    Haversine, Euclidean
 import DispatchOps.Sim
 import Base:
     show, isempty, copy
@@ -45,11 +44,7 @@ export
 
     # Utils/analysis
     lost_sales, total_cost, fixed_cost, variable_cost,
-    process_experiment, sensitivity_report,
-
-    # misc
-    Haversine, Euclidean
-
+    process_experiment, sensitivity_report
 end
 
 

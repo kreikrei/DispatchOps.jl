@@ -32,10 +32,7 @@ export
 
     # Utils/analysis
     lost_sales, total_cost, fixed_cost, variable_cost,
-    process_experiment, sensitivity_report,
-
-    # misc
-    Haversine, Euclidean
+    process_experiment, sensitivity_report
 
 include("Nexus/Nexus.jl")
 using .Nexus

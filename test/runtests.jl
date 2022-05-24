@@ -7,11 +7,10 @@ using Test
         T = 1
         H = 1
         is_complete = true
-        dist = Euclidean()
         model = standard_model
 
         l = Libraries(data_path, complete=is_complete)
-        p = Params(H=H, T=T, model=model, dist=dist)
+        p = Params(H=H, T=T, model=model)
         append!(l.demand_realization, noisify_fixed(l.demand_forecast, 0))
 
         s = Simulation(libs=l, params=p)
@@ -26,11 +25,10 @@ using Test
         T = 1
         H = 1
         is_complete = true
-        dist = Euclidean()
         model = standard_model
 
         l = Libraries(data_path, complete=is_complete)
-        p = Params(H=H, T=T, model=model, dist=dist)
+        p = Params(H=H, T=T, model=model)
         append!(l.demand_realization, noisify_fixed(l.demand_forecast, 0))
 
         s = Simulation(libs=l, params=p)
@@ -60,11 +58,10 @@ using Test
         T = 1
         H = 1
         is_complete = true
-        dist = Euclidean()
         model = standard_model
 
         l = Libraries(data_path, complete=is_complete)
-        p = Params(H=H, T=T, model=model, dist=dist)
+        p = Params(H=H, T=T, model=model)
         append!(l.demand_realization, noisify_fixed(l.demand_forecast, 0))
 
         s = Simulation(libs=l, params=p)
@@ -94,11 +91,10 @@ using Test
         T = 1
         H = 1
         is_complete = true
-        dist = Euclidean()
         model = standard_model
 
         l = Libraries(data_path, complete=is_complete)
-        p = Params(H=H, T=T, model=model, dist=dist)
+        p = Params(H=H, T=T, model=model)
         append!(l.demand_realization, noisify_fixed(l.demand_forecast, 0))
 
         s = Simulation(libs=l, params=p)
