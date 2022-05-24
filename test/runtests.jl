@@ -97,7 +97,6 @@ using Test
         dist = Euclidean()
         model = standard_model
 
-        answer = MetaDigraph{DispatchOps.Sim.locper}()
         l = Libraries(data_path, complete=is_complete)
         p = Params(H=H, T=T, model=model, dist=dist)
         append!(l.demand_realization, noisify_fixed(l.demand_forecast, 0))
@@ -106,6 +105,7 @@ using Test
         initiate!(s)
         run!(s)
 
+        answer = MetaDigraph{DispatchOps.Sim.locper}()
         add_arc!(answer, DispatchOps.Sim.locper("B", 0), DispatchOps.Sim.locper("C", 1))
         add_arc!(answer, DispatchOps.Sim.locper("D", 0), DispatchOps.Sim.locper("E", 1))
         for a in arcs(answer)
