@@ -16,7 +16,7 @@ export
     Libraries, Params, States, Accumulators, Simulation, Experiment,
 
     # Sim/Events/plan
-    buildGraph, hard_holdover_model, soft_holdover_model, optimizeModel, plan!,
+    buildGraph, standard_model, hard_holdover_model, soft_holdover_model, optimizeModel, plan!,
 
     # Sim/Events/fulfill
     fulfill!,

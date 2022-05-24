@@ -64,6 +64,61 @@ function buildGraph(khazanah::DF, trayek::DF, moda::DF, ts::Int, pH::Int, dist::
     return EG
 end
 
+function standard_model(EG::MetaDigraph{locper}, demand::DF, stock::DF)
+    m = Model()
+
+    # demand and stock as reference
+    gdf_demand = groupby(demand, [:id, :periode, :pecahan])
+    gdf_stock = groupby(stock, [:id, :pecahan])
+
+    # set definitions
+    pecahan = unique(demand.pecahan)
+
+    sink_nodes = filter_nodes(EG, :type, "sink")
+    stock_nodes = filter_nodes(EG, :type, "stock")
+    demand_nodes = filter_nodes(EG, :type, "demand")
+
+    all_arcs = arcs(EG)
+    holdover_arcs = filter_arcs(EG, :type, "holdover")
+    transport_arcs = filter_arcs(EG, :type, "transport")
+
+    # model definition
+    @variable(m, 0 <= trip[a=all_arcs], Int)
+    @variable(m, 0 <= flow[a=all_arcs, p=pecahan])
+    @variable(m, 0 <= sink[n=sink_nodes, p=pecahan]) # dummy sink vars
+
+    @constraint(m, flow_bal[n=demand_nodes, p=pecahan],
+        sum(flow[a, p] for a in arcs(EG, :, [n])) -
+        sum(flow[a, p] for a in arcs(EG, [n], :)) ==
+        gdf_demand[(n.loc, n.per, p,)].value[1]
+    )
+
+    @constraint(m, stock_bal[n=stock_nodes, p=pecahan],
+        sum(flow[a, p] for a in arcs(EG, [n], :)) == gdf_stock[(n.loc, p,)].value[1]
+    ) # flow balance at stock nodes
+
+    @constraint(m, sink_bal[n=sink_nodes, p=pecahan],
+        sum(flow[a, p] for a in arcs(EG, :, [n])) == sink[n, p]
+    ) # flow balance at dummy sinks
+
+    @constraint(m, arc_cap[a=all_arcs],
+        sum(flow[a, p] for p in pecahan) <= trip[a] * EG[a][:Q]
+    ) # arc capacity constraint
+
+    @constraint(m, inv_cap[a=holdover_arcs],
+        trip[a] <= 1
+    ) # trips for inventories
+
+    @objective(m, Min,
+        sum(
+            EG[a][:cpeti] * sum(flow[a, p] for p in pecahan) + EG[a][:cjarak] * trip[a]
+            for a in arcs(EG)
+        )
+    )
+
+    return m
+end
+
 """
     hard_holdover_model(EG, demands, stock)
 takes in the graph and extracted demands and also stock to create a mathematical model.
