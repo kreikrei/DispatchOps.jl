@@ -1,7 +1,6 @@
 module Sim
 
 using DataFrames
-using Distances
 using CSV
 using JLD2
 using JuMP
@@ -9,6 +8,8 @@ using Gurobi
 using Parameters
 using DispatchOps.Nexus
 
+import Distance:
+    haversine, euclidean
 import DispatchOps.Sim
 import Base:
     show, isempty, copy
