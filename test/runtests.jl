@@ -1,7 +1,7 @@
 using DispatchOps
 using Test
 
-@testset "DispatchOps.jl" begin
+@testset "zero demand" begin
     # ZERO
     data_path = "/home/kreiton/.julia/dev/DispatchOps/data/dummy/zero"
     T = 1
@@ -19,8 +19,9 @@ using Test
     run!(s)
 
     @test isempty(s.acc.executed_dispatch)
+end
 
-    # BREAK
+@testset "break bulk" begin
     data_path = "/home/kreiton/.julia/dev/DispatchOps/data/dummy/break"
     T = 1
     H = 1
@@ -52,7 +53,7 @@ using Test
             @test answer[a][:trip] == s.acc.executed_dispatch[a][:trip]
         end
     end
-
-    # TODO #53 test case for verification -> M - 1 + front loading
-    # TODO #55 test case for verification -> 1 - 1 + front loading
 end
+
+# TODO #53 test case for verification -> M - 1 + front loading
+# TODO #55 test case for verification -> 1 - 1 + front loading
