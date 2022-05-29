@@ -16,5 +16,7 @@ params = [Params(H=h, T=T, model=model, fixed=is_horizon_fixed) for h in 1:3]
 for p in params
     s = Simulation(libs=copy(l), params=copy(p))
     df = sensitivity_report(s)
-    save_object("/home/kreiton/.julia/dev/DispatchOps/out/SensitivityReport-H$(p.H)", df)
+    save_object(
+        "/home/kreiton/.julia/dev/DispatchOps/out/NewSensitivityReport-H$(p.H)", df
+    )
 end
