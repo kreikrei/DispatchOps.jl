@@ -257,7 +257,7 @@ end
 
 function optimizeModel(m::Model; gap::Float64, env::Gurobi.Env)
     set_optimizer(m, () -> Gurobi.Optimizer(env); add_bridges=false)
-    # set_silent(m)
+    set_silent(m)
     set_optimizer_attributes(m,
         "MIPGap" => gap,
         # "NumericFocus" => 2,
