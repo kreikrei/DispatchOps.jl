@@ -46,8 +46,6 @@ report = vcat(reportH1, reportH2, reportH3)
 
 # ilangin base base itu
 
-unique(report.col)
-
 for H in unique(report.H), m in unique(report.moda), c in unique(report.col)
     if m != "BASELINE" && c != :base
         append!(report, DataFrame(
@@ -70,11 +68,12 @@ end
 
 report_stacked = stack(report, [:Jaccard_similarity_fine, :Jaccard_similarity_coarse, :Jaccard_similarity_mild])
 
-for c in unique()
-
-to_plot = filter(r -> r.col == :cjarak && r.moda == "TRUK" && 
-r.variable=="Jaccard_similarity_fine", report_stacked)
-
-plot(to_plot, x=:variance, y=:value, color=:H, Geom.point, Geom.line, Scale.discrete_color)
-
-
+for c in unique(report_stacked.col), m in unique(report_stacked.moda), v in unique(report_stacked.variable)
+    if c != :base
+        to_plot = filter(r -> r.col == c && r.moda == m &&
+                                  r.variable == v, report_stacked)
+        p = plot(to_plot, x=:variance, y=:value, color=:H, Geom.point, Geom.line, Scale.discrete_color)
+        img = SVG("$c$m$v")
+        draw(img, p)
+    end
+end
