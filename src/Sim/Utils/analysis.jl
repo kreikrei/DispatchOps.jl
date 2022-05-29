@@ -94,7 +94,7 @@ function sensitivity_report(sim::Simulation, p::Float64=1.0)
         [0.0, 0.0, 1.0, 0.0],
         [0.0, 0.0, 0.0, 1.0]
     ]
-    mults = [-p, p]
+    mults = [-2.0*p, -1.5*p, -p, -0.5*p, 0.5*p, p, 1.5*p, 2.0*p]
 
     for col in cols, var in vars, mult in mults
         s = Simulation(libs=copy(sim.libs), params=copy(sim.params))
