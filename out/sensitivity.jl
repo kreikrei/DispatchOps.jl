@@ -68,12 +68,19 @@ end
 
 report_stacked = stack(report, [:Jaccard_similarity_fine, :Jaccard_similarity_coarse, :Jaccard_similarity_mild])
 
+x_max, idx = findmax(report_stacked.variance)
+x_min, idx = findmin(report_stacked.variance)
+y_max, idx = findmax(report_stacked.value)
+y_min, idx = findmin(report_stacked.value)
+
+coord = Coord.cartesian(xmin=x_min, xmax=x_max, ymin=round(y_min, digits=1), ymax=round(y_max))
+
 for c in unique(report_stacked.col), m in unique(report_stacked.moda), v in unique(report_stacked.variable)
     if c != :base
         to_plot = filter(r -> r.col == c && r.moda == m &&
                                   r.variable == v, report_stacked)
-        p = plot(to_plot, x=:variance, y=:value, color=:H, Geom.point, Geom.line, Scale.discrete_color)
-        img = SVG("$c$m$v")
+        p = plot(to_plot, x=:variance, y=:value, color=:H, Geom.point, Geom.line, Scale.discrete_color, coord)
+        img = SVG("$c$m$v.svg")
         draw(img, p)
     end
 end
