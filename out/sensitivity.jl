@@ -16,8 +16,6 @@ reportH3 = load_object("/home/kreiton/.julia/dev/DispatchOps/out/NewSensitivityR
 moda = CSV.read("/home/kreiton/.julia/dev/DispatchOps/data/.moda.csv", DataFrame)
 modad = Dict(1:length(moda.name) .=> moda.name)
 
-modad[findfirst(x -> x != 0, report.varmult[13])]
-
 function moda_primer!(df::DataFrame, modad::Dict)
     modacols = Vector{String}()
     sizehint!(modacols, nrow(df))
@@ -38,3 +36,5 @@ function moda_primer!(df::DataFrame, modad::Dict)
 end
 
 moda_primer!(reportH1, modad)
+moda_primer!(reportH2, modad)
+moda_primer!(reportH3, modad)
