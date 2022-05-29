@@ -72,7 +72,7 @@ p_trayek = plot(
     Guide.xlabel("Panjang Horizon Perencanaan (H)"),
     Guide.ylabel("Jumlah Pengiriman (trayek)"),
     Guide.annotation(
-        compose(context(), text(10, 0.96 * pengiriman_aktual_trayek, "Pengiriman Aktual = $pengiriman_aktual_trayek", hright, vtop))
+        compose(context(), text(10, 0.96 * pengiriman_aktual_trayek, "Pengiriman Aktual = $pengiriman_aktual_trayek", hright, vtop), fontsize(7pt))
     ),
     Guide.title("Jumlah Pengiriman Model pada Panjang Horizon Perencanaan Tertentu")
 )
@@ -93,7 +93,7 @@ p_rupiah = plot(
     Guide.xlabel("Panjang Horizon Perencanaan (H)"),
     Guide.ylabel("Rupiah Terdistribusi (Rp)"),
     Guide.annotation(
-        compose(context(), text(10, 0.96 * pengiriman_aktual_rupiah, "Rupiah Terdistribusi Aktual = Rp$(pengiriman_aktual_rupiah/1000000000000) Triliun", hright, vtop))
+        compose(context(), text(10, 0.96 * pengiriman_aktual_rupiah, "Rupiah Terdistribusi Aktual = Rp$(pengiriman_aktual_rupiah/1000000000000) Triliun", hright, vtop), fontsize(7pt))
     ),
     Guide.title("Rupiah Terdistribusi Model pada Panjang Horizon Perencanaan Tertentu")
 )
