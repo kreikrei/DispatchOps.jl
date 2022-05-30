@@ -64,23 +64,34 @@ for H in unique(report.H), m in unique(report.moda), c in unique(report.col)
     end
 end
 
+report = report[report.col.!=:base, :]
+
 # DATA PROCESSING DONE
 
 report_stacked = stack(report, [:Jaccard_similarity_fine, :Jaccard_similarity_coarse, :Jaccard_similarity_mild])
 
-x_max, idx = findmax(report_stacked.variance)
-x_min, idx = findmin(report_stacked.variance)
-y_max, idx = findmax(report_stacked.value)
-y_min, idx = findmin(report_stacked.value)
+gdf = groupby(report_stacked, :variable)
 
-coord = Coord.cartesian(xmin=x_min, xmax=x_max, ymin=round(y_min, digits=1), ymax=round(y_max))
+coord = Coord.cartesian(ymin=0.5)
 
-for c in unique(report_stacked.col), m in unique(report_stacked.moda), v in unique(report_stacked.variable)
-    if c != :base
-        to_plot = filter(r -> r.col == c && r.moda == m &&
-                                  r.variable == v, report_stacked)
-        p = plot(to_plot, x=:variance, y=:value, color=:H, Geom.point, Geom.line, Scale.discrete_color, coord)
-        img = SVG("$c$m$v.svg")
-        draw(img, p)
-    end
-end
+# fine measure
+to_plot = gdf[1]
+
+p_fine = plot(to_plot,
+    xgroup=:moda, ygroup=:col, y=:value, x=:variance, color=:H, Scale.color_discrete_manual([colorant"#006E7F", colorant"#F8CB2E", colorant"#711A75"]...),
+    Geom.subplot_grid(Geom.point, Geom.line, coord)
+)
+
+img = SVG("/home/kreiton/.julia/dev/DispatchOps/out/FineJaccard.svg")
+draw(img, p_fine)
+
+# mild measure
+to_plot = gdf[3]
+
+p_mild = plot(to_plot,
+    xgroup=:moda, ygroup=:col, y=:value, x=:variance, color=:H, Scale.color_discrete_manual([colorant"#006E7F", colorant"#F8CB2E", colorant"#711A75"]...),
+    Geom.subplot_grid(Geom.point, Geom.line, coord)
+)
+
+img = SVG("/home/kreiton/.julia/dev/DispatchOps/out/MildJaccard.svg")
+draw(img, p_mild)
