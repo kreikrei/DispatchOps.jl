@@ -16,7 +16,7 @@ e = Experiment(
     model_used=hard_holdover_model,
     is_horizon_fixed=true,
     output_path="/home/kreiton/.julia/dev/DispatchOps/out",
-    file_name="optim"
+    file_name="suboptim"
 )
 
 process_experiment(e)
