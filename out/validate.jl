@@ -7,6 +7,7 @@ using AxisArrays
 using DispatchOps
 using Colors
 using Compose
+using CairoMakie
 
 duration(s::Simulation) = s.duration
 rupiah_transported(s::Simulation, pecahand::Dict) = AxisArray(
@@ -100,3 +101,73 @@ p_rupiah = plot(
 
 img = SVG("/home/kreiton/.julia/dev/DispatchOps/out/rupiah_pengiriman.svg")
 draw(img, p_rupiah)
+
+#=======DIRECT COMPARISON SOLUSI TERDEKAT===========#
+
+widergap = load_object("/home/kreiton/.julia/dev/DispatchOps/out/validationbackup.jld2")
+
+trayek_pengiriman = transform(widergap,
+    :simulation => ByRow(x -> length(arcs(x.acc.executed_dispatch))) => :trayek_pengiriman
+)
+
+rupiah_pengiriman = transform(widergap,
+    :simulation => ByRow(x -> sum(rupiah_transported(x, pecahand))) => :rupiah_pengiriman
+)
+
+to_plot_for_comparison = widergap[[2, 5], :]
+
+TW = [1:3, 4:6, 7:9, 10:12]
+pengantaran_aktual_tw = [33, 98, 29, 32]
+
+jumlah_pengantaran = DataFrame(
+    HasilLabel=String[],
+    Hasil=Int[],
+    Triwulan=Int[],
+    JumlahPengantaran=Int[]
+)
+
+for tw in eachindex(pengantaran_aktual_tw)
+    append!(jumlah_pengantaran, DataFrame(HasilLabel="Aktual", Hasil=1, Triwulan=tw, JumlahPengantaran=pengantaran_aktual_tw[tw]))
+end
+
+for r in eachrow(to_plot_for_comparison), tw in eachindex(TW)
+    hasil = rownumber(r) + 1
+    hasillabel = "Model (H=$(r.H))"
+    t = tw
+    v = length(
+        filter(a -> tgt(a).per in TW[tw], arcs(r.simulation.acc.executed_dispatch) |> collect)
+    )
+    append!(jumlah_pengantaran, DataFrame(HasilLabel=hasillabel, Hasil=hasil, Triwulan=t, JumlahPengantaran=v))
+end
+
+jumlah_pengantaran |> println
+
+# BARPLOT MAKIE
+
+colors = Makie.wong_colors()
+
+fig = Figure()
+ax = CairoMakie.Axis(
+    fig[1, 1],
+    xticks=(jumlah_pengantaran.Triwulan, string.(jumlah_pengantaran.Triwulan)),
+    title="Pengantaran Tiap Triwulan",
+    subtitle="Tahun 2019",
+    ylabel="Jumlah Pengantaran",
+    xlabel="Triwulan"
+)
+
+barplot!(ax,
+    jumlah_pengantaran.Triwulan,
+    jumlah_pengantaran.JumlahPengantaran,
+    dodge=jumlah_pengantaran.Hasil,
+    bar_labels=jumlah_pengantaran.JumlahPengantaran,
+    flip_labels_at=80.0,
+    color=colors[jumlah_pengantaran.Hasil]
+)
+
+labels = unique(jumlah_pengantaran.HasilLabel)
+elements = [PolyElement(polycolor=colors[i]) for i in 1:length(labels)]
+title = "Generator"
+Legend(fig[1, 2], elements, labels, title, titlehalign=:left)
+
+save("tes_makie.svg", fig)
