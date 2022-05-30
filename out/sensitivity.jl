@@ -7,6 +7,7 @@ using AxisArrays
 using DispatchOps
 using Colors
 using Compose
+import Makie: Makie.wong_colors
 
 # read sensitivity analysis reports
 reportH1 = load_object("/home/kreiton/.julia/dev/DispatchOps/out/NewSensitivityReport-H1")
@@ -66,6 +67,8 @@ end
 
 report = report[report.col.!=:base, :]
 
+insertcols!(report, :moda, :colc => map(x -> x == :cpeti ? :var : :fix, report.col))
+
 # DATA PROCESSING DONE
 
 report_stacked = stack(report, [:Jaccard_similarity_fine, :Jaccard_similarity_coarse, :Jaccard_similarity_mild])
@@ -78,8 +81,11 @@ coord = Coord.cartesian(ymin=0.5)
 to_plot = gdf[1]
 
 p_fine = plot(to_plot,
-    xgroup=:moda, ygroup=:col, y=:value, x=:variance, color=:H, Scale.color_discrete_manual([colorant"#006E7F", colorant"#F8CB2E", colorant"#711A75"]...),
-    Geom.subplot_grid(Geom.point, Geom.line, coord)
+    xgroup=:moda, ygroup=:colc, y=:value, x=:variance, color=:H,
+    Scale.color_discrete_manual(convert(Vector{Color}, wong_colors())...),
+    Geom.subplot_grid(Geom.point, Geom.line, coord),
+    Guide.xlabel("Variansi per Moda (Ribu Rupiah)"),
+    Guide.ylabel("Fine Jaccard Similarity")
 )
 
 img = SVG("/home/kreiton/.julia/dev/DispatchOps/out/FineJaccard.svg")
@@ -89,8 +95,11 @@ draw(img, p_fine)
 to_plot = gdf[3]
 
 p_mild = plot(to_plot,
-    xgroup=:moda, ygroup=:col, y=:value, x=:variance, color=:H, Scale.color_discrete_manual([colorant"#006E7F", colorant"#F8CB2E", colorant"#711A75"]...),
-    Geom.subplot_grid(Geom.point, Geom.line, coord)
+    xgroup=:moda, ygroup=:colc, y=:value, x=:variance, color=:H,
+    Scale.color_discrete_manual(convert(Vector{Color}, wong_colors())...),
+    Geom.subplot_grid(Geom.point, Geom.line, coord),
+    Guide.xlabel("Variansi per Moda (Ribu Rupiah)"),
+    Guide.ylabel("Mild Jaccard Similarity")
 )
 
 img = SVG("/home/kreiton/.julia/dev/DispatchOps/out/MildJaccard.svg")

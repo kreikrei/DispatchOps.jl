@@ -9,6 +9,157 @@ using Colors
 using Compose
 using CairoMakie
 
+#=======DIRECT COMPARISON SOLUSI TERDEKAT===========#
+
+widergap = load_object("/home/kreiton/.julia/dev/DispatchOps/out/validationbackup.jld2")
+
+trayek_pengiriman = transform(widergap,
+    :simulation => ByRow(x -> length(arcs(x.acc.executed_dispatch))) => :trayek_pengiriman
+)
+
+rupiah_pengiriman = transform(widergap,
+    :simulation => ByRow(x -> sum(rupiah_transported(x, pecahand))) => :rupiah_pengiriman
+)
+
+to_plot_for_comparison = widergap[[2, 5], :]
+pecahand
+TW = [1:3, 4:6, 7:9, 10:12]
+pengiriman_aktual_tw = [33, 98, 29, 32]
+rupiah_terdistribusi_aktual_tw = [
+    28_600_000_000_000, 127_700_000_000_000, 9_600_000_000_000, 53_700_000_000_000
+]
+
+jumlah_pengiriman = DataFrame(
+    HasilLabel=String[],
+    Hasil=Int[],
+    Triwulan=Int[],
+    JumlahPengiriman=Int[]
+)
+
+jumlah_rupiah_terdistribusi = DataFrame(
+    HasilLabel=String[],
+    Hasil=Int[],
+    Triwulan=Int[],
+    JumlahRupiahTerdistribusi=Float64[]
+)
+
+for tw in eachindex(pengiriman_aktual_tw)
+    append!(jumlah_pengiriman,
+        DataFrame(
+            HasilLabel="Aktual",
+            Hasil=1,
+            Triwulan=tw,
+            JumlahPengiriman=pengiriman_aktual_tw[tw]
+        )
+    )
+end
+
+for tw in eachindex(rupiah_terdistribusi_aktual_tw)
+    append!(jumlah_rupiah_terdistribusi,
+        DataFrame(
+            HasilLabel="Aktual",
+            Hasil=1,
+            Triwulan=tw,
+            JumlahRupiahTerdistribusi=rupiah_terdistribusi_aktual_tw[tw]
+        )
+    )
+end
+
+for r in eachrow(to_plot_for_comparison), tw in eachindex(TW)
+    hasil = rownumber(r) + 1
+    hasillabel = "Model (H=$(r.H))"
+    t = tw
+
+    v_pengiriman = length(
+        filter(
+            a -> tgt(a).per in TW[tw],
+            collect(arcs(r.simulation.acc.executed_dispatch))
+        )
+    )
+    append!(jumlah_pengiriman,
+        DataFrame(
+            HasilLabel=hasillabel, Hasil=hasil, Triwulan=t,
+            JumlahPengiriman=v_pengiriman
+        )
+    )
+
+    v_rupiah_terdistribusi = sum(
+        r.simulation.acc.executed_dispatch[a][:flow][k] * v.konversi * v.nilai
+        for (k, v) in pecahand, a in filter(
+            a -> tgt(a).per in TW[tw], collect(arcs(r.simulation.acc.executed_dispatch))
+        )
+    )
+    append!(jumlah_rupiah_terdistribusi,
+        DataFrame(
+            HasilLabel=hasillabel, Hasil=hasil, Triwulan=t,
+            JumlahRupiahTerdistribusi=v_rupiah_terdistribusi
+        )
+    )
+end
+
+# BARPLOT MAKIE
+
+colors = Makie.wong_colors()
+
+fig1 = Figure()
+ax1 = CairoMakie.Axis(
+    fig1[1, 1],
+    xticks=(jumlah_pengiriman.Triwulan, string.(jumlah_pengiriman.Triwulan)),
+    title="Pengiriman Tiap Triwulan",
+    subtitle="Tahun 2019",
+    ylabel="Jumlah Pengiriman (Trayek)",
+    xlabel="Triwulan"
+)
+
+fig2 = Figure()
+formattriliun(x) = ["$(n/10e12)" for n in x]
+ax2 = CairoMakie.Axis(
+    fig2[1, 1],
+    xticks=(jumlah_rupiah_terdistribusi.Triwulan, string.(jumlah_rupiah_terdistribusi.Triwulan)),
+    title="Rupiah Terdistribusi Tiap Triwulan",
+    subtitle="Tahun 2019",
+    ylabel="Jumlah Rupiah Terdistribusi (Triliun Rupiah)",
+    xlabel="Triwulan",
+    ytickformat=formattriliun
+)
+
+barplot!(ax1,
+    jumlah_pengiriman.Triwulan,
+    jumlah_pengiriman.JumlahPengiriman,
+    dodge=jumlah_pengiriman.Hasil,
+    bar_labels=jumlah_pengiriman.JumlahPengiriman,
+    color=colors[jumlah_pengiriman.Hasil],
+    label_size=15,
+    label_offset=0
+)
+
+barplot!(ax2,
+    jumlah_rupiah_terdistribusi.Triwulan,
+    jumlah_rupiah_terdistribusi.JumlahRupiahTerdistribusi,
+    dodge=jumlah_rupiah_terdistribusi.Hasil,
+    bar_labels=jumlah_rupiah_terdistribusi.JumlahRupiahTerdistribusi,
+    color=colors[jumlah_rupiah_terdistribusi.Hasil],
+    label_size=15,
+    label_offset=0
+)
+
+labels1 = unique(jumlah_pengiriman.HasilLabel)
+elements1 = [PolyElement(polycolor=colors[i]) for i in 1:length(labels)]
+title1 = "Generator"
+Legend(fig1[1, 2], elements1, labels1, title1, titlehalign=:left)
+fig1
+
+labels2 = unique(jumlah_rupiah_terdistribusi.HasilLabel)
+elements2 = [PolyElement(polycolor=colors[i]) for i in 1:length(labels)]
+title2 = "Generator"
+Legend(fig2[1, 2], elements2, labels2, title2, titlehalign=:left)
+fig2
+
+save("/home/kreiton/.julia/dev/DispatchOps/out/jumlah_pengiriman.svg", fig1)
+save("/home/kreiton/.julia/dev/DispatchOps/out/jumlah_rupiah_terdistribusi.svg", fig2)
+
+#= former plotting script
+
 duration(s::Simulation) = s.duration
 rupiah_transported(s::Simulation, pecahand::Dict) = AxisArray(
     [
@@ -100,153 +251,4 @@ p_rupiah = plot(
 )
 
 img = SVG("/home/kreiton/.julia/dev/DispatchOps/out/rupiah_pengiriman.svg")
-draw(img, p_rupiah)
-
-#=======DIRECT COMPARISON SOLUSI TERDEKAT===========#
-
-widergap = load_object("/home/kreiton/.julia/dev/DispatchOps/out/validationbackup.jld2")
-
-trayek_pengiriman = transform(widergap,
-    :simulation => ByRow(x -> length(arcs(x.acc.executed_dispatch))) => :trayek_pengiriman
-)
-
-rupiah_pengiriman = transform(widergap,
-    :simulation => ByRow(x -> sum(rupiah_transported(x, pecahand))) => :rupiah_pengiriman
-)
-
-to_plot_for_comparison = widergap[[2, 5], :]
-pecahand
-TW = [1:3, 4:6, 7:9, 10:12]
-pengiriman_aktual_tw = [33, 98, 29, 32]
-rupiah_terdistribusi_aktual_tw = [
-    28_600_000_000_000, 127_700_000_000_000, 9_600_000_000_000, 53_700_000_000_000
-] ./ 10^12
-
-jumlah_pengiriman = DataFrame(
-    HasilLabel=String[],
-    Hasil=Int[],
-    Triwulan=Int[],
-    JumlahPengiriman=Int[]
-)
-
-jumlah_rupiah_terdistribusi = DataFrame(
-    HasilLabel=String[],
-    Hasil=Int[],
-    Triwulan=Int[],
-    JumlahRupiahTerdistribusi=Float64[]
-)
-
-for tw in eachindex(pengiriman_aktual_tw)
-    append!(jumlah_pengiriman,
-        DataFrame(
-            HasilLabel="Aktual",
-            Hasil=1,
-            Triwulan=tw,
-            JumlahPengiriman=pengiriman_aktual_tw[tw]
-        )
-    )
-end
-
-for tw in eachindex(rupiah_terdistribusi_aktual_tw)
-    append!(jumlah_rupiah_terdistribusi,
-        DataFrame(
-            HasilLabel="Aktual",
-            Hasil=1,
-            Triwulan=tw,
-            JumlahRupiahTerdistribusi=rupiah_terdistribusi_aktual_tw[tw]
-        )
-    )
-end
-
-for r in eachrow(to_plot_for_comparison), tw in eachindex(TW)
-    hasil = rownumber(r) + 1
-    hasillabel = "Model (H=$(r.H))"
-    t = tw
-
-    v_pengiriman = length(
-        filter(
-            a -> tgt(a).per in TW[tw],
-            collect(arcs(r.simulation.acc.executed_dispatch))
-        )
-    )
-    append!(jumlah_pengiriman,
-        DataFrame(
-            HasilLabel=hasillabel, Hasil=hasil, Triwulan=t,
-            JumlahPengiriman=v_pengiriman
-        )
-    )
-
-    v_rupiah_terdistribusi = round(
-        sum(
-            r.simulation.acc.executed_dispatch[a][:flow][k] * v.konversi * v.nilai
-            for (k, v) in pecahand, a in filter(
-                a -> tgt(a).per in TW[tw], collect(arcs(r.simulation.acc.executed_dispatch))
-            )
-        ) / 10^12, digits=1
-    )
-    append!(jumlah_rupiah_terdistribusi,
-        DataFrame(
-            HasilLabel=hasillabel, Hasil=hasil, Triwulan=t,
-            JumlahRupiahTerdistribusi=v_rupiah_terdistribusi
-        )
-    )
-end
-
-# BARPLOT MAKIE
-
-colors = Makie.wong_colors()
-
-fig1 = Figure()
-ax1 = CairoMakie.Axis(
-    fig1[1, 1],
-    xticks=(jumlah_pengiriman.Triwulan, string.(jumlah_pengiriman.Triwulan)),
-    title="Pengiriman Tiap Triwulan",
-    subtitle="Tahun 2019",
-    ylabel="Jumlah Pengiriman (Trayek)",
-    xlabel="Triwulan"
-)
-
-fig2 = Figure()
-ax2 = CairoMakie.Axis(
-    fig2[1, 1],
-    xticks=(jumlah_rupiah_terdistribusi.Triwulan, string.(jumlah_rupiah_terdistribusi.Triwulan)),
-    title="Rupiah Terdistribusi Tiap Triwulan",
-    subtitle="Tahun 2019",
-    ylabel="Jumlah Rupiah Terdistribusi (Triliun Rupiah)",
-    xlabel="Triwulan"
-)
-
-barplot!(ax1,
-    jumlah_pengiriman.Triwulan,
-    jumlah_pengiriman.JumlahPengiriman,
-    dodge=jumlah_pengiriman.Hasil,
-    bar_labels=jumlah_pengiriman.JumlahPengiriman,
-    color=colors[jumlah_pengiriman.Hasil],
-    label_size=15,
-    label_offset=0
-)
-
-barplot!(ax2,
-    jumlah_rupiah_terdistribusi.Triwulan,
-    jumlah_rupiah_terdistribusi.JumlahRupiahTerdistribusi,
-    dodge=jumlah_rupiah_terdistribusi.Hasil,
-    bar_labels=jumlah_rupiah_terdistribusi.JumlahRupiahTerdistribusi,
-    color=colors[jumlah_rupiah_terdistribusi.Hasil],
-    label_size=15,
-    label_offset=0
-)
-
-labels1 = unique(jumlah_pengiriman.HasilLabel)
-elements1 = [PolyElement(polycolor=colors[i]) for i in 1:length(labels)]
-title1 = "Generator"
-Legend(fig1[1, 2], elements1, labels1, title1, titlehalign=:left)
-fig1
-
-labels2 = unique(jumlah_rupiah_terdistribusi.HasilLabel)
-elements2 = [PolyElement(polycolor=colors[i]) for i in 1:length(labels)]
-title2 = "Generator"
-Legend(fig2[1, 2], elements2, labels2, title2, titlehalign=:left)
-fig2
-
-save("/home/kreiton/.julia/dev/DispatchOps/out/jumlah_pengiriman.svg", fig1)
-save("/home/kreiton/.julia/dev/DispatchOps/out/jumlah_rupiah_terdistribusi.svg", fig2)
+draw(img, p_rupiah) =#
