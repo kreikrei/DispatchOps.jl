@@ -9,6 +9,13 @@ using DispatchOps
 using CairoMakie
 import Makie: Makie.wong_colors
 
+peti_transported(s::Simulation) = sum(
+    sum(
+        s.acc.executed_dispatch[a][:flow][k]
+        for (k, v) in s.acc.executed_dispatch[a][:flow]
+    ) for a in arcs(s.acc.executed_dispatch)
+)
+
 suboptim = load_object("/home/kreiton/.julia/dev/DispatchOps/out/suboptim.jld2")
 approx = load_object("/home/kreiton/.julia/dev/DispatchOps/out/approx.jld2")
 optim = load_object("/home/kreiton/.julia/dev/DispatchOps/out/optim.jld2")
@@ -16,19 +23,6 @@ optim = load_object("/home/kreiton/.julia/dev/DispatchOps/out/optim.jld2")
 gapmod = vcat(suboptim, approx, optim)
 
 duration(s::Simulation) = s.duration
-peti_transported(s::Simulation, pecahand::Dict) = AxisArray(
-    [
-        s.acc.executed_dispatch[a][:flow][k]
-        for (k, v) in pecahand, a in arcs(s.acc.executed_dispatch)
-    ], pecahan=keys(pecahand), trayek=arcs(s.acc.executed_dispatch)
-)
-
-pecahan = CSV.read("data/.pecahan.csv", DataFrame)
-const pecahand = Dict(
-    pecahan.id .=> [
-        (nilai=p.nilai, konversi=p.konversi) for p in eachrow(pecahan)
-    ]
-)
 
 transform!(gapmod,
     :simulation => ByRow(x -> total_cost(x) * 1000) => :total_cost
@@ -36,12 +30,21 @@ transform!(gapmod,
 
 transform!(gapmod,
     :simulation => ByRow(x -> duration(x) / x.params.T) => :duration
+) # average solve time
+
+transform!(gapmod,
+    :simulation => ByRow(x -> peti_transported(x)) => :peti_transported
+)
+
+transform!(gapmod,
+    :simulation => ByRow(x -> total_cost(x) * 1e3 / peti_transported(x)) => :cost_per_unit_shipped
 )
 
 
-fig = Figure()
+# FIRST FIGURE
+fig1 = Figure()
 formatmiliar(x) = ["$(n/1e9)" for n in x]
-ax1 = Axis(fig[1, 1],
+ax1 = Axis(fig1[1, 1],
     xticks=(unique(gapmod.H), string.(gapmod.H |> unique)),
     ytickformat=formatmiliar,
     yminorticksvisible=true,
@@ -52,32 +55,51 @@ ax1 = Axis(fig[1, 1],
 )
 
 for gap in unique(gapmod.GAP)
-    scatterlines!(ax1, unique(gapmod.H), gapmod[gapmod.GAP.==gap, :total_cost], colorrange=wong_colors())
+    scatterlines!(ax1, unique(gapmod.H), gapmod[gapmod.GAP.==gap, :total_cost], colorrange=wong_colors(), label="$(gap*100)%")
 end
 
-fig
-ax2 = Axis(fig[2, 1],
+fig1
+formatribu(x) = ["$(n/1e3)" for n in x]
+ax2 = Axis(fig1[2, 1],
     xticks=(unique(gapmod.H), string.(gapmod.H |> unique)),
-    yscale=log10,
+    ytickformat=formatribu,
     yminorticksvisible=true,
-    yminorticks=IntervalsBetween(3),
-    title="Rerata Durasi Penyelesaian Terhadap Panjang Horizon Perencanaan (Noise=0)",
-    ylabel="Rerata Durasi Penyelesaian (dtk)",
+    yminorticks=IntervalsBetween(5),
+    title="Total Peti Terkirim Terhadap Panjang Horizon Perencanaan (Noise=0)",
+    ylabel="Total Peti Terkirim (Ribu Peti)",
     xlabel="Panjang Horizon Perencanaan (H)"
 )
 
 for gap in unique(gapmod.GAP)
-    scatterlines!(ax2, unique(gapmod.H), gapmod[gapmod.GAP.==gap, :duration], colorrange=wong_colors())
+    scatterlines!(ax2, unique(gapmod.H), gapmod[gapmod.GAP.==gap, :peti_transported], colorrange=wong_colors(), label="$(gap*100)%")
 end
 
-labels = string.(unique(gapmod.GAP) .* 100) .* "%"
-elements = [PolyElement(polycolor=wong_colors()[i]) for i in 1:length(labels)]
-title = "Opt. Gap"
-Legend(fig[1:2, 2], elements, labels, title, titlehalign=:left)
+labels1 = string.(unique(gapmod.GAP) .* 100) .* "%"
+elements1 = [PolyElement(polycolor=wong_colors()[i]) for i in 1:length(labels1)]
+title1 = "Opt. Gap"
+Legend(fig1[1:2, 2], elements1, labels1, title1, titlehalign=:left)
+fig1
 
-fig
+fig2 = Figure()
+ax3 = Axis(fig2[1, 1],
+    xticks=(unique(gapmod.H), string.(gapmod.H |> unique)),
+    ytickformat=formatribu,
+    yminorticksvisible=true,
+    yminorticks=IntervalsBetween(5),
+    title="Biaya per Peti Terkirim Terhadap Panjang Horizon Perencanaan (Noise=0)",
+    ylabel="Biaya per Peti Terkirim (Ribu Rupiah)",
+    xlabel="Panjang Horizon Perencanaan (H)"
+)
 
-save("/home/kreiton/.julia/dev/DispatchOps/out/horizonGAP.svg", fig)
+for gap in unique(gapmod.GAP)
+    scatterlines!(ax3, unique(gapmod.H), gapmod[gapmod.GAP.==gap, :cost_per_unit_shipped], colorrange=wong_colors(), label="$(gap*100)%")
+end
+
+axislegend("Opt. Gap", position=:lb)
+fig2
+
+save("/home/kreiton/.julia/dev/DispatchOps/out/horizonGAP.svg", fig1)
+save("/home/kreiton/.julia/dev/DispatchOps/out/horizonGAPcostperunit.svg", fig2)
 
 #=p1 = plot(
     gapmod,
