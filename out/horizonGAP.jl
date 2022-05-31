@@ -22,8 +22,6 @@ optim = load_object("/home/kreiton/.julia/dev/DispatchOps/out/optim.jld2")
 
 gapmod = vcat(suboptim, approx, optim)
 
-duration(s::Simulation) = s.duration
-
 transform!(gapmod,
     :simulation => ByRow(x -> total_cost(x) * 1000) => :total_cost
 )
@@ -35,27 +33,11 @@ const pecahand = Dict(
     ]
 )
 
-
-
-
 transform!(gapmod,
     :simulation => ByRow(x -> sum(abs.([r.value * pecahand[r.pecahan].konversi * pecahand[r.pecahan].nilai for r in eachrow(x.acc.demand_fulfillment)]))) => :demand_fulfilled
 )
 
 insertcols!(gapmod, :fulfillment_cost => gapmod.demand_fulfilled ./ gapmod.total_cost)
-
-transform!(gapmod,
-    :simulation => ByRow(x -> duration(x) / x.params.T) => :duration
-) # average solve time
-
-transform!(gapmod,
-    :simulation => ByRow(x -> peti_transported(x)) => :peti_transported
-)
-
-transform!(gapmod,
-    :simulation => ByRow(x -> total_cost(x) * 1e3 / peti_transported(x)) => :cost_per_unit_shipped
-)
-
 
 # FIRST FIGURE
 fig1 = Figure()
@@ -65,8 +47,9 @@ ax1 = Axis(fig1[1, 1],
     ytickformat=formatmiliar,
     yminorticksvisible=true,
     yminorticks=IntervalsBetween(5),
-    title="Biaya Total Layanan Terhadap Panjang Horizon Perencanaan (StaticNoise=0)",
-    ylabel="Total Biaya (Miliar Rupiah)",
+    title="Biaya Total Layanan Terhadap Panjang Horizon Perencanaan",
+    subtitle="(StaticNoise = 0)",
+    ylabel="Biaya Total Layanan (Miliar Rupiah)",
     xlabel="Panjang Horizon Perencanaan (H)"
 )
 
@@ -75,19 +58,20 @@ for gap in unique(gapmod.GAP)
 end
 
 fig1
-formatribu(x) = ["$(n/1e3)" for n in x]
+formattriliun(x) = ["$(n/1e12)" for n in x]
 ax2 = Axis(fig1[2, 1],
     xticks=(unique(gapmod.H), string.(gapmod.H |> unique)),
-    ytickformat=formatribu,
+    ytickformat=formattriliun,
     yminorticksvisible=true,
     yminorticks=IntervalsBetween(5),
-    title="Total Peti Terkirim Terhadap Panjang Horizon Perencanaan (StaticNoise=0)",
-    ylabel="Total Peti Terkirim (Ribu Peti)",
+    title="Pemenuhan Kebutuhan Terhadap Panjang Horizon Perencanaan",
+    subtitle="(StaticNoise=0)",
+    ylabel="Pemenuhan Kebutuhan (Triliun Rupiah)",
     xlabel="Panjang Horizon Perencanaan (H)"
 )
 
 for gap in unique(gapmod.GAP)
-    scatterlines!(ax2, unique(gapmod.H), gapmod[gapmod.GAP.==gap, :peti_transported], colorrange=wong_colors(), label="$(gap*100)%")
+    scatterlines!(ax2, unique(gapmod.H), gapmod[gapmod.GAP.==gap, :demand_fulfilled], colorrange=wong_colors(), label="$(gap*100)%")
 end
 
 labels1 = string.(unique(gapmod.GAP) .* 100) .* "%"
@@ -102,20 +86,21 @@ ax3 = Axis(fig2[1, 1],
     # ytickformat=formatribu,
     yminorticksvisible=true,
     yminorticks=IntervalsBetween(5),
-    #title="Biaya per Peti Terkirim Terhadap Panjang Horizon Perencanaan (StaticNoise=0)",
-    #ylabel="Biaya per Peti Terkirim (Ribu Rupiah)",
-    #xlabel="Panjang Horizon Perencanaan (H)"
+    title="Pemenuhan Kebutuhan per Biaya Terhadap Panjang Horizon Perencanaan",
+    subtitle="(StaticNoise=0)",
+    ylabel="Pemenuhan Kebutuhan per Biaya (Rp/Rp)",
+    xlabel="Panjang Horizon Perencanaan (H)"
 )
 
 for gap in unique(gapmod.GAP)
     scatterlines!(ax3, unique(gapmod.H), gapmod[gapmod.GAP.==gap, :fulfillment_cost], colorrange=wong_colors(), label="$(gap*100)%")
 end
 
-axislegend("Opt. Gap", position=:lb)
+axislegend("Opt. Gap", position=:lt)
 fig2
 
-save("/home/kreiton/.julia/dev/DispatchOps/out/horizonGAP.svg", fig1)
-save("/home/kreiton/.julia/dev/DispatchOps/out/horizonGAPcostperunit.svg", fig2)
+save("/home/kreiton/.julia/dev/DispatchOps/out/horizonGAPtotalcost+fulfilled.svg", fig1)
+save("/home/kreiton/.julia/dev/DispatchOps/out/horizonGAP_fulfilled_per_cost.svg", fig2)
 
 #=p1 = plot(
     gapmod,
