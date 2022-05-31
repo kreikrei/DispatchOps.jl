@@ -28,6 +28,22 @@ transform!(gapmod,
     :simulation => ByRow(x -> total_cost(x) * 1000) => :total_cost
 )
 
+pecahan = CSV.read("data/.pecahan.csv", DataFrame)
+const pecahand = Dict(
+    pecahan.id .=> [
+        (nilai=p.nilai, konversi=p.konversi) for p in eachrow(pecahan)
+    ]
+)
+
+
+
+
+transform!(gapmod,
+    :simulation => ByRow(x -> sum(abs.([r.value * pecahand[r.pecahan].konversi * pecahand[r.pecahan].nilai for r in eachrow(x.acc.demand_fulfillment)]))) => :demand_fulfilled
+)
+
+insertcols!(gapmod, :fulfillment_cost => gapmod.demand_fulfilled ./ gapmod.total_cost)
+
 transform!(gapmod,
     :simulation => ByRow(x -> duration(x) / x.params.T) => :duration
 ) # average solve time
@@ -83,16 +99,16 @@ fig1
 fig2 = Figure()
 ax3 = Axis(fig2[1, 1],
     xticks=(unique(gapmod.H), string.(gapmod.H |> unique)),
-    ytickformat=formatribu,
+    # ytickformat=formatribu,
     yminorticksvisible=true,
     yminorticks=IntervalsBetween(5),
-    title="Biaya per Peti Terkirim Terhadap Panjang Horizon Perencanaan (StaticNoise=0)",
-    ylabel="Biaya per Peti Terkirim (Ribu Rupiah)",
-    xlabel="Panjang Horizon Perencanaan (H)"
+    #title="Biaya per Peti Terkirim Terhadap Panjang Horizon Perencanaan (StaticNoise=0)",
+    #ylabel="Biaya per Peti Terkirim (Ribu Rupiah)",
+    #xlabel="Panjang Horizon Perencanaan (H)"
 )
 
 for gap in unique(gapmod.GAP)
-    scatterlines!(ax3, unique(gapmod.H), gapmod[gapmod.GAP.==gap, :cost_per_unit_shipped], colorrange=wong_colors(), label="$(gap*100)%")
+    scatterlines!(ax3, unique(gapmod.H), gapmod[gapmod.GAP.==gap, :fulfillment_cost], colorrange=wong_colors(), label="$(gap*100)%")
 end
 
 axislegend("Opt. Gap", position=:lb)
