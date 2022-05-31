@@ -65,7 +65,7 @@ ax2 = Axis(fig1[2, 1],
     ytickformat=formatribu,
     yminorticksvisible=true,
     yminorticks=IntervalsBetween(5),
-    title="Total Peti Terkirim Terhadap Panjang Horizon Perencanaan (Noise=0)",
+    title="Total Peti Terkirim Terhadap Panjang Horizon Perencanaan (StaticNoise=0)",
     ylabel="Total Peti Terkirim (Ribu Peti)",
     xlabel="Panjang Horizon Perencanaan (H)"
 )
@@ -86,7 +86,7 @@ ax3 = Axis(fig2[1, 1],
     ytickformat=formatribu,
     yminorticksvisible=true,
     yminorticks=IntervalsBetween(5),
-    title="Biaya per Peti Terkirim Terhadap Panjang Horizon Perencanaan (Noise=0)",
+    title="Biaya per Peti Terkirim Terhadap Panjang Horizon Perencanaan (StaticNoise=0)",
     ylabel="Biaya per Peti Terkirim (Ribu Rupiah)",
     xlabel="Panjang Horizon Perencanaan (H)"
 )
