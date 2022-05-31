@@ -1,6 +1,6 @@
 using CSV
 using DataFrames
-# using Gadfly
+using Gadfly
 using JLD2
 using Statistics
 using DispatchOps
@@ -22,8 +22,6 @@ transform!(
 transform!(
     exp010, :simulation => ByRow(x -> lost_sales(x)) => :lost_sales
 )
-
-using Gadfly
 
 p_noise = plot(exp010,
     x=:H, y=:total_cost, color=:noise, group=:N,
