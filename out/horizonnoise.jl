@@ -24,7 +24,7 @@ transform!(
 )
 
 p_noise = plot(exp010,
-    x=:H, y=:total_cost, color=:noise, group=:N,
+    x=:H, y=:total_cost, color=:noise,
     Geom.point, Stat.x_jitter(range=0.1), Geom.smooth,
     Scale.x_discrete, Scale.y_continuous(labels=x -> "$(x/1e9)"),
     Scale.color_discrete_manual(convert(Vector{Color}, wong_colors())...),
