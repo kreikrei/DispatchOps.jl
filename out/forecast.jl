@@ -48,7 +48,7 @@ p_noise_cost = plot(exp,
     Geom.subplot_grid(Geom.point, Stat.x_jitter(range=0.1), Geom.smooth, free_x_axis=true), Scale.y_continuous(labels=x -> "$(x/1e3)"),
     Scale.color_discrete_manual(convert(Vector{Color}, wong_colors())...),
     Guide.ylabel("Biaya per Peti Terkirim (Ribu Rupiah)"),
-    Guide.xlabel("Parameter Simpangan tiap Noise Function"),
+    Guide.xlabel("Parameter Simpangan Tiap Noise Function"),
     Guide.title("Biaya per Peti Terkirim Terhadap Parameter Simpangan")
 ) |> SVG("/home/kreiton/.julia/dev/DispatchOps/out/forecast_cost_per_unit_shipped.svg")
 

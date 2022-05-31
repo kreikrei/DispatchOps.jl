@@ -49,7 +49,7 @@ ax1 = Axis(fig1[1, 1],
     ytickformat=formatmiliar,
     yminorticksvisible=true,
     yminorticks=IntervalsBetween(5),
-    title="Biaya Total Layanan Terhadap Panjang Horizon Perencanaan (Noise=0)",
+    title="Biaya Total Layanan Terhadap Panjang Horizon Perencanaan (StaticNoise=0)",
     ylabel="Total Biaya (Miliar Rupiah)",
     xlabel="Panjang Horizon Perencanaan (H)"
 )

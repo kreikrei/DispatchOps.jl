@@ -91,7 +91,7 @@ jumlah_rupiah_terdistribusi
 
 for r in eachrow(to_plot_for_comparison), tw in eachindex(TW)
     hasil = rownumber(r) + 1
-    hasillabel = "Model (H=$(r.H))"
+    hasillabel = "Model (GAP=$(r.GAP), H=$(r.H))"
     t = tw
 
     v_pengiriman = length(
