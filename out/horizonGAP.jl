@@ -47,7 +47,6 @@ ax1 = Axis(fig[1, 1],
     yminorticksvisible=true,
     yminorticks=IntervalsBetween(5),
     title="Biaya Total Layanan Terhadap Panjang Horizon Perencanaan (Noise=0)",
-    subtitle="Beserta Rerata Durasi Penyelesaian",
     ylabel="Total Biaya (Miliar Rupiah)",
     xlabel="Panjang Horizon Perencanaan (H)"
 )
@@ -62,6 +61,7 @@ ax2 = Axis(fig[2, 1],
     yscale=log10,
     yminorticksvisible=true,
     yminorticks=IntervalsBetween(3),
+    title="Rerata Durasi Penyelesaian Terhadap Panjang Horizon Perencanaan (Noise=0)",
     ylabel="Rerata Durasi Penyelesaian (dtk)",
     xlabel="Panjang Horizon Perencanaan (H)"
 )
