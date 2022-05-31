@@ -40,18 +40,20 @@ transform!(gapmod,
 
 
 fig = Figure()
-formatmiliar(x) = ["$(n/10e9)" for n in x]
+formatmiliar(x) = ["$(n/1e9)" for n in x]
 ax1 = Axis(fig[1, 1],
     xticks=(unique(gapmod.H), string.(gapmod.H |> unique)),
     ytickformat=formatmiliar,
     yminorticksvisible=true,
     yminorticks=IntervalsBetween(5),
+    title="Biaya Total Layanan Terhadap Panjang Horizon Perencanaan (Noise=0)",
+    subtitle="Beserta Rerata Durasi Penyelesaian",
     ylabel="Total Biaya (Miliar Rupiah)",
     xlabel="Panjang Horizon Perencanaan (H)"
 )
 
 for gap in unique(gapmod.GAP)
-    scatterlines!(ax1, unique(gapmod.H), gapmod[gapmod.GAP.==gap, :total_cost], label="$(string(gap*100))%", colorrange=wong_colors())
+    scatterlines!(ax1, unique(gapmod.H), gapmod[gapmod.GAP.==gap, :total_cost], colorrange=wong_colors())
 end
 
 fig

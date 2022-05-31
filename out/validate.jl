@@ -1,13 +1,34 @@
 using CSV
 using DataFrames
-using Gadfly
+# using Gadfly
 using JLD2
 using Statistics
 using AxisArrays
 using DispatchOps
-using Colors
-using Compose
+# using Colors
+# using Compose
 using CairoMakie
+
+duration(s::Simulation) = s.duration
+rupiah_transported(s::Simulation, pecahand::Dict) = AxisArray(
+    [
+        s.acc.executed_dispatch[a][:flow][k] * v.konversi * v.nilai
+        for (k, v) in pecahand, a in arcs(s.acc.executed_dispatch)
+    ], pecahan=keys(pecahand), trayek=arcs(s.acc.executed_dispatch)
+)
+peti_transported(s::Simulation, pecahand::Dict) = AxisArray(
+    [
+        s.acc.executed_dispatch[a][:flow][k]
+        for (k, v) in pecahand, a in arcs(s.acc.executed_dispatch)
+    ], pecahan=keys(pecahand), trayek=arcs(s.acc.executed_dispatch)
+)
+
+pecahan = CSV.read("data/.pecahan.csv", DataFrame)
+const pecahand = Dict(
+    pecahan.id .=> [
+        (nilai=p.nilai, konversi=p.konversi) for p in eachrow(pecahan)
+    ]
+)
 
 #=======DIRECT COMPARISON SOLUSI TERDEKAT===========#
 
@@ -26,7 +47,7 @@ pecahand
 TW = [1:3, 4:6, 7:9, 10:12]
 pengiriman_aktual_tw = [33, 98, 29, 32]
 rupiah_terdistribusi_aktual_tw = [
-    28_600_000_000_000, 127_700_000_000_000, 9_600_000_000_000, 53_700_000_000_000
+    28_600_000_000_000.0, 127_700_000_000_000.0, 9_600_000_000_000.0, 53_700_000_000_000.0
 ]
 
 jumlah_pengiriman = DataFrame(
@@ -65,6 +86,9 @@ for tw in eachindex(rupiah_terdistribusi_aktual_tw)
     )
 end
 
+jumlah_pengiriman
+jumlah_rupiah_terdistribusi
+
 for r in eachrow(to_plot_for_comparison), tw in eachindex(TW)
     hasil = rownumber(r) + 1
     hasillabel = "Model (H=$(r.H))"
@@ -97,6 +121,9 @@ for r in eachrow(to_plot_for_comparison), tw in eachindex(TW)
     )
 end
 
+jumlah_pengiriman
+jumlah_rupiah_terdistribusi
+
 # BARPLOT MAKIE
 
 colors = Makie.wong_colors()
@@ -110,9 +137,24 @@ ax1 = CairoMakie.Axis(
     ylabel="Jumlah Pengiriman (Trayek)",
     xlabel="Triwulan"
 )
+barplot!(ax1,
+    jumlah_pengiriman.Triwulan,
+    jumlah_pengiriman.JumlahPengiriman,
+    dodge=jumlah_pengiriman.Hasil,
+    bar_labels=jumlah_pengiriman.JumlahPengiriman,
+    color=colors[jumlah_pengiriman.Hasil],
+    label_size=15,
+    label_offset=0
+)
+fig1
+labels1 = unique(jumlah_pengiriman.HasilLabel)
+elements1 = [PolyElement(polycolor=colors[i]) for i in 1:length(labels1)]
+title1 = "Generator"
+Legend(fig1[1, 2], elements1, labels1, title1, titlehalign=:left)
+fig1
 
 fig2 = Figure()
-formattriliun(x) = ["$(n/10e12)" for n in x]
+formattriliun(x) = ["$(convert(Int64,round(n/1e12)))" for n in x]
 ax2 = CairoMakie.Axis(
     fig2[1, 1],
     xticks=(jumlah_rupiah_terdistribusi.Triwulan, string.(jumlah_rupiah_terdistribusi.Triwulan)),
@@ -123,34 +165,20 @@ ax2 = CairoMakie.Axis(
     ytickformat=formattriliun
 )
 
-barplot!(ax1,
-    jumlah_pengiriman.Triwulan,
-    jumlah_pengiriman.JumlahPengiriman,
-    dodge=jumlah_pengiriman.Hasil,
-    bar_labels=jumlah_pengiriman.JumlahPengiriman,
-    color=colors[jumlah_pengiriman.Hasil],
-    label_size=15,
-    label_offset=0
-)
-
 barplot!(ax2,
     jumlah_rupiah_terdistribusi.Triwulan,
     jumlah_rupiah_terdistribusi.JumlahRupiahTerdistribusi,
     dodge=jumlah_rupiah_terdistribusi.Hasil,
-    bar_labels=jumlah_rupiah_terdistribusi.JumlahRupiahTerdistribusi,
+    bar_labels=:y,
     color=colors[jumlah_rupiah_terdistribusi.Hasil],
     label_size=15,
-    label_offset=0
+    label_offset=0,
+    label_formatter=x -> "$(round(x/1e12,digits=1))"
 )
 
-labels1 = unique(jumlah_pengiriman.HasilLabel)
-elements1 = [PolyElement(polycolor=colors[i]) for i in 1:length(labels)]
-title1 = "Generator"
-Legend(fig1[1, 2], elements1, labels1, title1, titlehalign=:left)
-fig1
-
+fig2
 labels2 = unique(jumlah_rupiah_terdistribusi.HasilLabel)
-elements2 = [PolyElement(polycolor=colors[i]) for i in 1:length(labels)]
+elements2 = [PolyElement(polycolor=colors[i]) for i in 1:length(labels2)]
 title2 = "Generator"
 Legend(fig2[1, 2], elements2, labels2, title2, titlehalign=:left)
 fig2
@@ -159,30 +187,6 @@ save("/home/kreiton/.julia/dev/DispatchOps/out/jumlah_pengiriman.svg", fig1)
 save("/home/kreiton/.julia/dev/DispatchOps/out/jumlah_rupiah_terdistribusi.svg", fig2)
 
 #= former plotting script
-
-duration(s::Simulation) = s.duration
-rupiah_transported(s::Simulation, pecahand::Dict) = AxisArray(
-    [
-        s.acc.executed_dispatch[a][:flow][k] * v.konversi * v.nilai
-        for (k, v) in pecahand, a in arcs(s.acc.executed_dispatch)
-    ], pecahan=keys(pecahand), trayek=arcs(s.acc.executed_dispatch)
-)
-peti_transported(s::Simulation, pecahand::Dict) = AxisArray(
-    [
-        s.acc.executed_dispatch[a][:flow][k]
-        for (k, v) in pecahand, a in arcs(s.acc.executed_dispatch)
-    ], pecahan=keys(pecahand), trayek=arcs(s.acc.executed_dispatch)
-)
-
-pecahan = CSV.read("data/.pecahan.csv", DataFrame)
-const pecahand = Dict(
-    pecahan.id .=> [
-        (nilai=p.nilai, konversi=p.konversi) for p in eachrow(pecahan)
-    ]
-)
-
-const pengiriman_aktual_trayek = 192
-const pengiriman_aktual_rupiah = 219_600_000_000_000
 
 validation = load_object("/home/kreiton/.julia/dev/DispatchOps/out/validation.jld2")
 
