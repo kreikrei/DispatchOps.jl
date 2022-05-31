@@ -38,7 +38,8 @@ insertcols!(tocompare, :fulfillment_cost => tocompare.demand_fulfilled ./ tocomp
 fig = Figure()
 ax1 = Axis(fig[1, 1],
     xticks=(unique(tocompare.H), string.(unique(tocompare.H))),
-    ylabel="Pemenuhan Kebutuhan per Pengeluaran (Rp/Rp)",
+    title="Produktivitas Jaringan",
+    ylabel="Pemenuhan Kebutuhan per Biaya (Rp/Rp)",
     xlabel="Panjang Periode Perencanaan (H)"
 )
 
@@ -53,4 +54,4 @@ scatterlines!(ax1,
 
 axislegend("Jaringan", position=:rb)
 current_figure()
-
+save("/home/kreiton/.julia/dev/DispatchOps/out/network_productivity_comparison.svg", fig)
