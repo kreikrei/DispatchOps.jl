@@ -30,31 +30,37 @@ const pecahand = Dict(
     ]
 )
 
-transform!(tocompare,
+#=transform!(tocompare,
     :simulation => ByRow(x -> sum(abs.([r.value * pecahand[r.pecahan].konversi * pecahand[r.pecahan].nilai for r in eachrow(x.acc.demand_fulfillment)]))) => :demand_fulfilled
 )
-insertcols!(tocompare, :fulfillment_cost => tocompare.demand_fulfilled ./ tocompare.total_cost)
+insertcols!(tocompare, :fulfillment_cost => tocompare.demand_fulfilled ./ tocompare.total_cost) =#
+
+transform!(tocompare,
+    :simulation => ByRow(x -> total_cost(x) * 1000) => :total_cost
+)
 
 fig = Figure()
 ax1 = Axis(fig[1, 1],
     xticks=(unique(tocompare.H), string.(unique(tocompare.H))),
-    title="Produktivitas Jaringan",
-    ylabel="Pemenuhan Kebutuhan per Biaya (Rp/Rp)",
-    xlabel="Panjang Periode Perencanaan (H)"
+    title="Biaya Total Layanan Tiap Jaringan",
+    ylabel="Total Biaya (Miliar Rupiah)",
+    xlabel="Panjang Periode Perencanaan (H)",
+    ytickformat=x -> ["$(n/1e9)" for n in x]
 )
 
 scatterlines!(ax1,
     unique(tocompare.H),
-    unique(tocompare[tocompare.network.=="aktual", :fulfillment_cost]), label="aktual"
+    unique(tocompare[tocompare.network.=="aktual", :total_cost]), label="aktual"
 )
 scatterlines!(ax1,
     unique(tocompare.H),
-    unique(tocompare[tocompare.network.=="usulan", :fulfillment_cost]), label="usulan"
+    unique(tocompare[tocompare.network.=="usulan", :total_cost]), label="usulan"
 )
+vlines!(ax1, 4, color=:red)
 
-axislegend("Jaringan", position=:rb)
+# axislegend("Jaringan", position=:rt)
 current_figure()
-save("/home/kreiton/.julia/dev/DispatchOps/out/network_productivity_comparison.svg", fig)
+#=save("/home/kreiton/.julia/dev/DispatchOps/out/network_productivity_comparison.svg", fig)=#
 
 to_plot = tocompare[tocompare.H.==4, :]
 usulan_df = first(to_plot[to_plot.network.=="usulan", :])
@@ -82,16 +88,17 @@ for t in 1:12, df in [usulan_df, aktual_df]
     )
 end
 
-fig = Figure()
-ax1 = Axis(fig[1, 1],
+# fig = Figure()
+ax2 = Axis(fig[2, 1],
     xticks=(unique(activities.T), string.(unique(activities.T))),
     ytickformat=x -> ["$(n/1e3)" for n in x],
     ylabel="Aktivitas Pengiriman (Ribu Peti)",
-    xlabel="Periode",
-    title="Perbandingan Aktivitas Pengiriman Jaringan Usulan dan Aktual Tiap Periode"
+    xlabel="Periode (T)",
+    title="Perbandingan Aktivitas Pengiriman Jaringan Usulan dan Aktual Tiap Periode",
+    subtitle="(H=4)"
 )
 
-barplot!(ax1,
+barplot!(ax2,
     activities.T,
     activities.aktivitas,
     dodge=activities.jaringan,
@@ -101,11 +108,11 @@ barplot!(ax1,
 labels = unique(activities.label)
 elements = [PolyElement(polycolor=wong_colors()[i]) for i in 1:length(labels)]
 title = "Jaringan"
-Legend(fig[1, 2], elements, labels, title, titlehalign=:left)
+Legend(fig[1:2, 2], elements, labels, title, titlehalign=:left)
 
 current_figure()
 
-save("/home/kreiton/.julia/dev/DispatchOps/out/network_activity_comparison.svg", fig)
+save("/home/kreiton/.julia/dev/DispatchOps/out/network_comparison.svg", fig)
 
 # NETWORK STRUCTURE
 for df in ["usulan", "aktual"]
