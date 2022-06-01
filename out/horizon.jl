@@ -27,7 +27,7 @@ transform!(gapmod,
 )
 
 pecahan = CSV.read("data/.pecahan.csv", DataFrame)
-const pecahand = Dict(
+pecahand = Dict(
     pecahan.id .=> [
         (nilai=p.nilai, konversi=p.konversi) for p in eachrow(pecahan)
     ]
@@ -50,7 +50,10 @@ ax1 = Axis(fig1[1, 1],
     title="Biaya Total Layanan Terhadap Panjang Horizon Perencanaan",
     subtitle="(StaticNoise = 0)",
     ylabel="Biaya Total Layanan (Miliar Rupiah)",
-    xlabel="Panjang Horizon Perencanaan (H)"
+    xlabel="Panjang Horizon Perencanaan (H)",
+    ylabelsize=12,
+    xlabelsize=12,
+    titlesize=12
 )
 
 for gap in unique(gapmod.GAP)
@@ -67,7 +70,10 @@ ax2 = Axis(fig1[2, 1],
     title="Pemenuhan Kebutuhan Terhadap Panjang Horizon Perencanaan",
     subtitle="(StaticNoise=0)",
     ylabel="Pemenuhan Kebutuhan (Triliun Rupiah)",
-    xlabel="Panjang Horizon Perencanaan (H)"
+    xlabel="Panjang Horizon Perencanaan (H)",
+    ylabelsize=12,
+    xlabelsize=12,
+    titlesize=12
 )
 
 for gap in unique(gapmod.GAP)
@@ -89,7 +95,10 @@ ax3 = Axis(fig2[1, 1],
     title="Pemenuhan Kebutuhan per Biaya Terhadap Panjang Horizon Perencanaan",
     subtitle="(StaticNoise=0)",
     ylabel="Pemenuhan Kebutuhan per Biaya (Rp/Rp)",
-    xlabel="Panjang Horizon Perencanaan (H)"
+    xlabel="Panjang Horizon Perencanaan (H)",
+    ylabelsize=12,
+    xlabelsize=12,
+    titlesize=12
 )
 
 for gap in unique(gapmod.GAP)

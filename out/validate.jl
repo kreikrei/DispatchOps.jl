@@ -9,22 +9,15 @@ using DispatchOps
 # using Compose
 using CairoMakie
 
-duration(s::Simulation) = s.duration
 rupiah_transported(s::Simulation, pecahand::Dict) = AxisArray(
     [
         s.acc.executed_dispatch[a][:flow][k] * v.konversi * v.nilai
         for (k, v) in pecahand, a in arcs(s.acc.executed_dispatch)
     ], pecahan=keys(pecahand), trayek=arcs(s.acc.executed_dispatch)
 )
-peti_transported(s::Simulation, pecahand::Dict) = AxisArray(
-    [
-        s.acc.executed_dispatch[a][:flow][k]
-        for (k, v) in pecahand, a in arcs(s.acc.executed_dispatch)
-    ], pecahan=keys(pecahand), trayek=arcs(s.acc.executed_dispatch)
-)
 
 pecahan = CSV.read("data/.pecahan.csv", DataFrame)
-const pecahand = Dict(
+pecahand = Dict(
     pecahan.id .=> [
         (nilai=p.nilai, konversi=p.konversi) for p in eachrow(pecahan)
     ]
@@ -43,7 +36,6 @@ rupiah_pengiriman = transform(widergap,
 )
 
 to_plot_for_comparison = widergap[[2, 5], :]
-pecahand
 TW = [1:3, 4:6, 7:9, 10:12]
 pengiriman_aktual_tw = [33, 98, 29, 32]
 rupiah_terdistribusi_aktual_tw = [
@@ -86,9 +78,6 @@ for tw in eachindex(rupiah_terdistribusi_aktual_tw)
     )
 end
 
-jumlah_pengiriman
-jumlah_rupiah_terdistribusi
-
 for r in eachrow(to_plot_for_comparison), tw in eachindex(TW)
     hasil = rownumber(r) + 1
     hasillabel = "Model (GAP=$(r.GAP), H=$(r.H))"
@@ -120,9 +109,6 @@ for r in eachrow(to_plot_for_comparison), tw in eachindex(TW)
         )
     )
 end
-
-jumlah_pengiriman
-jumlah_rupiah_terdistribusi
 
 # BARPLOT MAKIE
 
