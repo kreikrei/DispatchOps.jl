@@ -106,3 +106,37 @@ Legend(fig[1, 2], elements, labels, title, titlehalign=:left)
 current_figure()
 
 save("/home/kreiton/.julia/dev/DispatchOps/out/network_activity_comparison.svg", fig)
+
+# NETWORK STRUCTURE
+for df in ["usulan", "aktual"]
+    to_D = first(to_plot[to_plot.network.==df, :])
+    D = MetaDigraph{String}()
+
+    for a in arcs(to_D.simulation.acc.executed_dispatch)
+        new = DispatchOps.Arc(src(a).loc, tgt(a).loc, 1)
+        add_arc!(D, new)
+    end
+
+    filename = "$(df)_df"
+    open("./out/$(df)_df.dot", "w") do file
+        write(file, "digraph $(df)_df {\n")
+        write(file, "    splines=polyline\n")
+        write(file, "    overlap=scale\n")
+        write(file, "    mode=KK\n")
+
+        for r in eachrow(usulan_df.simulation.libs.khazanah)
+            y = r.y
+            x = r.x
+
+            write(file, "    $(r.id) [\n")
+            write(file, "        pos = \"$(x),$(y)\"\n")
+            write(file, "    ];\n")
+        end
+
+        for a in arcs(D)
+            write(file, "    $(src(a)) -> $(tgt(a));\n")
+        end
+
+        write(file, "}")
+    end
+end
