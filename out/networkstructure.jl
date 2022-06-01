@@ -55,3 +55,54 @@ scatterlines!(ax1,
 axislegend("Jaringan", position=:rb)
 current_figure()
 save("/home/kreiton/.julia/dev/DispatchOps/out/network_productivity_comparison.svg", fig)
+
+to_plot = tocompare[tocompare.H.==4, :]
+usulan_df = first(to_plot[to_plot.network.=="usulan", :])
+aktual_df = first(to_plot[to_plot.network.=="aktual", :])
+
+activities = DataFrame(
+    T=Int[],
+    jaringan=Int[],
+    label=String[],
+    aktivitas=Float64[]
+)
+
+for t in 1:12, df in [usulan_df, aktual_df]
+    jaringan = df == usulan_df ? 1 : 2
+    label = df == usulan_df ? "usulan" : "aktual"
+    aktivitas = sum(
+        sum(values(df.simulation.acc.executed_dispatch[a][:flow]))
+        for a in filter(
+            p -> tgt(p).per == t,
+            collect(arcs(df.simulation.acc.executed_dispatch))
+        )
+    )
+    append!(activities,
+        DataFrame(T=t, label=label, aktivitas=aktivitas, jaringan=jaringan)
+    )
+end
+
+fig = Figure()
+ax1 = Axis(fig[1, 1],
+    xticks=(unique(activities.T), string.(unique(activities.T))),
+    ytickformat=x -> ["$(n/1e3)" for n in x],
+    ylabel="Aktivitas Pengiriman (Ribu Peti)",
+    xlabel="Periode",
+    title="Perbandingan Aktivitas Pengiriman Jaringan Usulan dan Aktual Tiap Periode"
+)
+
+barplot!(ax1,
+    activities.T,
+    activities.aktivitas,
+    dodge=activities.jaringan,
+    color=wong_colors()[activities.jaringan]
+)
+
+labels = unique(activities.label)
+elements = [PolyElement(polycolor=wong_colors()[i]) for i in 1:length(labels)]
+title = "Jaringan"
+Legend(fig[1, 2], elements, labels, title, titlehalign=:left)
+
+current_figure()
+
+save("/home/kreiton/.julia/dev/DispatchOps/out/network_activity_comparison.svg", fig)
