@@ -27,10 +27,11 @@ transform!(
 p_noise_total_cost = plot(expo,
     x=:noise, y=:total_cost, xgroup=:noise_function, color=:H,
     Geom.subplot_grid(Geom.point, Geom.smooth, free_x_axis=true),
+    Scale.y_continuous(labels=x -> "$(x/1e9)"),
     Scale.color_discrete_manual(convert(Vector{Color}, wong_colors())...),
-    Guide.ylabel("Pemenuhan Kebutuhan per Biaya (Rp/Rp)"),
+    Guide.ylabel("Total Biaya (Miliar Rupiah)"),
     Guide.xlabel("Parameter Simpangan Tiap Noise Function"),
-    Guide.title("Pemenuhan Kebutuhan per Biaya Terhadap Parameter Simpangan")
+    Guide.title("Biaya Total Layanan Terhadap Parameter Simpangan")
 ) |> SVG("/home/kreiton/.julia/dev/DispatchOps/out/forecast_fulfillment_per_cost.svg")
 
 p_noise_lost = plot(expo,
