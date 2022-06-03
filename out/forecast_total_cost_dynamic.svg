@@ -1,0 +1,998 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:gadfly="http://www.gadflyjl.org/ns"
+     version="1.2"
+     width="141.42mm" height="100mm" viewBox="0 0 141.42 100"
+     stroke="none"
+     fill="#000000"
+     stroke-width="0.3"
+     font-size="3.88"
+>
+<defs>
+  <marker id="arrow" markerWidth="15" markerHeight="7" refX="5" refY="3.5" orient="auto" markerUnits="strokeWidth">
+    <path d="M0,0 L15,3.5 L0,7 z" stroke="context-stroke" fill="context-stroke"/>
+  </marker>
+</defs>
+<g class="plotroot yscalable" id="img-ca260ef0-1">
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="img-ca260ef0-2">
+    <g transform="translate(74.69,88.39)">
+      <g class="primitive">
+        <text text-anchor="middle" dy="0.6em">noise</text>
+      </g>
+    </g>
+  </g>
+  <g class="guide xlabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="img-ca260ef0-3">
+    <g transform="translate(33.9,81.72)">
+      <g class="primitive">
+        <text text-anchor="middle" dy="0.6em">0.05</text>
+      </g>
+    </g>
+    <g transform="translate(61.09,81.72)">
+      <g class="primitive">
+        <text text-anchor="middle" dy="0.6em">0.1</text>
+      </g>
+    </g>
+    <g transform="translate(88.28,81.72)">
+      <g class="primitive">
+        <text text-anchor="middle" dy="0.6em">0.15</text>
+      </g>
+    </g>
+    <g transform="translate(115.47,81.72)">
+      <g class="primitive">
+        <text text-anchor="middle" dy="0.6em">0.2</text>
+      </g>
+    </g>
+  </g>
+  <g clip-path="url(#img-ca260ef0-4)">
+    <g class="guide yfixed" stroke-width="0.3" stroke="#00BFFF" id="img-ca260ef0-5">
+      <g transform="translate(72.42,79.72)">
+        <path fill="none" d="M0,-0.6 L0,0.6 " class="primitive"/>
+      </g>
+      <g transform="translate(45.23,79.72)">
+        <path fill="none" d="M0,-0.6 L0,0.6 " class="primitive"/>
+      </g>
+      <g transform="translate(81.48,79.72)">
+        <path fill="none" d="M0,-0.6 L0,0.6 " class="primitive"/>
+      </g>
+      <g transform="translate(113.21,79.72)">
+        <path fill="none" d="M0,-0.6 L0,0.6 " class="primitive"/>
+      </g>
+      <g transform="translate(67.89,79.72)">
+        <path fill="none" d="M0,-0.6 L0,0.6 " class="primitive"/>
+      </g>
+      <g transform="translate(40.7,79.72)">
+        <path fill="none" d="M0,-0.6 L0,0.6 " class="primitive"/>
+      </g>
+      <g transform="translate(63.36,79.72)">
+        <path fill="none" d="M0,-0.6 L0,0.6 " class="primitive"/>
+      </g>
+      <g transform="translate(36.17,79.72)">
+        <path fill="none" d="M0,-0.6 L0,0.6 " class="primitive"/>
+      </g>
+      <g transform="translate(76.95,79.72)">
+        <path fill="none" d="M0,-0.6 L0,0.6 " class="primitive"/>
+      </g>
+      <g transform="translate(126.8,79.72)">
+        <path fill="none" d="M0,-0.6 L0,0.6 " class="primitive"/>
+      </g>
+      <g transform="translate(54.29,79.72)">
+        <path fill="none" d="M0,-0.6 L0,0.6 " class="primitive"/>
+      </g>
+      <g transform="translate(27.1,79.72)">
+        <path fill="none" d="M0,-0.6 L0,0.6 " class="primitive"/>
+      </g>
+      <g transform="translate(122.27,79.72)">
+        <path fill="none" d="M0,-0.6 L0,0.6 " class="primitive"/>
+      </g>
+      <g transform="translate(117.74,79.72)">
+        <path fill="none" d="M0,-0.6 L0,0.6 " class="primitive"/>
+      </g>
+      <g transform="translate(49.76,79.72)">
+        <path fill="none" d="M0,-0.6 L0,0.6 " class="primitive"/>
+      </g>
+      <g transform="translate(22.57,79.72)">
+        <path fill="none" d="M0,-0.6 L0,0.6 " class="primitive"/>
+      </g>
+      <g transform="translate(86.02,79.72)">
+        <path fill="none" d="M0,-0.6 L0,0.6 " class="primitive"/>
+      </g>
+      <g transform="translate(108.67,79.72)">
+        <path fill="none" d="M0,-0.6 L0,0.6 " class="primitive"/>
+      </g>
+      <g transform="translate(99.61,79.72)">
+        <path fill="none" d="M0,-0.6 L0,0.6 " class="primitive"/>
+      </g>
+      <g transform="translate(104.14,79.72)">
+        <path fill="none" d="M0,-0.6 L0,0.6 " class="primitive"/>
+      </g>
+      <g transform="translate(95.08,79.72)">
+        <path fill="none" d="M0,-0.6 L0,0.6 " class="primitive"/>
+      </g>
+      <g transform="translate(58.83,79.72)">
+        <path fill="none" d="M0,-0.6 L0,0.6 " class="primitive"/>
+      </g>
+      <g transform="translate(90.55,79.72)">
+        <path fill="none" d="M0,-0.6 L0,0.6 " class="primitive"/>
+      </g>
+      <g transform="translate(31.63,79.72)">
+        <path fill="none" d="M0,-0.6 L0,0.6 " class="primitive"/>
+      </g>
+    </g>
+  </g>
+  <g class="guide colorkey" id="img-ca260ef0-6">
+    <g fill="#4C404B" font-size="2.82" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" id="img-ca260ef0-7">
+      <g transform="translate(134.88,34.6)" id="img-ca260ef0-8" class="color_1">
+        <g class="primitive">
+          <text dy="0.35em">1</text>
+        </g>
+      </g>
+      <g transform="translate(134.88,38.23)" id="img-ca260ef0-9" class="color_2">
+        <g class="primitive">
+          <text dy="0.35em">2</text>
+        </g>
+      </g>
+      <g transform="translate(134.88,41.86)" id="img-ca260ef0-10" class="color_3">
+        <g class="primitive">
+          <text dy="0.35em">3</text>
+        </g>
+      </g>
+      <g transform="translate(134.88,45.48)" id="img-ca260ef0-11" class="color_4">
+        <g class="primitive">
+          <text dy="0.35em">4</text>
+        </g>
+      </g>
+      <g transform="translate(134.88,49.11)" id="img-ca260ef0-12" class="color_5">
+        <g class="primitive">
+          <text dy="0.35em">5</text>
+        </g>
+      </g>
+      <g transform="translate(134.88,52.74)" id="img-ca260ef0-13" class="color_6">
+        <g class="primitive">
+          <text dy="0.35em">6</text>
+        </g>
+      </g>
+    </g>
+    <g fill-opacity="1" id="img-ca260ef0-14">
+      <g transform="translate(132.97,34.6)" id="img-ca260ef0-15" fill="#0072B2" stroke="#FFFFFF" class="color_1">
+        <path d="M-0.91,-0.91 L0.91,-0.91 0.91,0.91 -0.91,0.91  z" class="primitive"/>
+      </g>
+      <g transform="translate(132.97,38.23)" id="img-ca260ef0-16" fill="#E69F00" stroke="#FFFFFF" class="color_2">
+        <path d="M-0.91,-0.91 L0.91,-0.91 0.91,0.91 -0.91,0.91  z" class="primitive"/>
+      </g>
+      <g transform="translate(132.97,41.86)" id="img-ca260ef0-17" fill="#009E73" stroke="#FFFFFF" class="color_3">
+        <path d="M-0.91,-0.91 L0.91,-0.91 0.91,0.91 -0.91,0.91  z" class="primitive"/>
+      </g>
+      <g transform="translate(132.97,45.48)" id="img-ca260ef0-18" fill="#CC79A7" stroke="#FFFFFF" class="color_4">
+        <path d="M-0.91,-0.91 L0.91,-0.91 0.91,0.91 -0.91,0.91  z" class="primitive"/>
+      </g>
+      <g transform="translate(132.97,49.11)" id="img-ca260ef0-19" fill="#56B4E9" stroke="#FFFFFF" class="color_5">
+        <path d="M-0.91,-0.91 L0.91,-0.91 0.91,0.91 -0.91,0.91  z" class="primitive"/>
+      </g>
+      <g transform="translate(132.97,52.74)" id="img-ca260ef0-20" fill="#D55E00" stroke="#FFFFFF" class="color_6">
+        <path d="M-0.91,-0.91 L0.91,-0.91 0.91,0.91 -0.91,0.91  z" class="primitive"/>
+      </g>
+    </g>
+    <g fill="#362A35" font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" stroke="#000000" stroke-opacity="0.000" id="img-ca260ef0-21">
+      <g transform="translate(132.07,30.78)" id="img-ca260ef0-22">
+        <g class="primitive">
+          <text dy="-0em">H</text>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g clip-path="url(#img-ca260ef0-23)">
+    <g class="guide xfixed" stroke-width="0.3" stroke="#00BFFF" id="img-ca260ef0-24">
+      <g transform="translate(130.07,35.76)" id="img-ca260ef0-25">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,38.96)" id="img-ca260ef0-26">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,46.72)" id="img-ca260ef0-27">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,66.63)" id="img-ca260ef0-28">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,73.51)" id="img-ca260ef0-29">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,70.85)" id="img-ca260ef0-30">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,33.63)" id="img-ca260ef0-31">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,36.04)" id="img-ca260ef0-32">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,47.05)" id="img-ca260ef0-33">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,56.78)" id="img-ca260ef0-34">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,60.83)" id="img-ca260ef0-35">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,71.3)" id="img-ca260ef0-36">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,35.13)" id="img-ca260ef0-37">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,34.77)" id="img-ca260ef0-38">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,43.27)" id="img-ca260ef0-39">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,57.78)" id="img-ca260ef0-40">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,67.89)" id="img-ca260ef0-41">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,66.9)" id="img-ca260ef0-42">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,35.36)" id="img-ca260ef0-43">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,40.51)" id="img-ca260ef0-44">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,50.23)" id="img-ca260ef0-45">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,67.41)" id="img-ca260ef0-46">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,65.88)" id="img-ca260ef0-47">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,64.72)" id="img-ca260ef0-48">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,32.37)" id="img-ca260ef0-49">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,34.95)" id="img-ca260ef0-50">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,42.64)" id="img-ca260ef0-51">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,61.06)" id="img-ca260ef0-52">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,67.53)" id="img-ca260ef0-53">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,68.52)" id="img-ca260ef0-54">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,35.57)" id="img-ca260ef0-55">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,37.73)" id="img-ca260ef0-56">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,42.43)" id="img-ca260ef0-57">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,59.09)" id="img-ca260ef0-58">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,72.05)" id="img-ca260ef0-59">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,68.83)" id="img-ca260ef0-60">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,38.67)" id="img-ca260ef0-61">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,41.57)" id="img-ca260ef0-62">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,44.15)" id="img-ca260ef0-63">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,62.24)" id="img-ca260ef0-64">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,66.31)" id="img-ca260ef0-65">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,62.79)" id="img-ca260ef0-66">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,32.92)" id="img-ca260ef0-67">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,35.87)" id="img-ca260ef0-68">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,46.48)" id="img-ca260ef0-69">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,56.89)" id="img-ca260ef0-70">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,70.12)" id="img-ca260ef0-71">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,65.86)" id="img-ca260ef0-72">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,32.01)" id="img-ca260ef0-73">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,41.6)" id="img-ca260ef0-74">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,46.27)" id="img-ca260ef0-75">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,57.54)" id="img-ca260ef0-76">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,72.16)" id="img-ca260ef0-77">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,71.74)" id="img-ca260ef0-78">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,34.22)" id="img-ca260ef0-79">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,38.34)" id="img-ca260ef0-80">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,48.35)" id="img-ca260ef0-81">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,62.35)" id="img-ca260ef0-82">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,68.59)" id="img-ca260ef0-83">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,64.69)" id="img-ca260ef0-84">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,30.2)" id="img-ca260ef0-85">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,41.35)" id="img-ca260ef0-86">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,40.28)" id="img-ca260ef0-87">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,61.7)" id="img-ca260ef0-88">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,63.46)" id="img-ca260ef0-89">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,65.11)" id="img-ca260ef0-90">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,35.31)" id="img-ca260ef0-91">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,36.17)" id="img-ca260ef0-92">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,44.16)" id="img-ca260ef0-93">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,58.14)" id="img-ca260ef0-94">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,75.27)" id="img-ca260ef0-95">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,71.63)" id="img-ca260ef0-96">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,34.08)" id="img-ca260ef0-97">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,35.45)" id="img-ca260ef0-98">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,46.1)" id="img-ca260ef0-99">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,52.47)" id="img-ca260ef0-100">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,60.94)" id="img-ca260ef0-101">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,65.37)" id="img-ca260ef0-102">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,32.32)" id="img-ca260ef0-103">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,34.4)" id="img-ca260ef0-104">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,42.59)" id="img-ca260ef0-105">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,54.62)" id="img-ca260ef0-106">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,60.41)" id="img-ca260ef0-107">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,61.67)" id="img-ca260ef0-108">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,36.44)" id="img-ca260ef0-109">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,35.65)" id="img-ca260ef0-110">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,48.47)" id="img-ca260ef0-111">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,50.97)" id="img-ca260ef0-112">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,64.7)" id="img-ca260ef0-113">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,71.74)" id="img-ca260ef0-114">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,33.29)" id="img-ca260ef0-115">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,30.33)" id="img-ca260ef0-116">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,42.82)" id="img-ca260ef0-117">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,51.91)" id="img-ca260ef0-118">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,58.59)" id="img-ca260ef0-119">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+      <g transform="translate(130.07,75.75)" id="img-ca260ef0-120">
+        <path fill="none" d="M-0.6,0 L0.6,0 " class="primitive"/>
+      </g>
+    </g>
+  </g>
+  <g clip-path="url(#img-ca260ef0-121)">
+    <g id="img-ca260ef0-122">
+      <g pointer-events="visible" stroke-width="0.3" fill="#000000" fill-opacity="0.000" stroke="#000000" stroke-opacity="0.000" class="guide background" id="img-ca260ef0-123">
+        <g transform="translate(74.69,41.86)" id="img-ca260ef0-124">
+          <path d="M-54.38,-36.86 L54.38,-36.86 54.38,36.86 -54.38,36.86  z" class="primitive"/>
+        </g>
+      </g>
+      <g class="guide ygridlines xfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="img-ca260ef0-125">
+        <g transform="translate(74.69,76.72)" id="img-ca260ef0-126">
+          <path fill="none" d="M-54.38,0 L54.38,0 " class="primitive"/>
+        </g>
+        <g transform="translate(74.69,56.21)" id="img-ca260ef0-127">
+          <path fill="none" d="M-54.38,0 L54.38,0 " class="primitive"/>
+        </g>
+        <g transform="translate(74.69,35.71)" id="img-ca260ef0-128">
+          <path fill="none" d="M-54.38,0 L54.38,0 " class="primitive"/>
+        </g>
+        <g transform="translate(74.69,15.2)" id="img-ca260ef0-129">
+          <path fill="none" d="M-54.38,0 L54.38,0 " class="primitive"/>
+        </g>
+      </g>
+      <g class="guide xgridlines yfixed" stroke-dasharray="0.5,0.5" stroke-width="0.2" stroke="#D0D0E0" id="img-ca260ef0-130">
+        <g transform="translate(47.5,41.86)" id="img-ca260ef0-131">
+          <path fill="none" d="M0,-36.86 L0,36.86 " class="primitive"/>
+        </g>
+        <g transform="translate(74.69,41.86)" id="img-ca260ef0-132">
+          <path fill="none" d="M0,-36.86 L0,36.86 " class="primitive"/>
+        </g>
+        <g transform="translate(101.88,41.86)" id="img-ca260ef0-133">
+          <path fill="none" d="M0,-36.86 L0,36.86 " class="primitive"/>
+        </g>
+      </g>
+      <g class="plotpanel" id="img-ca260ef0-134">
+        <metadata>
+          <boundingbox value="20.304999999999993mm 5.0mm 108.76302290397618mm 73.715mm"/>
+          <unitbox value="0.5 4.248769992110737e10 4.0 -1.797539984221473e10"/>
+        </metadata>
+        <g class="geometry" stroke-width="0.3" id="img-ca260ef0-135">
+          <g transform="translate(72.42,66.85)" id="img-ca260ef0-136" fill="#D55E00" stroke="#D55E00">
+            <path d="M-1.77,-1.75 L1.77,-1.75 1.77,1.75 -1.77,1.75  z" class="primitive"/>
+          </g>
+          <g transform="translate(45.23,68.66)" id="img-ca260ef0-137" fill="#D55E00" stroke="#D55E00">
+            <path d="M-1.77,-2.3 L1.77,-2.3 1.77,2.3 -1.77,2.3  z" class="primitive"/>
+          </g>
+          <g transform="translate(81.48,39.61)" id="img-ca260ef0-138" fill="#E69F00" stroke="#E69F00">
+            <path d="M-1.77,-1.81 L1.77,-1.81 1.77,1.81 -1.77,1.81  z" class="primitive"/>
+          </g>
+          <g transform="translate(113.21,44.73)" id="img-ca260ef0-139" fill="#009E73" stroke="#009E73">
+            <path d="M-1.77,-1.96 L1.77,-1.96 1.77,1.96 -1.77,1.96  z" class="primitive"/>
+          </g>
+          <g transform="translate(67.89,68.91)" id="img-ca260ef0-140" fill="#56B4E9" stroke="#56B4E9">
+            <path d="M-1.77,-1.69 L1.77,-1.69 1.77,1.69 -1.77,1.69  z" class="primitive"/>
+          </g>
+          <g transform="translate(40.7,66.96)" id="img-ca260ef0-141" fill="#56B4E9" stroke="#56B4E9">
+            <path d="M-1.77,-2.34 L1.77,-2.34 1.77,2.34 -1.77,2.34  z" class="primitive"/>
+          </g>
+          <g transform="translate(63.36,59.95)" id="img-ca260ef0-142" fill="#CC79A7" stroke="#CC79A7">
+            <path d="M-1.77,-1.4 L1.77,-1.4 1.77,1.4 -1.77,1.4  z" class="primitive"/>
+          </g>
+          <g transform="translate(36.17,62.18)" id="img-ca260ef0-143" fill="#CC79A7" stroke="#CC79A7">
+            <path d="M-1.77,-4.65 L1.77,-4.65 1.77,4.65 -1.77,4.65  z" class="primitive"/>
+          </g>
+          <g transform="translate(76.95,33.03)" id="img-ca260ef0-144" fill="#0072B2" stroke="#0072B2">
+            <path d="M-1.77,-1.47 L1.77,-1.47 1.77,1.47 -1.77,1.47  z" class="primitive"/>
+          </g>
+          <g transform="translate(126.8,68.59)" id="img-ca260ef0-145" fill="#D55E00" stroke="#D55E00">
+            <path d="M-1.77,-4.15 L1.77,-4.15 1.77,4.15 -1.77,4.15  z" class="primitive"/>
+          </g>
+          <g transform="translate(54.29,37.16)" id="img-ca260ef0-146" fill="#E69F00" stroke="#E69F00">
+            <path d="M-1.77,-1.53 L1.77,-1.53 1.77,1.53 -1.77,1.53  z" class="primitive"/>
+          </g>
+          <g transform="translate(27.1,37.54)" id="img-ca260ef0-147" fill="#E69F00" stroke="#E69F00">
+            <path d="M-1.77,-1.81 L1.77,-1.81 1.77,1.81 -1.77,1.81  z" class="primitive"/>
+          </g>
+          <g transform="translate(122.27,60.92)" id="img-ca260ef0-148" fill="#56B4E9" stroke="#56B4E9">
+            <path d="M-1.77,-0.96 L1.77,-0.96 1.77,0.96 -1.77,0.96  z" class="primitive"/>
+          </g>
+          <g transform="translate(117.74,52.34)" id="img-ca260ef0-149" fill="#CC79A7" stroke="#CC79A7">
+            <path d="M-1.77,-0.67 L1.77,-0.67 1.77,0.67 -1.77,0.67  z" class="primitive"/>
+          </g>
+          <g transform="translate(49.76,34.56)" id="img-ca260ef0-150" fill="#0072B2" stroke="#0072B2">
+            <path d="M-1.77,-1.78 L1.77,-1.78 1.77,1.78 -1.77,1.78  z" class="primitive"/>
+          </g>
+          <g transform="translate(22.57,35.11)" id="img-ca260ef0-151" fill="#0072B2" stroke="#0072B2">
+            <path d="M-1.77,-0.35 L1.77,-0.35 1.77,0.35 -1.77,0.35  z" class="primitive"/>
+          </g>
+          <g transform="translate(86.02,44.99)" id="img-ca260ef0-152" fill="#009E73" stroke="#009E73">
+            <path d="M-1.77,-1.8 L1.77,-1.8 1.77,1.8 -1.77,1.8  z" class="primitive"/>
+          </g>
+          <g transform="translate(108.67,34.44)" id="img-ca260ef0-153" fill="#E69F00" stroke="#E69F00">
+            <path d="M-1.77,-1.06 L1.77,-1.06 1.77,1.06 -1.77,1.06  z" class="primitive"/>
+          </g>
+          <g transform="translate(99.61,68.33)" id="img-ca260ef0-154" fill="#D55E00" stroke="#D55E00">
+            <path d="M-1.77,-3.33 L1.77,-3.33 1.77,3.33 -1.77,3.33  z" class="primitive"/>
+          </g>
+          <g transform="translate(104.14,33.86)" id="img-ca260ef0-155" fill="#0072B2" stroke="#0072B2">
+            <path d="M-1.77,-0.81 L1.77,-0.81 1.77,0.81 -1.77,0.81  z" class="primitive"/>
+          </g>
+          <g transform="translate(95.08,70.12)" id="img-ca260ef0-156" fill="#56B4E9" stroke="#56B4E9">
+            <path d="M-1.77,-2.81 L1.77,-2.81 1.77,2.81 -1.77,2.81  z" class="primitive"/>
+          </g>
+          <g transform="translate(58.83,43.66)" id="img-ca260ef0-157" fill="#009E73" stroke="#009E73">
+            <path d="M-1.77,-1.07 L1.77,-1.07 1.77,1.07 -1.77,1.07  z" class="primitive"/>
+          </g>
+          <g transform="translate(90.55,59.93)" id="img-ca260ef0-158" fill="#CC79A7" stroke="#CC79A7">
+            <path d="M-1.77,-1.94 L1.77,-1.94 1.77,1.94 -1.77,1.94  z" class="primitive"/>
+          </g>
+          <g transform="translate(31.63,46.85)" id="img-ca260ef0-159" fill="#009E73" stroke="#009E73">
+            <path d="M-1.77,-1 L1.77,-1 1.77,1 -1.77,1  z" class="primitive"/>
+          </g>
+          <g fill="#0072B2" stroke="#FFFFFF" class="marker" id="img-ca260ef0-160">
+            <g transform="translate(22.57,33.63)" id="img-ca260ef0-161">
+              <circle cx="0" cy="0" r="0.9" class="primitive"/>
+            </g>
+          </g>
+          <g transform="translate(72.42,62.79)" id="img-ca260ef0-162" stroke="#D55E00">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(45.23,64.72)" id="img-ca260ef0-163" stroke="#D55E00">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(81.48,36.17)" id="img-ca260ef0-164" stroke="#E69F00">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(113.21,42.59)" id="img-ca260ef0-165" stroke="#009E73">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(67.89,66.31)" id="img-ca260ef0-166" stroke="#56B4E9">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(40.7,60.83)" id="img-ca260ef0-167" stroke="#56B4E9">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(63.36,56.89)" id="img-ca260ef0-168" stroke="#CC79A7">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(36.17,56.78)" id="img-ca260ef0-169" stroke="#CC79A7">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(76.95,30.2)" id="img-ca260ef0-170" stroke="#0072B2">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(126.8,61.67)" id="img-ca260ef0-171" stroke="#D55E00">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(54.29,34.95)" id="img-ca260ef0-172" stroke="#E69F00">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(27.1,34.77)" id="img-ca260ef0-173" stroke="#E69F00">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(122.27,58.59)" id="img-ca260ef0-174" stroke="#56B4E9">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(117.74,50.97)" id="img-ca260ef0-175" stroke="#CC79A7">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(49.76,32.37)" id="img-ca260ef0-176" stroke="#0072B2">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(22.57,35.13)" id="img-ca260ef0-177" stroke="#0072B2">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(86.02,40.28)" id="img-ca260ef0-178" stroke="#009E73">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(108.67,30.33)" id="img-ca260ef0-179" stroke="#E69F00">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(99.61,64.69)" id="img-ca260ef0-180" stroke="#D55E00">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(104.14,32.32)" id="img-ca260ef0-181" stroke="#0072B2">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(95.08,63.46)" id="img-ca260ef0-182" stroke="#56B4E9">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(58.83,42.43)" id="img-ca260ef0-183" stroke="#009E73">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(90.55,57.54)" id="img-ca260ef0-184" stroke="#CC79A7">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(31.63,43.27)" id="img-ca260ef0-185" stroke="#009E73">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(72.42,68.83)" id="img-ca260ef0-186" stroke="#D55E00">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(45.23,71.3)" id="img-ca260ef0-187" stroke="#D55E00">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(81.48,41.6)" id="img-ca260ef0-188" stroke="#E69F00">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(113.21,48.47)" id="img-ca260ef0-189" stroke="#009E73">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(67.89,72.05)" id="img-ca260ef0-190" stroke="#56B4E9">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(40.7,73.51)" id="img-ca260ef0-191" stroke="#56B4E9">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(63.36,62.24)" id="img-ca260ef0-192" stroke="#CC79A7">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(36.17,67.41)" id="img-ca260ef0-193" stroke="#CC79A7">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(76.95,35.31)" id="img-ca260ef0-194" stroke="#0072B2">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(126.8,75.75)" id="img-ca260ef0-195" stroke="#D55E00">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(54.29,41.57)" id="img-ca260ef0-196" stroke="#E69F00">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(27.1,40.51)" id="img-ca260ef0-197" stroke="#E69F00">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(122.27,64.7)" id="img-ca260ef0-198" stroke="#56B4E9">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(117.74,54.62)" id="img-ca260ef0-199" stroke="#CC79A7">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(49.76,38.67)" id="img-ca260ef0-200" stroke="#0072B2">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(22.57,35.76)" id="img-ca260ef0-201" stroke="#0072B2">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(86.02,48.35)" id="img-ca260ef0-202" stroke="#009E73">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(108.67,35.65)" id="img-ca260ef0-203" stroke="#E69F00">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(99.61,71.74)" id="img-ca260ef0-204" stroke="#D55E00">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(104.14,36.44)" id="img-ca260ef0-205" stroke="#0072B2">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(95.08,75.27)" id="img-ca260ef0-206" stroke="#56B4E9">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(58.83,46.48)" id="img-ca260ef0-207" stroke="#009E73">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(90.55,62.35)" id="img-ca260ef0-208" stroke="#CC79A7">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(31.63,50.23)" id="img-ca260ef0-209" stroke="#009E73">
+            <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+          </g>
+          <g transform="translate(72.42,63.94)" id="img-ca260ef0-210" stroke="#D55E00">
+            <path fill="none" d="M0,1.15 L0,-1.15 " class="primitive"/>
+          </g>
+          <g transform="translate(45.23,65.54)" id="img-ca260ef0-211" stroke="#D55E00">
+            <path fill="none" d="M0,0.82 L0,-0.82 " class="primitive"/>
+          </g>
+          <g transform="translate(81.48,36.99)" id="img-ca260ef0-212" stroke="#E69F00">
+            <path fill="none" d="M0,0.81 L0,-0.81 " class="primitive"/>
+          </g>
+          <g transform="translate(113.21,42.68)" id="img-ca260ef0-213" stroke="#009E73">
+            <path fill="none" d="M0,0.09 L0,-0.09 " class="primitive"/>
+          </g>
+          <g transform="translate(67.89,66.77)" id="img-ca260ef0-214" stroke="#56B4E9">
+            <path fill="none" d="M0,0.46 L0,-0.46 " class="primitive"/>
+          </g>
+          <g transform="translate(40.7,62.72)" id="img-ca260ef0-215" stroke="#56B4E9">
+            <path fill="none" d="M0,1.89 L0,-1.89 " class="primitive"/>
+          </g>
+          <g transform="translate(63.36,57.71)" id="img-ca260ef0-216" stroke="#CC79A7">
+            <path fill="none" d="M0,0.83 L0,-0.83 " class="primitive"/>
+          </g>
+          <g transform="translate(36.17,57.16)" id="img-ca260ef0-217" stroke="#CC79A7">
+            <path fill="none" d="M0,0.38 L0,-0.38 " class="primitive"/>
+          </g>
+          <g transform="translate(76.95,30.88)" id="img-ca260ef0-218" stroke="#0072B2">
+            <path fill="none" d="M0,0.68 L0,-0.68 " class="primitive"/>
+          </g>
+          <g transform="translate(126.8,63.05)" id="img-ca260ef0-219" stroke="#D55E00">
+            <path fill="none" d="M0,1.39 L0,-1.39 " class="primitive"/>
+          </g>
+          <g transform="translate(54.29,35.29)" id="img-ca260ef0-220" stroke="#E69F00">
+            <path fill="none" d="M0,0.35 L0,-0.35 " class="primitive"/>
+          </g>
+          <g transform="translate(27.1,35.25)" id="img-ca260ef0-221" stroke="#E69F00">
+            <path fill="none" d="M0,0.48 L0,-0.48 " class="primitive"/>
+          </g>
+          <g transform="translate(122.27,59.27)" id="img-ca260ef0-222" stroke="#56B4E9">
+            <path fill="none" d="M0,0.68 L0,-0.68 " class="primitive"/>
+          </g>
+          <g transform="translate(117.74,51.32)" id="img-ca260ef0-223" stroke="#CC79A7">
+            <path fill="none" d="M0,0.35 L0,-0.35 " class="primitive"/>
+          </g>
+          <g transform="translate(49.76,32.58)" id="img-ca260ef0-224" stroke="#0072B2">
+            <path fill="none" d="M0,0.2 L0,-0.2 " class="primitive"/>
+          </g>
+          <g transform="translate(22.57,34.94)" id="img-ca260ef0-225" stroke="#0072B2">
+            <path fill="none" d="M0,-0.19 L0,0.19 " class="primitive"/>
+          </g>
+          <g transform="translate(86.02,41.74)" id="img-ca260ef0-226" stroke="#009E73">
+            <path fill="none" d="M0,1.45 L0,-1.45 " class="primitive"/>
+          </g>
+          <g transform="translate(108.67,31.86)" id="img-ca260ef0-227" stroke="#E69F00">
+            <path fill="none" d="M0,1.52 L0,-1.52 " class="primitive"/>
+          </g>
+          <g transform="translate(99.61,64.84)" id="img-ca260ef0-228" stroke="#D55E00">
+            <path fill="none" d="M0,0.16 L0,-0.16 " class="primitive"/>
+          </g>
+          <g transform="translate(104.14,32.68)" id="img-ca260ef0-229" stroke="#0072B2">
+            <path fill="none" d="M0,0.37 L0,-0.37 " class="primitive"/>
+          </g>
+          <g transform="translate(95.08,65.39)" id="img-ca260ef0-230" stroke="#56B4E9">
+            <path fill="none" d="M0,1.92 L0,-1.92 " class="primitive"/>
+          </g>
+          <g transform="translate(58.83,42.51)" id="img-ca260ef0-231" stroke="#009E73">
+            <path fill="none" d="M0,0.08 L0,-0.08 " class="primitive"/>
+          </g>
+          <g transform="translate(90.55,57.77)" id="img-ca260ef0-232" stroke="#CC79A7">
+            <path fill="none" d="M0,0.22 L0,-0.22 " class="primitive"/>
+          </g>
+          <g transform="translate(31.63,44.56)" id="img-ca260ef0-233" stroke="#009E73">
+            <path fill="none" d="M0,1.3 L0,-1.3 " class="primitive"/>
+          </g>
+          <g transform="translate(72.42,68.72)" id="img-ca260ef0-234" stroke="#D55E00">
+            <path fill="none" d="M0,-0.12 L0,0.12 " class="primitive"/>
+          </g>
+          <g transform="translate(45.23,71.13)" id="img-ca260ef0-235" stroke="#D55E00">
+            <path fill="none" d="M0,-0.17 L0,0.17 " class="primitive"/>
+          </g>
+          <g transform="translate(81.48,41.51)" id="img-ca260ef0-236" stroke="#E69F00">
+            <path fill="none" d="M0,-0.09 L0,0.09 " class="primitive"/>
+          </g>
+          <g transform="translate(113.21,47.58)" id="img-ca260ef0-237" stroke="#009E73">
+            <path fill="none" d="M0,-0.89 L0,0.89 " class="primitive"/>
+          </g>
+          <g transform="translate(67.89,71.32)" id="img-ca260ef0-238" stroke="#56B4E9">
+            <path fill="none" d="M0,-0.72 L0,0.72 " class="primitive"/>
+          </g>
+          <g transform="translate(40.7,71.4)" id="img-ca260ef0-239" stroke="#56B4E9">
+            <path fill="none" d="M0,-2.11 L0,2.11 " class="primitive"/>
+          </g>
+          <g transform="translate(63.36,61.79)" id="img-ca260ef0-240" stroke="#CC79A7">
+            <path fill="none" d="M0,-0.44 L0,0.44 " class="primitive"/>
+          </g>
+          <g transform="translate(36.17,67.12)" id="img-ca260ef0-241" stroke="#CC79A7">
+            <path fill="none" d="M0,-0.29 L0,0.29 " class="primitive"/>
+          </g>
+          <g transform="translate(76.95,34.9)" id="img-ca260ef0-242" stroke="#0072B2">
+            <path fill="none" d="M0,-0.41 L0,0.41 " class="primitive"/>
+          </g>
+          <g transform="translate(126.8,74.25)" id="img-ca260ef0-243" stroke="#D55E00">
+            <path fill="none" d="M0,-1.5 L0,1.5 " class="primitive"/>
+          </g>
+          <g transform="translate(54.29,40.13)" id="img-ca260ef0-244" stroke="#E69F00">
+            <path fill="none" d="M0,-1.44 L0,1.44 " class="primitive"/>
+          </g>
+          <g transform="translate(27.1,39.93)" id="img-ca260ef0-245" stroke="#E69F00">
+            <path fill="none" d="M0,-0.58 L0,0.58 " class="primitive"/>
+          </g>
+          <g transform="translate(122.27,63.29)" id="img-ca260ef0-246" stroke="#56B4E9">
+            <path fill="none" d="M0,-1.41 L0,1.41 " class="primitive"/>
+          </g>
+          <g transform="translate(117.74,53.81)" id="img-ca260ef0-247" stroke="#CC79A7">
+            <path fill="none" d="M0,-0.8 L0,0.8 " class="primitive"/>
+          </g>
+          <g transform="translate(49.76,37.51)" id="img-ca260ef0-248" stroke="#0072B2">
+            <path fill="none" d="M0,-1.16 L0,1.16 " class="primitive"/>
+          </g>
+          <g transform="translate(22.57,35.61)" id="img-ca260ef0-249" stroke="#0072B2">
+            <path fill="none" d="M0,-0.15 L0,0.15 " class="primitive"/>
+          </g>
+          <g transform="translate(86.02,47.57)" id="img-ca260ef0-250" stroke="#009E73">
+            <path fill="none" d="M0,-0.78 L0,0.78 " class="primitive"/>
+          </g>
+          <g transform="translate(108.67,35.58)" id="img-ca260ef0-251" stroke="#E69F00">
+            <path fill="none" d="M0,-0.07 L0,0.07 " class="primitive"/>
+          </g>
+          <g transform="translate(99.61,71.7)" id="img-ca260ef0-252" stroke="#D55E00">
+            <path fill="none" d="M0,-0.04 L0,0.04 " class="primitive"/>
+          </g>
+          <g transform="translate(104.14,35.55)" id="img-ca260ef0-253" stroke="#0072B2">
+            <path fill="none" d="M0,-0.88 L0,0.88 " class="primitive"/>
+          </g>
+          <g transform="translate(95.08,74.1)" id="img-ca260ef0-254" stroke="#56B4E9">
+            <path fill="none" d="M0,-1.17 L0,1.17 " class="primitive"/>
+          </g>
+          <g transform="translate(58.83,45.6)" id="img-ca260ef0-255" stroke="#009E73">
+            <path fill="none" d="M0,-0.87 L0,0.87 " class="primitive"/>
+          </g>
+          <g transform="translate(90.55,62.11)" id="img-ca260ef0-256" stroke="#CC79A7">
+            <path fill="none" d="M0,-0.24 L0,0.24 " class="primitive"/>
+          </g>
+          <g transform="translate(31.63,49.04)" id="img-ca260ef0-257" stroke="#009E73">
+            <path fill="none" d="M0,-1.19 L0,1.19 " class="primitive"/>
+          </g>
+          <g stroke-width="0.6" id="img-ca260ef0-258">
+            <g transform="translate(72.42,67.19)" id="img-ca260ef0-259" stroke="#FFCA75">
+              <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+            </g>
+            <g transform="translate(45.23,68.88)" id="img-ca260ef0-260" stroke="#FFCA75">
+              <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+            </g>
+            <g transform="translate(81.48,39.85)" id="img-ca260ef0-261" stroke="#FFFF85">
+              <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+            </g>
+            <g transform="translate(113.21,44.46)" id="img-ca260ef0-262" stroke="#94FFDE">
+              <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+            </g>
+            <g transform="translate(67.89,68.82)" id="img-ca260ef0-263" stroke="#D0FFFF">
+              <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+            </g>
+            <g transform="translate(40.7,66.88)" id="img-ca260ef0-264" stroke="#D0FFFF">
+              <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+            </g>
+            <g transform="translate(63.36,60.07)" id="img-ca260ef0-265" stroke="#FFE7FF">
+              <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+            </g>
+            <g transform="translate(36.17,62.21)" id="img-ca260ef0-266" stroke="#FFE7FF">
+              <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+            </g>
+            <g transform="translate(76.95,33.12)" id="img-ca260ef0-267" stroke="#98DCFF">
+              <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+            </g>
+            <g transform="translate(126.8,68.56)" id="img-ca260ef0-268" stroke="#FFCA75">
+              <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+            </g>
+            <g transform="translate(54.29,36.8)" id="img-ca260ef0-269" stroke="#FFFF85">
+              <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+            </g>
+            <g transform="translate(27.1,37.5)" id="img-ca260ef0-270" stroke="#FFFF85">
+              <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+            </g>
+            <g transform="translate(122.27,60.68)" id="img-ca260ef0-271" stroke="#D0FFFF">
+              <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+            </g>
+            <g transform="translate(117.74,52.19)" id="img-ca260ef0-272" stroke="#FFE7FF">
+              <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+            </g>
+            <g transform="translate(49.76,34.24)" id="img-ca260ef0-273" stroke="#98DCFF">
+              <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+            </g>
+            <g transform="translate(22.57,35.24)" id="img-ca260ef0-274" stroke="#98DCFF">
+              <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+            </g>
+            <g transform="translate(86.02,45.21)" id="img-ca260ef0-275" stroke="#94FFDE">
+              <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+            </g>
+            <g transform="translate(108.67,34.93)" id="img-ca260ef0-276" stroke="#FFFF85">
+              <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+            </g>
+            <g transform="translate(99.61,68.37)" id="img-ca260ef0-277" stroke="#FFCA75">
+              <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+            </g>
+            <g transform="translate(104.14,33.69)" id="img-ca260ef0-278" stroke="#98DCFF">
+              <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+            </g>
+            <g transform="translate(95.08,70.37)" id="img-ca260ef0-279" stroke="#D0FFFF">
+              <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+            </g>
+            <g transform="translate(58.83,43.39)" id="img-ca260ef0-280" stroke="#94FFDE">
+              <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+            </g>
+            <g transform="translate(90.55,59.92)" id="img-ca260ef0-281" stroke="#FFE7FF">
+              <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+            </g>
+            <g transform="translate(31.63,46.89)" id="img-ca260ef0-282" stroke="#94FFDE">
+              <path fill="none" d="M-1.18,0 L1.18,0 " class="primitive"/>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g class="guide ylabels" font-size="2.82" font-family="'PT Sans Caption','Helvetica Neue','Helvetica',sans-serif" fill="#6C606B" id="img-ca260ef0-283">
+    <g transform="translate(19.3,76.72)" id="img-ca260ef0-284">
+      <g class="primitive">
+        <text text-anchor="end" dy="0.35em">25.0</text>
+      </g>
+    </g>
+    <g transform="translate(19.3,56.21)" id="img-ca260ef0-285">
+      <g class="primitive">
+        <text text-anchor="end" dy="0.35em">30.0</text>
+      </g>
+    </g>
+    <g transform="translate(19.3,35.71)" id="img-ca260ef0-286">
+      <g class="primitive">
+        <text text-anchor="end" dy="0.35em">35.0</text>
+      </g>
+    </g>
+    <g transform="translate(19.3,15.2)" id="img-ca260ef0-287">
+      <g class="primitive">
+        <text text-anchor="end" dy="0.35em">40.0</text>
+      </g>
+    </g>
+  </g>
+  <g font-size="3.88" font-family="'PT Sans','Helvetica Neue','Helvetica',sans-serif" fill="#564A55" stroke="#000000" stroke-opacity="0.000" id="img-ca260ef0-288">
+    <g transform="translate(8.81,39.86)" id="img-ca260ef0-289">
+      <g class="primitive">
+        <text text-anchor="middle" dy="0.35em" transform="rotate(-90,0, 2)">total_cost</text>
+      </g>
+    </g>
+  </g>
+</g>
+<defs>
+  <clipPath id="img-ca260ef0-4">
+    <path d="M20.3,78.72 L129.07,78.72 129.07,80.72 20.3,80.72 " />
+  </clipPath>
+  <clipPath id="img-ca260ef0-23">
+    <path d="M129.07,5 L131.07,5 131.07,78.72 129.07,78.72 " />
+  </clipPath>
+  <clipPath id="img-ca260ef0-121">
+    <path d="M20.3,5 L129.07,5 129.07,78.72 20.3,78.72 " />
+  </clipPath>
+</defs>
+</svg>
