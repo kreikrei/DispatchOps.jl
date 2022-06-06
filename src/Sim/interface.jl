@@ -3,7 +3,7 @@
 tipe data untuk node dari graf expanded. Terdiri dari khazanah dan periode.
 """
 struct locper
-    loc::Union{String,Int}
+    loc::String
     per::Int
 end
 
