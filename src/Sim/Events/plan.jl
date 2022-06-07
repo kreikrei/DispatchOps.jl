@@ -261,7 +261,8 @@ function optimizeModel(m::Model; gap::Float64, env::Gurobi.Env, silent::Bool=tru
     set_optimizer_attributes(m,
         "MIPGap" => gap,
         # "NumericFocus" => 2,
-        "ScaleFlag" => 2
+        "ScaleFlag" => 2,
+        "Threads" => 8
     )
     optimize!(m)
     return nothing
