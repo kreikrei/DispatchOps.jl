@@ -255,9 +255,9 @@ function soft_holdover_model(EG::MetaDigraph{locper}, demand::DF, stock::DF)
     return m
 end
 
-function optimizeModel(m::Model; gap::Float64, env::Gurobi.Env)
+function optimizeModel(m::Model; gap::Float64, env::Gurobi.Env, silent::Bool=true)
     set_optimizer(m, () -> Gurobi.Optimizer(env); add_bridges=false)
-    set_silent(m)
+    silent && set_silent(m)
     set_optimizer_attributes(m,
         "MIPGap" => gap,
         # "NumericFocus" => 2,
