@@ -32,6 +32,16 @@ transform!(
     expo, :simulation => ByRow(x -> lost_sales(x)) => :lost_sales
 )
 
+transform!(
+    expo, :simulation => ByRow(x -> sum(abs.(x.libs.demand_forecast.value .- x.libs.demand_realization.value))) => :simpangan_total
+)
+
+using GLM
+r = glm(
+    @formula(total_cost ~ simpangan_total),
+    expo[expo.noise_function.==:Statis, :], Normal()
+)
+
 for n in [:Statis, :Dinamis], f in [:total_cost, :lost_sales]
     p = plot(expo[expo.noise_function.==n, :],
         x=:noise, y=f, color=:H, Geom.boxplot,
